@@ -1,7 +1,6 @@
-# クロールは許可し、各ページの <meta name="robots" content="noindex"> で
-# インデックスだけを止めている（robots.txt で Disallow すると noindex が読まれないため）。
-# 本公開時は各HTMLの noindex を外し、下の Sitemap をそのまま使う。
+# クロールは許可。インデックスも許可している。
+# サイトの正規URLは www.taxel.biz（apex は www へリダイレクト）。
 User-agent: *
 Allow: /
 
-Sitemap: https://taxel.biz/sitemap.xml
+Sitemap: https://www.taxel.biz/sitemap.xml
