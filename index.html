@@ -496,14 +496,61 @@
 <!-- CTA -->
 <section id="contact" class="relative overflow-hidden border-t border-slate-100">
   <div class="glow w-[480px] h-[480px] -bottom-40 left-1/2 -translate-x-1/2"></div>
-  <div class="relative max-w-2xl mx-auto px-6 py-28 text-center">
-    <h2 class="reveal text-[26px] sm:text-[32px] font-extrabold tracking-tight mb-4">まずはお気軽にご相談ください</h2>
-    <p class="reveal text-[14.5px] text-slate-500 mb-9">Taxelについて、機能や導入の流れをご案内します。</p>
-    <!-- TODO(Takeru確認): 送信先アドレス。Google Workspace で info@taxel.biz を作るか、別アドレスに差し替える -->
-    <a href="mailto:info@taxel.biz?subject=Taxel%20デモ希望" class="reveal inline-block bg-ink text-white text-[14px] font-semibold px-7 py-3.5 rounded-xl hover:bg-slate-800 transition-all shadow-card hover:shadow-cardHover hover:-translate-y-0.5">
-      デモを予約する
-    </a>
-    <p class="reveal mt-5 text-[12.5px] text-slate-400">info@taxel.biz</p>
+  <div class="relative max-w-2xl mx-auto px-6 py-28">
+    <div class="text-center mb-10">
+      <h2 class="reveal text-[26px] sm:text-[32px] font-extrabold tracking-tight mb-4">まずはお気軽にご相談ください</h2>
+      <p class="reveal text-[14.5px] text-slate-500">Taxelについて、機能や導入の流れをご案内します。1〜2営業日以内にご返信します。</p>
+    </div>
+
+    <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thanks/"
+          class="reveal bg-white border border-slate-200 rounded-2xl p-7 sm:p-9 shadow-card space-y-5">
+      <input type="hidden" name="form-name" value="contact">
+      <p class="hidden"><label>この欄は入力しないでください <input name="bot-field"></label></p>
+
+      <div class="grid sm:grid-cols-2 gap-5">
+        <div>
+          <label for="f-office" class="block text-[12.5px] font-semibold mb-2">事務所名 <span class="text-slate-400 font-medium">（任意）</span></label>
+          <input id="f-office" name="事務所名" type="text" autocomplete="organization"
+                 class="w-full text-[14px] border border-slate-200 rounded-lg px-3.5 py-2.5 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors">
+        </div>
+        <div>
+          <label for="f-name" class="block text-[12.5px] font-semibold mb-2">お名前 <span class="text-indigo-600">*</span></label>
+          <input id="f-name" name="お名前" type="text" required autocomplete="name"
+                 class="w-full text-[14px] border border-slate-200 rounded-lg px-3.5 py-2.5 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors">
+        </div>
+      </div>
+
+      <div>
+        <label for="f-email" class="block text-[12.5px] font-semibold mb-2">メールアドレス <span class="text-indigo-600">*</span></label>
+        <input id="f-email" name="メールアドレス" type="email" required autocomplete="email"
+               class="w-full text-[14px] border border-slate-200 rounded-lg px-3.5 py-2.5 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors">
+      </div>
+
+      <div>
+        <label for="f-topic" class="block text-[12.5px] font-semibold mb-2">ご相談内容 <span class="text-indigo-600">*</span></label>
+        <select id="f-topic" name="ご相談内容" required
+                class="w-full text-[14px] border border-slate-200 rounded-lg px-3.5 py-2.5 bg-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors">
+          <option value="デモを見たい">デモを見たい</option>
+          <option value="実証実験に参加したい">実証実験に参加したい</option>
+          <option value="資料がほしい">資料がほしい</option>
+          <option value="その他">その他</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="f-message" class="block text-[12.5px] font-semibold mb-2">ご質問・ご要望 <span class="text-slate-400 font-medium">（任意）</span></label>
+        <textarea id="f-message" name="メッセージ" rows="4"
+                  class="w-full text-[14px] border border-slate-200 rounded-lg px-3.5 py-2.5 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors resize-y"></textarea>
+      </div>
+
+      <button type="submit"
+              class="w-full bg-ink text-white text-[14px] font-semibold px-7 py-3.5 rounded-xl hover:bg-slate-800 transition-all shadow-card hover:shadow-cardHover">
+        送信する
+      </button>
+      <p class="text-[11.5px] text-slate-400 text-center">
+        メールでのご連絡もお受けしています： <a href="mailto:info@taxel.biz" class="text-indigo-600 hover:underline">info@taxel.biz</a>
+      </p>
+    </form>
   </div>
 </section>
 
