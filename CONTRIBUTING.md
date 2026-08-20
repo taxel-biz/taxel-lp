@@ -10,7 +10,7 @@
 | サービス | 権限 | 誰が付与するか | 状態 |
 |---|---|---|---|
 | **GitHub** `taxel-biz` Organization | Member（`taxel-lp` への write） | Takeru | ⏳ `nao.satsuki@taxel.biz` 宛に招待済み・**承諾待ち** |
-| **Netlify** チーム `taxel` | Member（デプロイ状況・フォーム受信の閲覧） | Takeru | ⏳ 未招待 |
+| **Netlify** チーム `taxel` | **不要**（無料プランではメンバー追加が有料。かつ**なくてもデプロイできる**） | ― | 付与しない |
 | Squarespace（DNS） | **不要** | ― | 付与しない方針 |
 | Google Search Console | 必要になったら | Takeru | ⏳ 未 |
 
@@ -20,6 +20,10 @@
 
 > **DNS（Squarespace）の権限は渡していません。** DNSを誤操作すると `@taxel.biz` のメールが全部止まるためです。
 > DNS変更が必要になったらTakeruに依頼してください。
+
+> **Netlifyのアカウントは不要です。** デプロイはGitHubへのpushをトリガーに自動で走るので、
+> Netlifyにログインできなくても更新作業は完結します。
+> ビルドログやフォーム受信内容を見たい場合だけTakeruに共有を依頼してください。
 
 ---
 
