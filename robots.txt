@@ -1,0 +1,7 @@
+# クロールは許可し、各ページの <meta name="robots" content="noindex"> で
+# インデックスだけを止めている（robots.txt で Disallow すると noindex が読まれないため）。
+# 本公開時は各HTMLの noindex を外し、下の Sitemap をそのまま使う。
+User-agent: *
+Allow: /
+
+Sitemap: https://taxel.biz/sitemap.xml

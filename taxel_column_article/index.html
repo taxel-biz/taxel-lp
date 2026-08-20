@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>電子帳簿保存法「電子取引データ保存」、2024年1月から何が変わったか ― Taxel ブログ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Inter', '"Noto Sans JP"', 'sans-serif'] },
+        colors: { ink: '#0B1220', paper: '#FCFCFB' },
+        boxShadow: {
+          soft: '0 1px 2px rgba(15,23,42,0.04), 0 1px 1px rgba(15,23,42,0.03)',
+          card: '0 1px 3px rgba(15,23,42,0.05), 0 12px 32px -12px rgba(15,23,42,0.12)',
+        },
+      },
+    },
+  }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-feature-settings: "palt"; }
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .article p { margin-bottom: 1.1em; }
+  .article h2 { font-size: 19px; font-weight: 700; margin-top: 2em; margin-bottom: 0.7em; }
+  .article ul { list-style: disc; padding-left: 1.4em; margin-bottom: 1.1em; }
+  .article li { margin-bottom: 0.4em; }
+  .article .sources { font-size: 12px; color: #94a3b8; border-top: 1px solid #f1f5f9; margin-top: 2.4em; padding-top: 1.4em; line-height: 1.8; }
+  .article .sources a { color: #6366f1; text-decoration: underline; }
+</style>
+<meta name="description" content="税理士事務所向けのAI経営支援クラウド。決算書をアップロードするだけで、AIが月次の財務分析・資金繰り予測・補助金情報まで自動生成します。">
+<link rel="canonical" href="https://taxel.biz/taxel_column_article/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Taxel">
+<meta property="og:title" content="電子帳簿保存法「電子取引データ保存」、2024年1月から何が変わったか ― Taxel ブログ">
+<meta property="og:description" content="税理士事務所向けのAI経営支援クラウド。決算書をアップロードするだけで、AIが月次の財務分析・資金繰り予測・補助金情報まで自動生成します。">
+<meta property="og:url" content="https://taxel.biz/taxel_column_article/">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body class="bg-paper text-ink antialiased">
+
+
+<header class="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-slate-200/70">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a class='flex items-center gap-2' href="/">
+      <div class="w-7 h-7 rounded-[9px] bg-ink flex items-center justify-center">
+        <span class="text-white text-[13px] font-bold">T</span>
+      </div>
+      <span class="text-[15px] font-bold tracking-tight">Taxel</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-[13.5px] text-slate-600 font-medium">
+      <a class='hover:text-ink transition-colors' href="/#features">機能</a>
+      <a class='hover:text-ink transition-colors' href="/#pricing">料金</a>
+      <a class='hover:text-ink transition-colors' href="/#voice">開発状況</a>
+      <a class='text-ink transition-colors' href="/taxel_column/">ブログ</a>
+      <a href="/company/" class="hover:text-ink transition-colors">会社概要</a>
+    </nav>
+    <a class='text-[13.5px] font-semibold bg-ink text-white px-4 py-2 rounded-lg hover:bg-slate-800 transition-colors shadow-soft' href="/#contact">デモを予約する</a>
+  </div>
+</header>
+
+<article class="max-w-2xl mx-auto px-6 py-16">
+  <a class='reveal inline-flex items-center gap-1.5 text-[12.5px] text-slate-400 hover:text-ink mb-8' href="/taxel_column/">← ブログ一覧に戻る</a>
+
+  <div class="reveal flex items-center gap-2 mb-4">
+    <span class="text-[11px] font-semibold text-white bg-ink px-2.5 py-1 rounded-full">税理士向け</span>
+    <span class="text-[11.5px] font-semibold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">制度・法改正</span>
+  </div>
+  <h1 class="reveal text-[26px] sm:text-[32px] font-extrabold tracking-tight leading-tight mb-4">電子帳簿保存法「電子取引データ保存」、2024年1月から何が変わったか</h1>
+  <p class="reveal text-[12.5px] text-slate-400 mb-10">2026.08.19・Taxel編集部</p>
+
+  <div class="reveal article text-[14.5px] text-slate-600 leading-[1.9]">
+    <p>電子帳簿保存法のうち「電子取引データ保存」は、2024年（令和6年）1月1日から、法人・個人事業主を問わずすべての事業者に義務化されています。この記事では、何が原則になったのか、満たすべき要件、そして対応が間に合っていない場合の猶予措置について、公表されている情報をもとに整理します。</p>
+
+    <h2>何が変わったのか：電子で受け取った取引情報は、電子のまま保存が原則に</h2>
+    <p>メールやクラウドサービス経由で受け取った請求書・領収書・見積書など、電子データでやり取りした取引情報（電子取引データ）は、2023年12月31日までは「紙に印刷して保存する」ことも認められていました。しかし2024年1月1日以後に行う電子取引については、電磁的記録を出力した書面での保存に代えることができなくなり、データのまま保存することが原則になりました。</p>
+
+    <h2>満たすべき2つの要件</h2>
+    <p>電子取引データを保存する際は、大きく分けて次の2つの要件を満たす必要があるとされています。</p>
+    <ul>
+      <li><strong>真実性の確保</strong>：タイムスタンプの付与、または訂正・削除の履歴が残るシステムの利用、もしくは改ざん防止のための事務処理規程を整備して運用すること。</li>
+      <li><strong>可視性の確保</strong>：保存したデータを、取引年月日・取引金額・取引先で検索できる状態にしておくこと（判定期間の売上高が一定以下の事業者等には、検索要件の緩和措置もあります）。</li>
+    </ul>
+
+    <h2>対応が間に合っていない場合の猶予措置</h2>
+    <p>要件どおりの保存が間に合わない事業者向けに、猶予措置も設けられています。次の2つをどちらも満たしていれば、2024年1月以後も猶予措置の対象になり得るとされています。</p>
+    <ul>
+      <li>保存要件に従って保存できなかったことについて、所轄税務署長が「相当の理由」があると認める場合</li>
+      <li>税務調査等の際に、電子取引データの「ダウンロードの求め」と、そのデータをプリントアウトした書面の提示・提出の求めに、それぞれ応じられる状態にしている場合</li>
+    </ul>
+    <p>逆に言えば、「相当の理由」もなく、かつ税務調査時の求めにも応じられない状態で保存要件を満たしていない場合は、青色申告の承認取消の対象になり得るともされています。猶予措置はあくまで経過的な救済であり、恒久的に免除される制度ではない点には注意が必要です。</p>
+
+    <h2>まとめ：まず「自社・顧問先がどこに当てはまるか」の確認から</h2>
+    <p>電子帳簿保存法の対応は、全事業者が一律に同じ作業をすればよいわけではなく、扱っている電子取引の種類や量、既存の会計システムの仕様によって、必要な対応が変わります。まずは顧問先ごとに「電子取引データをどう受け取り、どう保存しているか」を棚卸しするところから始めるのが現実的です。</p>
+
+    <p class="sources">
+      参考：
+      <a href="https://www.nta.go.jp/law/joho-zeikaishaku/sonota/jirei/02.htm" target="_blank" rel="noopener">国税庁「電子帳簿保存法一問一答（電子取引関係）」</a>、
+      <a href="https://uchida.or.jp/3775/" target="_blank" rel="noopener">内田会計グループ「準備が間に合わない場合の猶予措置について」</a>
+      ※本記事は公表時点の情報をもとにしています。制度の詳細・最新の要件は必ず一次情報および顧問税理士にご確認ください。
+    </p>
+  </div>
+
+  <div class="reveal mt-14 bg-white border border-slate-200 rounded-2xl p-6 shadow-card text-center">
+    <p class="text-[14px] font-bold mb-2">Taxelについてもっと知る</p>
+    <p class="text-[12.5px] text-slate-500 mb-4">機能や導入の流れをご案内します。</p>
+    <a class='inline-block bg-ink text-white text-[13.5px] font-semibold px-5 py-2.5 rounded-lg hover:bg-slate-800 transition-colors' href="/#contact">デモを予約する</a>
+  </div>
+</article>
+
+<footer class="border-t border-slate-100 bg-white">
+  <div class="max-w-6xl mx-auto px-6 py-14 grid sm:grid-cols-2 md:grid-cols-4 gap-10">
+    <div>
+      <div class="flex items-center gap-2 mb-3">
+        <div class="w-6 h-6 rounded-md bg-ink flex items-center justify-center">
+          <span class="text-white text-[11px] font-bold">T</span>
+        </div>
+        <span class="text-[14px] font-bold">Taxel</span>
+      </div>
+      <p class="text-[12.5px] text-slate-400 leading-relaxed">税理士事務所のためのAI経営支援クラウド</p>
+    </div>
+    <div>
+      <p class="text-[12px] font-semibold text-slate-400 mb-3">プロダクト</p>
+      <ul class="space-y-2 text-[13px] text-slate-600">
+        <li><a class='hover:text-ink' href="/#features">機能</a></li>
+        <li><a class='hover:text-ink' href="/#pricing">料金</a></li>
+        <li><a class='hover:text-ink' href="/#voice">開発状況</a></li>
+        <li><a class='hover:text-ink' href="/taxel_column/">ブログ</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="text-[12px] font-semibold text-slate-400 mb-3">会社情報</p>
+      <ul class="space-y-2 text-[13px] text-slate-600">
+        <li><a href="/company/" class="hover:text-ink">会社概要</a></li>
+              </ul>
+    </div>
+    <div>
+      <p class="text-[12px] font-semibold text-slate-400 mb-3">サポート</p>
+      <ul class="space-y-2 text-[13px] text-slate-600">
+        <li><a class='hover:text-ink' href="/#contact">お問い合わせ</a></li>
+        <li><a class='hover:text-ink' href="/#faq">よくある質問</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-slate-100 py-6 text-center text-[12px] text-slate-400">
+    © 2026 Taxel. All rights reserved.
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

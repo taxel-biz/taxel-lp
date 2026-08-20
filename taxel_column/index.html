@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ブログ（column） ― Taxel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Inter', '"Noto Sans JP"', 'sans-serif'] },
+        colors: { ink: '#0B1220', paper: '#FCFCFB' },
+        boxShadow: {
+          soft: '0 1px 2px rgba(15,23,42,0.04), 0 1px 1px rgba(15,23,42,0.03)',
+          card: '0 1px 3px rgba(15,23,42,0.05), 0 12px 32px -12px rgba(15,23,42,0.12)',
+          cardHover: '0 1px 3px rgba(15,23,42,0.06), 0 20px 44px -14px rgba(15,23,42,0.18)',
+        },
+      },
+    },
+  }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-feature-settings: "palt"; }
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+</style>
+<meta name="description" content="税理士事務所向けのAI経営支援クラウド。決算書をアップロードするだけで、AIが月次の財務分析・資金繰り予測・補助金情報まで自動生成します。">
+<link rel="canonical" href="https://taxel.biz/taxel_column/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Taxel">
+<meta property="og:title" content="ブログ（column） ― Taxel">
+<meta property="og:description" content="税理士事務所向けのAI経営支援クラウド。決算書をアップロードするだけで、AIが月次の財務分析・資金繰り予測・補助金情報まで自動生成します。">
+<meta property="og:url" content="https://taxel.biz/taxel_column/">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body class="bg-paper text-ink antialiased">
+
+
+<header class="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-slate-200/70">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a class='flex items-center gap-2' href="/">
+      <div class="w-7 h-7 rounded-[9px] bg-ink flex items-center justify-center">
+        <span class="text-white text-[13px] font-bold">T</span>
+      </div>
+      <span class="text-[15px] font-bold tracking-tight">Taxel</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-[13.5px] text-slate-600 font-medium">
+      <a class='hover:text-ink transition-colors' href="/#features">機能</a>
+      <a class='hover:text-ink transition-colors' href="/#pricing">料金</a>
+      <a class='text-ink transition-colors' href="/taxel_column/">ブログ</a>
+      <a href="/company/" class="hover:text-ink transition-colors">会社概要</a>
+    </nav>
+    <a class='text-[13.5px] font-semibold bg-ink text-white px-4 py-2 rounded-lg hover:bg-slate-800 transition-colors shadow-soft' href="/#contact">デモを予約する</a>
+  </div>
+</header>
+
+<section class="max-w-4xl mx-auto px-6 pt-20 pb-4 text-center">
+  <p class="reveal text-[12.5px] font-semibold text-indigo-600 mb-3">Blog</p>
+  <h1 class="reveal text-[32px] sm:text-[40px] font-extrabold tracking-tight leading-tight mb-4">Taxel ブログ</h1>
+  <p class="reveal text-[14.5px] text-slate-500 leading-relaxed max-w-xl mx-auto">税理士事務所の経営に役立つ情報と、中小企業の経営者向けの情報を発信します。</p>
+</section>
+
+<!-- reader filter (visual only) -->
+<div class="reveal max-w-4xl mx-auto px-6 pt-8 flex flex-wrap gap-2 justify-center">
+  <span class="text-[12.5px] font-semibold bg-ink text-white px-3.5 py-1.5 rounded-full">すべて</span>
+  <span class="text-[12.5px] font-medium bg-white border border-slate-200 text-slate-600 px-3.5 py-1.5 rounded-full">税理士の方へ</span>
+  <span class="text-[12.5px] font-medium bg-white border border-slate-200 text-slate-600 px-3.5 py-1.5 rounded-full">経営者の方へ</span>
+</div>
+
+<!-- category filter (visual only) -->
+<div class="reveal max-w-4xl mx-auto px-6 py-6 flex flex-wrap gap-2 justify-center">
+  <span class="text-[11.5px] font-medium bg-slate-100 text-slate-500 px-3 py-1 rounded-full">事務所経営</span>
+  <span class="text-[11.5px] font-medium bg-slate-100 text-slate-500 px-3 py-1 rounded-full">業務効率化</span>
+  <span class="text-[11.5px] font-medium bg-slate-100 text-slate-500 px-3 py-1 rounded-full">資金繰り</span>
+  <span class="text-[11.5px] font-medium bg-slate-100 text-slate-500 px-3 py-1 rounded-full">補助金・助成金</span>
+  <span class="text-[11.5px] font-medium bg-slate-100 text-slate-500 px-3 py-1 rounded-full">制度・法改正</span>
+</div>
+
+<section class="max-w-5xl mx-auto px-6 pb-28">
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+    <!-- 税理士向け -->
+    <a class='reveal group block bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-cardHover hover:-translate-y-1 transition-all duration-300' href="/column/kicho-genkai/">
+      <div class="h-32 bg-gradient-to-br from-indigo-50 to-slate-50 flex items-center gap-1.5 px-4">
+        <span class="text-[10.5px] font-semibold text-white bg-ink px-2 py-1 rounded-full">税理士向け</span>
+        <span class="text-[10.5px] font-semibold text-indigo-500 bg-white/80 px-2 py-1 rounded-full">事務所経営</span>
+      </div>
+      <div class="p-5">
+        <p class="text-[11px] text-slate-400 mb-2">2026.08.19</p>
+        <h3 class="text-[15px] font-bold leading-snug mb-2 group-hover:text-indigo-600 transition-colors">「記帳代行」だけの事務所が、今後生き残れない理由</h3>
+        <p class="text-[12.5px] text-slate-500 leading-relaxed">記帳代行モデルが限界を迎えている構造的な背景を整理します。</p>
+      </div>
+    </a>
+
+    <a class='reveal group block bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-cardHover hover:-translate-y-1 transition-all duration-300' href="/column/mas-kanza/">
+      <div class="h-32 bg-gradient-to-br from-emerald-50 to-slate-50 flex items-center gap-1.5 px-4">
+        <span class="text-[10.5px] font-semibold text-white bg-ink px-2 py-1 rounded-full">税理士向け</span>
+        <span class="text-[10.5px] font-semibold text-emerald-600 bg-white/80 px-2 py-1 rounded-full">業務効率化</span>
+      </div>
+      <div class="p-5">
+        <p class="text-[11px] text-slate-400 mb-2">2026.08.19</p>
+        <h3 class="text-[15px] font-bold leading-snug mb-2 group-hover:text-indigo-600 transition-colors">MAS監査を始めたいけど、何から手をつければいいか分からない人へ</h3>
+        <p class="text-[12.5px] text-slate-500 leading-relaxed">小さく始めて標準化する、現実的な第一歩を紹介します。</p>
+      </div>
+    </a>
+
+    <a class='reveal group block bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-cardHover hover:-translate-y-1 transition-all duration-300' href="/column/shisanhyo-yomikata/">
+      <div class="h-32 bg-gradient-to-br from-indigo-50 to-slate-50 flex items-center gap-1.5 px-4">
+        <span class="text-[10.5px] font-semibold text-white bg-emerald-600 px-2 py-1 rounded-full">経営者向け</span>
+        <span class="text-[10.5px] font-semibold text-indigo-500 bg-white/80 px-2 py-1 rounded-full">経営の基本</span>
+      </div>
+      <div class="p-5">
+        <p class="text-[11px] text-slate-400 mb-2">2026.08.19</p>
+        <h3 class="text-[15px] font-bold leading-snug mb-2 group-hover:text-indigo-600 transition-colors">試算表、実はちゃんと読めていますか？経営者が見るべき3つの数字</h3>
+        <p class="text-[12.5px] text-slate-500 leading-relaxed">粗利率・固定費・売掛金回収の3つに絞って解説します。</p>
+      </div>
+    </a>
+
+    <a class='reveal group block bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-cardHover hover:-translate-y-1 transition-all duration-300' href="/column/kaiyaku-boushi/">
+      <div class="h-32 bg-gradient-to-br from-amber-50 to-slate-50 flex items-center gap-1.5 px-4">
+        <span class="text-[10.5px] font-semibold text-white bg-ink px-2 py-1 rounded-full">税理士向け</span>
+        <span class="text-[10.5px] font-semibold text-amber-600 bg-white/80 px-2 py-1 rounded-full">顧問先対応</span>
+      </div>
+      <div class="p-5">
+        <p class="text-[11px] text-slate-400 mb-2">2026.08.19</p>
+        <h3 class="text-[15px] font-bold leading-snug mb-2 group-hover:text-indigo-600 transition-colors">顧問先の解約を防ぐには、「試算表を渡す」だけでは足りない</h3>
+        <p class="text-[12.5px] text-slate-500 leading-relaxed">解約予兆に早く気づき、手を打つための視点を整理します。</p>
+      </div>
+    </a>
+
+    <a class='reveal group block bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-cardHover hover:-translate-y-1 transition-all duration-300' href="/column/shikinguri-yosoku/">
+      <div class="h-32 bg-gradient-to-br from-amber-50 to-slate-50 flex items-center gap-1.5 px-4">
+        <span class="text-[10.5px] font-semibold text-white bg-emerald-600 px-2 py-1 rounded-full">経営者向け</span>
+        <span class="text-[10.5px] font-semibold text-amber-600 bg-white/80 px-2 py-1 rounded-full">資金繰り</span>
+      </div>
+      <div class="p-5">
+        <p class="text-[11px] text-slate-400 mb-2">2026.08.19</p>
+        <h3 class="text-[15px] font-bold leading-snug mb-2 group-hover:text-indigo-600 transition-colors">資金繰りが「なんとなく不安」なあなたへ。3ヶ月先を予測する考え方</h3>
+        <p class="text-[12.5px] text-slate-500 leading-relaxed">専門知識がなくても始められる、資金繰り予測の基本を紹介します。</p>
+      </div>
+    </a>
+
+    <a class='reveal group block bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-cardHover hover:-translate-y-1 transition-all duration-300' href="/column/hojokin-shimekiri/">
+      <div class="h-32 bg-gradient-to-br from-emerald-50 to-slate-50 flex items-center gap-1.5 px-4">
+        <span class="text-[10.5px] font-semibold text-white bg-emerald-600 px-2 py-1 rounded-full">経営者向け</span>
+        <span class="text-[10.5px] font-semibold text-emerald-600 bg-white/80 px-2 py-1 rounded-full">補助金・助成金</span>
+      </div>
+      <div class="p-5">
+        <p class="text-[11px] text-slate-400 mb-2">2026.08.19</p>
+        <h3 class="text-[15px] font-bold leading-snug mb-2 group-hover:text-indigo-600 transition-colors">補助金、気づいたら締切だった…を防ぐには</h3>
+        <p class="text-[12.5px] text-slate-500 leading-relaxed">情報を「探す」のではなく「届く」仕組みにする考え方です。</p>
+      </div>
+    </a>
+
+    <a class='reveal group block bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-cardHover hover:-translate-y-1 transition-all duration-300' href="/column/ai-zeirishi/">
+      <div class="h-32 bg-gradient-to-br from-indigo-50 to-slate-50 flex items-center gap-1.5 px-4">
+        <span class="text-[10.5px] font-semibold text-white bg-ink px-2 py-1 rounded-full">税理士向け</span>
+        <span class="text-[10.5px] font-semibold text-indigo-500 bg-white/80 px-2 py-1 rounded-full">AI活用</span>
+      </div>
+      <div class="p-5">
+        <p class="text-[11px] text-slate-400 mb-2">2026.08.19</p>
+        <h3 class="text-[15px] font-bold leading-snug mb-2 group-hover:text-indigo-600 transition-colors">AIで税理士の仕事はなくなるのか？むしろ武器にする視点</h3>
+        <p class="text-[12.5px] text-slate-500 leading-relaxed">AI時代に相対的に価値が上がる、税理士の役割を整理します。</p>
+      </div>
+    </a>
+
+    <a class='reveal group block bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-cardHover hover:-translate-y-1 transition-all duration-300' href="/column/mensetsu-shitsumon/">
+      <div class="h-32 bg-gradient-to-br from-indigo-50 to-slate-50 flex items-center gap-1.5 px-4">
+        <span class="text-[10.5px] font-semibold text-white bg-emerald-600 px-2 py-1 rounded-full">経営者向け</span>
+        <span class="text-[10.5px] font-semibold text-indigo-500 bg-white/80 px-2 py-1 rounded-full">税理士との付き合い方</span>
+      </div>
+      <div class="p-5">
+        <p class="text-[11px] text-slate-400 mb-2">2026.08.19</p>
+        <h3 class="text-[15px] font-bold leading-snug mb-2 group-hover:text-indigo-600 transition-colors">税理士との月次面談、雑談で終わらせないための質問リスト</h3>
+        <p class="text-[12.5px] text-slate-500 leading-relaxed">同じ30分でも、聞き方次第で得られる情報は変わります。</p>
+      </div>
+    </a>
+
+    <a class='reveal group block bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-cardHover hover:-translate-y-1 transition-all duration-300' href="/taxel_column_article/">
+      <div class="h-32 bg-gradient-to-br from-emerald-50 to-slate-50 flex items-center gap-1.5 px-4">
+        <span class="text-[10.5px] font-semibold text-white bg-ink px-2 py-1 rounded-full">税理士向け</span>
+        <span class="text-[10.5px] font-semibold text-emerald-600 bg-white/80 px-2 py-1 rounded-full">制度・法改正</span>
+      </div>
+      <div class="p-5">
+        <p class="text-[11px] text-slate-400 mb-2">2026.08.19</p>
+        <h3 class="text-[15px] font-bold leading-snug mb-2 group-hover:text-indigo-600 transition-colors">電子帳簿保存法「電子取引データ保存」、2024年1月から何が変わったか</h3>
+        <p class="text-[12.5px] text-slate-500 leading-relaxed">満たすべき2つの要件と、間に合わない場合の猶予措置を整理します。</p>
+      </div>
+    </a>
+
+    <a class='reveal group block bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-cardHover hover:-translate-y-1 transition-all duration-300' href="/column/invoice-keikasochi/">
+      <div class="h-32 bg-gradient-to-br from-indigo-50 to-slate-50 flex items-center gap-1.5 px-4">
+        <span class="text-[10.5px] font-semibold text-white bg-ink px-2 py-1 rounded-full">税理士向け</span>
+        <span class="text-[10.5px] font-semibold text-indigo-500 bg-white/80 px-2 py-1 rounded-full">制度・法改正</span>
+      </div>
+      <div class="p-5">
+        <p class="text-[11px] text-slate-400 mb-2">2026.08.19</p>
+        <h3 class="text-[15px] font-bold leading-snug mb-2 group-hover:text-indigo-600 transition-colors">インボイスの経過措置「80%控除」、2026年10月から70%に</h3>
+        <p class="text-[12.5px] text-slate-500 leading-relaxed">免税事業者との取引で押さえておきたいスケジュールを整理します。</p>
+      </div>
+    </a>
+
+    <a class='reveal group block bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-cardHover hover:-translate-y-1 transition-all duration-300' href="/column/shokyaku-shisan-kakuju/">
+      <div class="h-32 bg-gradient-to-br from-indigo-50 to-slate-50 flex items-center gap-1.5 px-4">
+        <span class="text-[10.5px] font-semibold text-white bg-emerald-600 px-2 py-1 rounded-full">経営者向け</span>
+        <span class="text-[10.5px] font-semibold text-indigo-500 bg-white/80 px-2 py-1 rounded-full">制度・法改正</span>
+      </div>
+      <div class="p-5">
+        <p class="text-[11px] text-slate-400 mb-2">2026.08.19</p>
+        <h3 class="text-[15px] font-bold leading-snug mb-2 group-hover:text-indigo-600 transition-colors">少額減価償却資産の特例、30万円未満→40万円未満に拡充</h3>
+        <p class="text-[12.5px] text-slate-500 leading-relaxed">2026年4月取得分からの変更点と、設備投資への影響をまとめます。</p>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<footer class="border-t border-slate-100 bg-white">
+  <div class="max-w-6xl mx-auto px-6 py-14 grid sm:grid-cols-2 md:grid-cols-4 gap-10">
+    <div>
+      <div class="flex items-center gap-2 mb-3">
+        <div class="w-6 h-6 rounded-md bg-ink flex items-center justify-center">
+          <span class="text-white text-[11px] font-bold">T</span>
+        </div>
+        <span class="text-[14px] font-bold">Taxel</span>
+      </div>
+      <p class="text-[12.5px] text-slate-400 leading-relaxed">税理士事務所のためのAI経営支援クラウド</p>
+    </div>
+    <div>
+      <p class="text-[12px] font-semibold text-slate-400 mb-3">プロダクト</p>
+      <ul class="space-y-2 text-[13px] text-slate-600">
+        <li><a class='hover:text-ink' href="/#features">機能</a></li>
+        <li><a class='hover:text-ink' href="/#pricing">料金</a></li>
+        <li><a class='hover:text-ink' href="/#voice">開発状況</a></li>
+        <li><a class='hover:text-ink' href="/taxel_column/">ブログ</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="text-[12px] font-semibold text-slate-400 mb-3">会社情報</p>
+      <ul class="space-y-2 text-[13px] text-slate-600">
+        <li><a href="/company/" class="hover:text-ink">会社概要</a></li>
+              </ul>
+    </div>
+    <div>
+      <p class="text-[12px] font-semibold text-slate-400 mb-3">サポート</p>
+      <ul class="space-y-2 text-[13px] text-slate-600">
+        <li><a class='hover:text-ink' href="/#contact">お問い合わせ</a></li>
+        <li><a class='hover:text-ink' href="/#faq">よくある質問</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-slate-100 py-6 text-center text-[12px] text-slate-400">
+    © 2026 Taxel. All rights reserved.
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

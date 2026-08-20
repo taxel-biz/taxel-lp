@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIで税理士の仕事はなくなるのか？むしろ武器にする視点 ― Taxel ブログ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: {
+    fontFamily: { sans: ['Inter', '"Noto Sans JP"', 'sans-serif'] },
+    colors: { ink: '#0B1220', paper: '#FCFCFB' },
+    boxShadow: { soft: '0 1px 2px rgba(15,23,42,0.04), 0 1px 1px rgba(15,23,42,0.03)', card: '0 1px 3px rgba(15,23,42,0.05), 0 12px 32px -12px rgba(15,23,42,0.12)' },
+  } } }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-feature-settings: "palt"; }
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .article p { margin-bottom: 1.1em; }
+  .article h2 { font-size: 19px; font-weight: 700; margin-top: 2em; margin-bottom: 0.7em; }
+  .article ul { list-style: disc; padding-left: 1.4em; margin-bottom: 1.1em; }
+  .article li { margin-bottom: 0.4em; }
+</style>
+<meta name="description" content="税理士事務所向けのAI経営支援クラウド。決算書をアップロードするだけで、AIが月次の財務分析・資金繰り予測・補助金情報まで自動生成します。">
+<link rel="canonical" href="https://taxel.biz/column/ai-zeirishi/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Taxel">
+<meta property="og:title" content="AIで税理士の仕事はなくなるのか？むしろ武器にする視点 ― Taxel ブログ">
+<meta property="og:description" content="税理士事務所向けのAI経営支援クラウド。決算書をアップロードするだけで、AIが月次の財務分析・資金繰り予測・補助金情報まで自動生成します。">
+<meta property="og:url" content="https://taxel.biz/column/ai-zeirishi/">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body class="bg-paper text-ink antialiased">
+
+
+<header class="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-slate-200/70">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a class='flex items-center gap-2' href="/">
+      <div class="w-7 h-7 rounded-[9px] bg-ink flex items-center justify-center"><span class="text-white text-[13px] font-bold">T</span></div>
+      <span class="text-[15px] font-bold tracking-tight">Taxel</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-[13.5px] text-slate-600 font-medium">
+      <a class='hover:text-ink transition-colors' href="/#features">機能</a>
+      <a class='hover:text-ink transition-colors' href="/#pricing">料金</a>
+      <a class='text-ink transition-colors' href="/taxel_column/">ブログ</a>
+      <a href="/company/" class="hover:text-ink transition-colors">会社概要</a>
+    </nav>
+    <a class='text-[13.5px] font-semibold bg-ink text-white px-4 py-2 rounded-lg hover:bg-slate-800 transition-colors shadow-soft' href="/#contact">デモを予約する</a>
+  </div>
+</header>
+
+<article class="max-w-2xl mx-auto px-6 py-16">
+  <a class='reveal inline-flex items-center gap-1.5 text-[12.5px] text-slate-400 hover:text-ink mb-8' href="/taxel_column/">← ブログ一覧に戻る</a>
+
+  <div class="reveal flex items-center gap-2 mb-4">
+    <span class="text-[11px] font-semibold text-white bg-ink px-2.5 py-1 rounded-full">税理士向け</span>
+    <span class="text-[11.5px] font-semibold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">AI活用</span>
+  </div>
+  <h1 class="reveal text-[26px] sm:text-[32px] font-extrabold tracking-tight leading-tight mb-4">AIで税理士の仕事はなくなるのか？むしろ武器にする視点</h1>
+  <p class="reveal text-[12.5px] text-slate-400 mb-10">2026.08.19・Taxel編集部</p>
+
+  <div class="reveal article text-[14.5px] text-slate-600 leading-[1.9]">
+    <p>「AIに仕事を奪われるのでは」という漠然とした不安を、業界誌やセミナーで感じたことがある税理士の方は多いはずです。この記事では、その不安の正体を分解し、AI時代においてむしろ税理士の価値がどこに移っていくのかを整理します。</p>
+
+    <h2>AIが得意なのは「記帳・申告」という作業</h2>
+    <p>生成AIやOCR技術が急速に進化しているのは事実ですが、得意なのはあくまで定型的な作業の効率化です。領収書の読み取り、勘定科目の分類、申告書のドラフト作成といった作業は、今後さらに自動化が進むでしょう。</p>
+
+    <h2>AIが苦手なのは「経営者との信頼関係」と「文脈の判断」</h2>
+    <p>一方で、顧問先固有の事情を踏まえた判断、経営者の性格や状況に合わせた伝え方、長年の信頼関係に基づく助言は、AIが代替しにくい領域です。数字の解釈をどう「その会社にとっての意味」に翻訳するかは、税理士にしかできない仕事として残り続けます。</p>
+
+    <h2>「作業者」から「翻訳者」へのシフト</h2>
+    <p>AI時代の税理士に求められる役割は、AIが出した分析結果を鵜呑みにするのでも、すべてを手作業でやり続けるのでもなく、AIの示唆を顧問先にとっての意味に翻訳し、次の一手を一緒に考える「翻訳者」としての役割です。この役割は、AIが発達するほど相対的に価値が上がっていきます。</p>
+
+    <h2>まとめ：不安ではなく、役割の再定義として捉える</h2>
+    <p>AIは税理士の仕事を奪うのではなく、記帳・申告という作業から税理士を解放し、経営助言という本来の価値に集中させる方向に働きます。早い段階でAIを業務に取り込んだ事務所ほど、この変化を競争優位に変えられる可能性があります。</p>
+  </div>
+
+  <div class="reveal mt-14 bg-white border border-slate-200 rounded-2xl p-6 shadow-card text-center">
+    <p class="text-[14px] font-bold mb-2">Taxelについてもっと知る</p>
+    <p class="text-[12.5px] text-slate-500 mb-4">AIを「先生の翻訳作業を助ける道具」として設計しています。</p>
+    <a class='inline-block bg-ink text-white text-[13.5px] font-semibold px-5 py-2.5 rounded-lg hover:bg-slate-800 transition-colors' href="/#contact">デモを予約する</a>
+  </div>
+</article>
+
+<footer class="border-t border-slate-100 bg-white">
+  <div class="max-w-6xl mx-auto px-6 py-10 text-center text-[12px] text-slate-400">© 2026 Taxel. All rights reserved.</div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
