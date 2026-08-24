@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TMK64P44XG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TMK64P44XG');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>顧問料シミュレーター｜経営支援で事務所の売上はいくら増えるか ― Taxel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Inter', '"Noto Sans JP"', 'sans-serif'],
+        },
+        colors: {
+          ink: '#0B1220',
+          paper: '#FCFCFB',
+        },
+        boxShadow: {
+          soft: '0 1px 2px rgba(15,23,42,0.04), 0 1px 1px rgba(15,23,42,0.03)',
+          card: '0 1px 3px rgba(15,23,42,0.05), 0 12px 32px -12px rgba(15,23,42,0.12)',
+          cardHover: '0 1px 3px rgba(15,23,42,0.06), 0 20px 44px -14px rgba(15,23,42,0.18)',
+          panel: '0 24px 70px -20px rgba(15,23,42,0.22)',
+        },
+      },
+    },
+  }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-feature-settings: "palt"; }
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .glow {
+    position: absolute; border-radius: 9999px; filter: blur(90px);
+    background: radial-gradient(closest-side, rgba(79,70,229,.16), rgba(79,70,229,0));
+    pointer-events: none;
+  }
+  .grid-fade {
+    background-image:
+      linear-gradient(to bottom, rgba(255,255,255,0) 0%, #FCFCFB 85%),
+      linear-gradient(to right, rgba(15,23,42,0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(15,23,42,0.05) 1px, transparent 1px);
+    background-size: 100% 100%, 44px 44px, 44px 44px;
+  }
+  .pill-status { display:inline-flex; align-items:center; gap:6px; font-size:11.5px; font-weight:600; padding:3px 10px; border-radius:9999px; }
+  ::selection { background: rgba(79,70,229,.18); }
+</style>
+<meta name="description" content="顧問先数と顧問料を入れるだけで、経営支援メニューを追加した場合の年間増収額を試算できる無料ツールです。税理士事務所向け。入力内容は送信されません。">
+<link rel="canonical" href="https://www.taxel.biz/tools/komonryo/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Taxel">
+<meta property="og:title" content="顧問料シミュレーター｜経営支援で事務所の売上はいくら増えるか ― Taxel">
+<meta property="og:description" content="顧問先数と顧問料を入れるだけで、経営支援メニューを追加した場合の年間増収額を試算できる無料ツールです。税理士事務所向け。入力内容は送信されません。">
+<meta property="og:image" content="https://www.taxel.biz/ogp.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://www.taxel.biz/ogp.png">
+<meta property="og:url" content="https://www.taxel.biz/tools/komonryo/">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "顧問料シミュレーター",
+  "url": "https://www.taxel.biz/tools/komonryo/",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "inLanguage": "ja",
+  "description": "顧問先数と顧問料を入れるだけで、経営支援メニューを追加した場合の年間増収額を試算できる無料ツールです。税理士事務所向け。入力内容は送信されません。",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" },
+  "publisher": { "@type": "Organization", "name": "Taxel", "url": "https://www.taxel.biz/" }
+}
+</script>
+<style>
+  .num-in { width:100%; font-size:15px; font-weight:600; border:1px solid #e2e8f0; border-radius:10px;
+            padding:11px 13px; text-align:right; }
+  .num-in:focus { outline:none; border-color:#4F46E5; box-shadow:0 0 0 1px #4F46E5; }
+  input[type=range] { width:100%; accent-color:#4F46E5; }
+</style>
+</head>
+<body class="bg-paper text-ink antialiased">
+<!-- NAV -->
+<header class="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-slate-200/70">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-7 h-7 rounded-[9px] bg-ink flex items-center justify-center">
+        <span class="text-white text-[13px] font-bold">T</span>
+      </div>
+      <span class="text-[15px] font-bold tracking-tight">Taxel</span>
+    </div>
+    <nav class="hidden md:flex items-center gap-8 text-[13.5px] text-slate-600 font-medium">
+      <a href="#features" class="hover:text-ink transition-colors">機能</a>
+      <a href="#pricing" class="hover:text-ink transition-colors">料金</a>
+      <a href="#voice" class="hover:text-ink transition-colors">開発状況</a>
+      <a class='hover:text-ink transition-colors' href="/taxel_column/">ブログ</a>
+      <a href="/company/" class="hover:text-ink transition-colors">会社概要</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <a href="#contact" class="hidden sm:inline-block text-[13.5px] font-medium text-slate-600 hover:text-ink transition-colors">ログイン</a>
+      <a href="#contact" class="text-[13.5px] font-semibold bg-ink text-white px-4 py-2 rounded-lg hover:bg-slate-800 transition-colors shadow-soft">デモを予約する</a>
+    </div>
+  </div>
+</header>
+
+<section class="relative overflow-hidden grid-fade border-b border-slate-100">
+  <div class="glow w-[520px] h-[520px] -top-44 left-1/2 -translate-x-1/2"></div>
+  <div class="relative max-w-3xl mx-auto px-6 pt-20 pb-12 text-center">
+    <p class="reveal text-[12.5px] font-semibold text-indigo-600 mb-3">無料ツール</p>
+    <h1 class="reveal text-[28px] sm:text-[38px] font-extrabold tracking-tight leading-tight mb-5">
+      経営支援を始めたら、<br class="sm:hidden">事務所の売上はいくら増えるか
+    </h1>
+    <p class="reveal text-[14.5px] text-slate-500 leading-relaxed">
+      顧問先の数と顧問料を入れるだけで、年間の増収額を試算します。<br class="hidden sm:block">
+      入力内容はどこにも送信されません（すべてブラウザ内で計算しています）。
+    </p>
+  </div>
+</section>
+
+<section class="max-w-3xl mx-auto px-6 py-14">
+  <div class="reveal bg-white border border-slate-200 rounded-2xl p-7 sm:p-9 shadow-card">
+    <div class="grid sm:grid-cols-2 gap-x-8 gap-y-7">
+      <div>
+        <label for="clients" class="block text-[13px] font-semibold mb-2">顧問先の数</label>
+        <div class="flex items-center gap-2">
+          <input id="clients" class="num-in" type="number" min="1" max="1000" value="40" inputmode="numeric">
+          <span class="text-[13px] text-slate-400 shrink-0">社</span>
+        </div>
+      </div>
+      <div>
+        <label for="fee" class="block text-[13px] font-semibold mb-2">現在の平均顧問料（月額）</label>
+        <div class="flex items-center gap-2">
+          <input id="fee" class="num-in" type="number" min="0" max="500000" step="1000" value="30000" inputmode="numeric">
+          <span class="text-[13px] text-slate-400 shrink-0">円</span>
+        </div>
+      </div>
+    </div>
+
+    <hr class="my-8 border-slate-100">
+
+    <div class="space-y-7">
+      <div>
+        <div class="flex justify-between items-baseline mb-2">
+          <label for="rate" class="text-[13px] font-semibold">経営支援メニューを提案できる顧問先の割合</label>
+          <span id="rateOut" class="text-[15px] font-bold text-indigo-600">30%</span>
+        </div>
+        <input id="rate" type="range" min="0" max="100" step="5" value="30">
+        <p class="text-[11.5px] text-slate-400 mt-1.5">すべての顧問先が対象になるわけではありません。月次で面談している先など、話ができる相手の割合です。</p>
+      </div>
+
+      <div>
+        <div class="flex justify-between items-baseline mb-2">
+          <label for="up" class="text-[13px] font-semibold">1社あたりの月額上乗せ額</label>
+          <span id="upOut" class="text-[15px] font-bold text-indigo-600">10,000円</span>
+        </div>
+        <input id="up" type="range" min="0" max="50000" step="1000" value="10000">
+      </div>
+
+      <div>
+        <div class="flex justify-between items-baseline mb-2">
+          <label for="ref" class="text-[13px] font-semibold">紹介手数料（年間・1社あたりの平均）</label>
+          <span id="refOut" class="text-[15px] font-bold text-indigo-600">0円</span>
+        </div>
+        <input id="ref" type="range" min="0" max="200000" step="10000" value="0">
+        <p class="text-[11.5px] text-slate-400 mt-1.5">補助金・金融機関・提携先への紹介で発生する手数料がある場合に入力してください。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="reveal bg-ink text-white rounded-2xl p-7 sm:p-9 mt-6">
+    <p class="text-[12.5px] font-semibold text-indigo-300 mb-6">試算結果</p>
+    <div class="grid sm:grid-cols-3 gap-6">
+      <div>
+        <p class="text-[12px] text-slate-400 mb-1.5">現在の年間顧問報酬</p>
+        <p class="text-[24px] sm:text-[27px] font-extrabold tracking-tight" id="now">-</p>
+      </div>
+      <div>
+        <p class="text-[12px] text-slate-400 mb-1.5">年間の増収額</p>
+        <p class="text-[24px] sm:text-[27px] font-extrabold tracking-tight text-indigo-300" id="add">-</p>
+      </div>
+      <div>
+        <p class="text-[12px] text-slate-400 mb-1.5">増収後の年間報酬</p>
+        <p class="text-[24px] sm:text-[27px] font-extrabold tracking-tight" id="after">-</p>
+      </div>
+    </div>
+    <div class="mt-7 pt-6 border-t border-white/10">
+      <p class="text-[13.5px] text-slate-300 leading-relaxed" id="comment"></p>
+    </div>
+  </div>
+
+  <p class="reveal text-[11.5px] text-slate-400 mt-5 leading-relaxed">
+    ※ この試算は入力値に基づく単純計算です。実際の増収を保証するものではありません。<br>
+    ※ 入力内容はサーバーに送信されず、ブラウザ内でのみ計算されます。
+  </p>
+</section>
+
+<section class="bg-white border-t border-slate-100">
+  <div class="max-w-3xl mx-auto px-6 py-16">
+    <h2 class="reveal text-[22px] sm:text-[26px] font-extrabold tracking-tight mb-5">
+      増収額より、「言い出せるかどうか」がボトルネックです
+    </h2>
+    <div class="reveal text-[14px] text-slate-600 leading-[1.9] space-y-4">
+      <p>
+        税理士の先生への実地ヒアリングで、繰り返し聞いたことがあります。
+        経営支援をしない理由は、能力ではなく<strong class="text-ink font-semibold">「既存の顧問先に追加費用をくださいとは言いづらい」</strong>という一点でした。
+      </p>
+      <p>
+        上の試算で出た金額は、決して小さくないはずです。それでも動かないのは、
+        <strong class="text-ink font-semibold">値上げを切り出す根拠と、渡せる中身がない</strong>からです。
+      </p>
+      <p>
+        Taxelは、決算書をアップロードするだけでAIが財務分析・資金繰り予測・打ち手の提案までを生成します。
+        「これだけのものをお渡しします」と先に示せる状態をつくることが、この壁を越える方法だと考えています。
+      </p>
+    </div>
+    <div class="reveal mt-9 flex flex-wrap items-center gap-3">
+      <a href="/#contact" class="bg-ink text-white text-[14px] font-semibold px-6 py-3 rounded-xl hover:bg-slate-800 transition-all shadow-card hover:shadow-cardHover">デモを見てみる</a>
+      <a href="/#features" class="bg-white border border-slate-200 text-[14px] font-semibold px-6 py-3 rounded-xl hover:border-slate-300 transition-colors">機能を見る</a>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  function $(id) { return document.getElementById(id); }
+  function yen(n) {
+    if (n >= 100000000) return (n / 100000000).toFixed(2).replace(/\.?0+$/, '') + '億円';
+    if (n >= 10000) return Math.round(n / 10000).toLocaleString() + '万円';
+    return Math.round(n).toLocaleString() + '円';
+  }
+  function calc() {
+    var c = Math.max(0, +$('clients').value || 0);
+    var f = Math.max(0, +$('fee').value || 0);
+    var r = +$('rate').value / 100;
+    var u = +$('up').value;
+    var rf = +$('ref').value;
+
+    var target = c * r;
+    var now = c * f * 12;
+    var addFee = target * u * 12;
+    var addRef = target * rf;
+    var add = addFee + addRef;
+
+    $('rateOut').textContent = $('rate').value + '%';
+    $('upOut').textContent = (+$('up').value).toLocaleString() + '円';
+    $('refOut').textContent = (+$('ref').value).toLocaleString() + '円';
+    $('now').textContent = yen(now);
+    $('add').textContent = yen(add);
+    $('after').textContent = yen(now + add);
+
+    var pct = now > 0 ? (add / now * 100) : 0;
+    var t = '';
+    if (add <= 0) {
+      t = '上乗せ額か紹介手数料を入力すると、増収額が試算されます。';
+    } else {
+      t = '顧問先 ' + c + '社のうち ' + Math.round(target) + '社に経営支援メニューを提案できた場合、'
+        + '年間 ' + yen(add) + ' の増収になります（現在の報酬の約 ' + pct.toFixed(0) + '%）。';
+      if (pct >= 30) { t += ' 事務所の収益構造が変わる規模です。'; }
+      else if (pct >= 10) { t += ' スタッフ1名分の人件費に相当する水準です。'; }
+    }
+    $('comment').textContent = t;
+  }
+  ['clients', 'fee', 'rate', 'up', 'ref'].forEach(function (id) {
+    $(id).addEventListener('input', calc);
+  });
+  calc();
+})();
+</script>
+<!-- FOOTER -->
+<footer class="border-t border-slate-100 bg-white">
+  <div class="max-w-6xl mx-auto px-6 py-14 grid sm:grid-cols-2 md:grid-cols-4 gap-10">
+    <div>
+      <div class="flex items-center gap-2 mb-3">
+        <div class="w-6 h-6 rounded-md bg-ink flex items-center justify-center">
+          <span class="text-white text-[11px] font-bold">T</span>
+        </div>
+        <span class="text-[14px] font-bold">Taxel</span>
+      </div>
+      <p class="text-[12.5px] text-slate-400 leading-relaxed">税理士 × AI ＝ CFO。税理士事務所のためのAI経営支援クラウド。</p>
+    </div>
+    <div>
+      <p class="text-[12px] font-semibold text-slate-400 mb-3">プロダクト</p>
+      <ul class="space-y-2 text-[13px] text-slate-600">
+        <li><a href="#features" class="hover:text-ink">機能</a></li>
+        <li><a href="#pricing" class="hover:text-ink">料金</a></li>
+        <li><a href="#voice" class="hover:text-ink">開発状況</a></li>
+        <li><a class='hover:text-ink' href="/taxel_column/">ブログ</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="text-[12px] font-semibold text-slate-400 mb-3">会社情報</p>
+      <ul class="space-y-2 text-[13px] text-slate-600">
+        <li><a href="/company/" class="hover:text-ink">会社概要</a></li>
+              </ul>
+    </div>
+    <div>
+      <p class="text-[12px] font-semibold text-slate-400 mb-3">サポート</p>
+      <ul class="space-y-2 text-[13px] text-slate-600">
+        <li><a href="#contact" class="hover:text-ink">お問い合わせ</a></li>
+        <li><a href="#faq" class="hover:text-ink">よくある質問</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-slate-100 py-6 text-center text-[12px] text-slate-400">
+    © 2026 Taxel. All rights reserved.
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
