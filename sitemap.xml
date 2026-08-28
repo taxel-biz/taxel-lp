@@ -13,9 +13,8 @@
   <url><loc>https://www.taxel.biz/column/shokyaku-shisan-kakuju/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://www.taxel.biz/company/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.taxel.biz/taxel_column/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.taxel.biz/taxel_column_article/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.taxel.biz/column/denshi-chobo/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://www.taxel.biz/partners/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://www.taxel.biz/tools/komonryo/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.taxel.biz/download/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://www.taxel.biz/keiei/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://www.taxel.biz/shindan/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>

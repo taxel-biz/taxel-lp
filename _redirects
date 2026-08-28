@@ -1,0 +1,7 @@
+# Netlify redirects
+# 顧問料シミュレーターは廃止。社長向けの受け皿は /shindan/ に一本化した
+/tools/komonryo/*        /shindan/                301
+/tools/komonryo          /shindan/                301
+# テンプレ名のままのURLだった実記事を、正しいスラッグへ移設
+/taxel_column_article/*  /column/denshi-chobo/    301
+/taxel_column_article    /column/denshi-chobo/    301
