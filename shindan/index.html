@@ -90,7 +90,6 @@
     </a>
     <nav class="hidden md:flex items-center gap-7 text-[13.5px] text-slate-600 font-medium">
       <a href="/keiei/" class="hover:text-ink transition-colors">記事一覧</a>
-      <a href="/tools/komonryo/" class="hover:text-ink transition-colors">顧問料シミュレーター</a>
     </nav>
     <a href="/shindan/" class="text-[13.5px] font-semibold bg-ink text-white px-4 py-2 rounded-lg hover:bg-slate-800 transition-colors shadow-soft">無料で決算書を診断</a>
   </div>
@@ -104,8 +103,8 @@
       その決算書に、<br class="sm:hidden">打てる手が眠っていませんか
     </h1>
     <p class="reveal text-[14.5px] text-slate-500 leading-relaxed">
-      決算書をお預かりして、<strong class="text-ink font-semibold">資金繰り・利益構造・打つべき一手</strong>を整理してお返しします。<br class="hidden sm:block">
-      費用はかかりません。
+      いくつかの数字を教えていただくだけで、<strong class="text-ink font-semibold">資金繰り・利益構造・打てる手</strong>をざっくり試算します。<br class="hidden sm:block">
+      決算書をお預けいただく必要はありません。費用もかかりません。
     </p>
   </div>
 </section>
@@ -120,6 +119,7 @@
         <li class="flex gap-2.5"><span class="text-indigo-500 font-bold shrink-0">02</span><span><strong class="text-ink font-semibold">3ヶ月先の資金繰り</strong>／このままいくとどうなるか</span></li>
         <li class="flex gap-2.5"><span class="text-indigo-500 font-bold shrink-0">03</span><span><strong class="text-ink font-semibold">打つべき一手</strong>／効果の大きい順に</span></li>
         <li class="flex gap-2.5"><span class="text-indigo-500 font-bold shrink-0">04</span><span><strong class="text-ink font-semibold">銀行から見た自社</strong>／融資判断で見られる数字</span></li>
+        <li class="flex gap-2.5"><span class="text-indigo-500 font-bold shrink-0">05</span><span><strong class="text-ink font-semibold">顧問税理士に聞いてみるとよい質問</strong>／3つだけ。答えが返ってくれば、いい先生です</span></li>
       </ul>
 
       <div class="mt-8 bg-indigo-50/60 border border-indigo-100 rounded-2xl p-5">
@@ -133,16 +133,21 @@
 
       <div class="mt-6 bg-slate-50 border border-slate-200 rounded-2xl p-5">
         <p class="text-[12.5px] text-slate-600 leading-relaxed">
-          <strong class="text-ink font-semibold">Taxelは税理士向けのサービスです。</strong>
-          診断のあと、ご希望があれば<strong class="text-ink font-semibold">Taxelを使っている税理士をご紹介できます</strong>（無料）。
-          いまの顧問税理士を変える必要はありません。無理な営業はしません。
+          <strong class="text-ink font-semibold">Taxelは税理士事務所向けのサービスです。</strong>
+          診断のあと、ご希望があれば<strong class="text-ink font-semibold">Taxelを使っている税理士に、2人目の相談先としてお会いいただけます</strong>。
+          いまの顧問税理士を変える必要はありません。<br><br>
+          <strong class="text-ink font-semibold">いまの顧問税理士に、こちらから連絡することはありません。</strong>
+          お申し込みがあったことも、診断の内容も、お伝えしません。<br><br>
+          社長側の費用は一切かかりません。
+          <strong class="text-ink font-semibold">ご紹介そのものから当社が受け取るものもありません</strong>（事務所からいただくのはツールの利用料のみ）。
+          特定の税理士におすすめする理由がないので、合わなければ断っていただいて構いません。
         </p>
       </div>
     </div>
 
     <div class="reveal bg-white border border-slate-200 rounded-2xl p-7 sm:p-8 shadow-card">
       <p class="text-[15px] font-bold mb-1">お申し込み</p>
-      <p class="text-[12.5px] text-slate-500 mb-6">送信後、決算書の送り方をメールでご案内します。</p>
+      <p class="text-[12.5px] text-slate-500 mb-6">送信後、試算に必要な数字（5つほど）をメールでお伺いします。</p>
 
       <form name="shindan" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/shindan/thanks/" class="space-y-4">
         <input type="hidden" name="form-name" value="shindan">
@@ -184,11 +189,11 @@
           </select>
         </div>
         <div>
-          <label for="s-advisor" class="block text-[12.5px] font-semibold mb-1.5">税理士の紹介について</label>
-          <select id="s-advisor" name="税理士紹介の希望" class="f-in bg-white">
-            <option value="興味がある">興味がある</option>
+          <label for="s-advisor" class="block text-[12.5px] font-semibold mb-1.5">2人目の相談先について</label>
+          <select id="s-advisor" name="2人目の相談先" class="f-in bg-white">
+            <option value="話を聞いてみたい">話を聞いてみたい</option>
             <option value="診断結果を見てから">診断結果を見てから決めたい</option>
-            <option value="不要">紹介は不要（診断だけ）</option>
+            <option value="いまは診断だけ">いまは診断だけでいい</option>
           </select>
         </div>
 
@@ -196,7 +201,7 @@
           無料で診断してもらう
         </button>
         <p class="text-[11px] text-slate-400 text-center leading-relaxed">
-          営業メールを繰り返しお送りすることはありません。<br>お預かりした決算書は診断以外に使用しません。
+          営業メールを繰り返しお送りすることはありません。<br>いただいた情報は診断以外に使用せず、ご希望があれば削除します。
         </p>
       </form>
     </div>
