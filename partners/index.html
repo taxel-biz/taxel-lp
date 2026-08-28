@@ -263,5 +263,76 @@ function copyCode(i, btn) {
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </script>
+<!-- TRACKING -->
+<script>
+(function(){
+  var G = function(n,p){ try{ if(window.gtag) window.gtag('event', n, p||{}); }catch(e){} };
+
+  // --- 1. スクロール深度（各しきい値は1回だけ）---
+  var hit = {};
+  function depth(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    if (h <= 0) return;
+    var p = Math.round((window.scrollY / h) * 100);
+    [25,50,75,90].forEach(function(t){
+      if (p >= t && !hit[t]) { hit[t] = 1; G('scroll_depth', {percent: t}); }
+    });
+  }
+  var tick;
+  addEventListener('scroll', function(){
+    if (tick) return;
+    tick = setTimeout(function(){ tick = null; depth(); }, 250);
+  }, {passive:true});
+  depth();
+
+  // --- 2. セクション到達（画面に30%入ったら1回）---
+  if ('IntersectionObserver' in window) {
+    var seen = {};
+    var so = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if (!e.isIntersecting) return;
+        var el = e.target;
+        var id = el.id || 'unnamed';
+        if (seen[id]) return;
+        seen[id] = 1;
+        var h = el.querySelector('h1,h2');
+        G('section_view', {section_id: id, section_name: h ? h.innerText.trim().slice(0,40) : id});
+      });
+    }, {threshold: 0.3});
+    document.querySelectorAll('section').forEach(function(s){ so.observe(s); });
+  }
+
+  // --- 3. FAQを開いた（★どの不安が実際に気になるか）---
+  document.querySelectorAll('details').forEach(function(d){
+    d.addEventListener('toggle', function(){
+      if (!d.open) return;
+      var s = d.querySelector('summary');
+      var q = s ? s.innerText.replace(/[＋+]/g,'').trim().slice(0,60) : '';
+      G('faq_open', {question: q});
+    });
+  });
+
+  // --- 4. フォームに最初に触れた（到達と入力開始の差を見る）---
+  document.querySelectorAll('form').forEach(function(f){
+    var started = false;
+    f.addEventListener('focusin', function(){
+      if (started) return;
+      started = true;
+      G('form_start', {form_name: f.getAttribute('name') || 'unnamed'});
+    });
+  });
+
+  // --- 5. 主要CTAのクリック ---
+  var TARGETS = ['/shindan/','/download/','/#contact','#contact','/seminar/','/keiei/'];
+  document.addEventListener('click', function(ev){
+    var a = ev.target.closest ? ev.target.closest('a') : null;
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (TARGETS.indexOf(href) === -1) return;
+    G('cta_click', {link_url: href, link_text: (a.innerText||'').trim().slice(0,40)});
+  }, true);
+})();
+</script>
+
 </body>
 </html>
