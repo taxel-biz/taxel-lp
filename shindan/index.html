@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TMK64P44XG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TMK64P44XG');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>無料の決算書診断｜資金繰り・利益・打つ手を整理します ― Taxel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Inter', '"Noto Sans JP"', 'sans-serif'],
+        },
+        colors: {
+          ink: '#0B1220',
+          paper: '#FCFCFB',
+        },
+        boxShadow: {
+          soft: '0 1px 2px rgba(15,23,42,0.04), 0 1px 1px rgba(15,23,42,0.03)',
+          card: '0 1px 3px rgba(15,23,42,0.05), 0 12px 32px -12px rgba(15,23,42,0.12)',
+          cardHover: '0 1px 3px rgba(15,23,42,0.06), 0 20px 44px -14px rgba(15,23,42,0.18)',
+          panel: '0 24px 70px -20px rgba(15,23,42,0.22)',
+        },
+      },
+    },
+  }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-feature-settings: "palt"; }
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .glow {
+    position: absolute; border-radius: 9999px; filter: blur(90px);
+    background: radial-gradient(closest-side, rgba(79,70,229,.16), rgba(79,70,229,0));
+    pointer-events: none;
+  }
+  .grid-fade {
+    background-image:
+      linear-gradient(to bottom, rgba(255,255,255,0) 0%, #FCFCFB 85%),
+      linear-gradient(to right, rgba(15,23,42,0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(15,23,42,0.05) 1px, transparent 1px);
+    background-size: 100% 100%, 44px 44px, 44px 44px;
+  }
+  .pill-status { display:inline-flex; align-items:center; gap:6px; font-size:11.5px; font-weight:600; padding:3px 10px; border-radius:9999px; }
+  ::selection { background: rgba(79,70,229,.18); }
+</style>
+<meta name="description" content="決算書をお預かりして、資金繰り・利益構造・打つべき一手を整理してお返しします。費用はかかりません。中小企業の社長向け。">
+<link rel="canonical" href="https://www.taxel.biz/shindan/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Taxel">
+<meta property="og:title" content="無料の決算書診断｜資金繰り・利益・打つ手を整理します ― Taxel">
+<meta property="og:description" content="決算書をお預かりして、資金繰り・利益構造・打つべき一手を整理してお返しします。費用はかかりません。中小企業の社長向け。">
+<meta property="og:image" content="https://www.taxel.biz/ogp.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://www.taxel.biz/ogp.png">
+<meta property="og:url" content="https://www.taxel.biz/shindan/">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+  .f-in { width:100%; font-size:14px; border:1px solid #e2e8f0; border-radius:10px; padding:11px 13px; }
+  .f-in:focus { outline:none; border-color:#4F46E5; box-shadow:0 0 0 1px #4F46E5; }
+</style>
+</head>
+<body class="bg-paper text-ink antialiased">
+<!-- NAV (社長向け) -->
+<header class="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-slate-200/70">
+  <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="/keiei/" class="flex items-center gap-2">
+      <div class="w-7 h-7 rounded-[9px] bg-ink flex items-center justify-center">
+        <span class="text-white text-[13px] font-bold">T</span>
+      </div>
+      <span class="text-[15px] font-bold tracking-tight">Taxel<span class="text-slate-400 font-medium"> 経営の数字</span></span>
+    </a>
+    <nav class="hidden md:flex items-center gap-7 text-[13.5px] text-slate-600 font-medium">
+      <a href="/keiei/" class="hover:text-ink transition-colors">記事一覧</a>
+      <a href="/tools/komonryo/" class="hover:text-ink transition-colors">顧問料シミュレーター</a>
+    </nav>
+    <a href="/shindan/" class="text-[13.5px] font-semibold bg-ink text-white px-4 py-2 rounded-lg hover:bg-slate-800 transition-colors shadow-soft">無料で決算書を診断</a>
+  </div>
+</header>
+
+<section class="relative overflow-hidden grid-fade border-b border-slate-100">
+  <div class="glow w-[520px] h-[520px] -top-44 left-1/2 -translate-x-1/2"></div>
+  <div class="relative max-w-3xl mx-auto px-6 pt-20 pb-12 text-center">
+    <p class="reveal text-[12.5px] font-semibold text-indigo-600 mb-3">無料・所要3分</p>
+    <h1 class="reveal text-[28px] sm:text-[38px] font-extrabold tracking-tight leading-tight mb-5">
+      その決算書に、<br class="sm:hidden">打てる手が眠っていませんか
+    </h1>
+    <p class="reveal text-[14.5px] text-slate-500 leading-relaxed">
+      決算書をお預かりして、<strong class="text-ink font-semibold">資金繰り・利益構造・打つべき一手</strong>を整理してお返しします。<br class="hidden sm:block">
+      費用はかかりません。
+    </p>
+  </div>
+</section>
+
+<section class="max-w-4xl mx-auto px-6 py-14">
+  <div class="grid md:grid-cols-2 gap-8 items-start">
+
+    <div class="reveal">
+      <h2 class="text-[19px] font-extrabold tracking-tight mb-5">お返しするもの</h2>
+      <ul class="space-y-3.5 text-[13.5px] text-slate-600 leading-relaxed">
+        <li class="flex gap-2.5"><span class="text-indigo-500 font-bold shrink-0">01</span><span><strong class="text-ink font-semibold">いま何が起きているか</strong>／現金の推移と、利益の出どころ</span></li>
+        <li class="flex gap-2.5"><span class="text-indigo-500 font-bold shrink-0">02</span><span><strong class="text-ink font-semibold">3ヶ月先の資金繰り</strong>／このままいくとどうなるか</span></li>
+        <li class="flex gap-2.5"><span class="text-indigo-500 font-bold shrink-0">03</span><span><strong class="text-ink font-semibold">打つべき一手</strong>／効果の大きい順に</span></li>
+        <li class="flex gap-2.5"><span class="text-indigo-500 font-bold shrink-0">04</span><span><strong class="text-ink font-semibold">銀行から見た自社</strong>／融資判断で見られる数字</span></li>
+      </ul>
+
+      <div class="mt-8 bg-indigo-50/60 border border-indigo-100 rounded-2xl p-5">
+        <p class="text-[13px] text-ink leading-relaxed">
+          <strong class="font-bold">こんな社長に。</strong><br>
+          ・数字は毎月もらうが、で、どうすればいいのか分からない<br>
+          ・資金繰りが何となく不安なまま経営している<br>
+          ・顧問税理士から提案が出てこない
+        </p>
+      </div>
+
+      <div class="mt-6 bg-slate-50 border border-slate-200 rounded-2xl p-5">
+        <p class="text-[12.5px] text-slate-600 leading-relaxed">
+          <strong class="text-ink font-semibold">Taxelは税理士向けのサービスです。</strong>
+          診断のあと、ご希望があれば<strong class="text-ink font-semibold">Taxelを使っている税理士をご紹介できます</strong>（無料）。
+          いまの顧問税理士を変える必要はありません。無理な営業はしません。
+        </p>
+      </div>
+    </div>
+
+    <div class="reveal bg-white border border-slate-200 rounded-2xl p-7 sm:p-8 shadow-card">
+      <p class="text-[15px] font-bold mb-1">お申し込み</p>
+      <p class="text-[12.5px] text-slate-500 mb-6">送信後、決算書の送り方をメールでご案内します。</p>
+
+      <form name="shindan" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/shindan/thanks/" class="space-y-4">
+        <input type="hidden" name="form-name" value="shindan">
+        <p class="hidden"><label>この欄は入力しないでください <input name="bot-field"></label></p>
+
+        <div>
+          <label for="s-name" class="block text-[12.5px] font-semibold mb-1.5">お名前 <span class="text-indigo-600">*</span></label>
+          <input id="s-name" name="お名前" type="text" required autocomplete="name" class="f-in">
+        </div>
+        <div>
+          <label for="s-company" class="block text-[12.5px] font-semibold mb-1.5">会社名 <span class="text-indigo-600">*</span></label>
+          <input id="s-company" name="会社名" type="text" required autocomplete="organization" class="f-in">
+        </div>
+        <div>
+          <label for="s-email" class="block text-[12.5px] font-semibold mb-1.5">メールアドレス <span class="text-indigo-600">*</span></label>
+          <input id="s-email" name="メールアドレス" type="email" required autocomplete="email" class="f-in">
+        </div>
+        <div>
+          <label for="s-sales" class="block text-[12.5px] font-semibold mb-1.5">年商 <span class="text-indigo-600">*</span></label>
+          <select id="s-sales" name="年商" required class="f-in bg-white">
+            <option value="">選択してください</option>
+            <option value="1億円未満">1億円未満</option>
+            <option value="1〜3億円">1〜3億円</option>
+            <option value="3〜10億円">3〜10億円</option>
+            <option value="10億円以上">10億円以上</option>
+          </select>
+        </div>
+        <div>
+          <label for="s-issue" class="block text-[12.5px] font-semibold mb-1.5">いま一番気になっていること <span class="text-indigo-600">*</span></label>
+          <select id="s-issue" name="いま気になっていること" required class="f-in bg-white">
+            <option value="">選択してください</option>
+            <option value="資金繰り">資金繰りが不安</option>
+            <option value="利益が出ない">利益が出ていない</option>
+            <option value="融資">融資を受けたい／通らない</option>
+            <option value="節税">節税・役員報酬</option>
+            <option value="顧問税理士に不満">顧問税理士から提案が出てこない</option>
+            <option value="税理士がいない">顧問税理士がいない</option>
+            <option value="その他">その他</option>
+          </select>
+        </div>
+        <div>
+          <label for="s-advisor" class="block text-[12.5px] font-semibold mb-1.5">税理士の紹介について</label>
+          <select id="s-advisor" name="税理士紹介の希望" class="f-in bg-white">
+            <option value="興味がある">興味がある</option>
+            <option value="診断結果を見てから">診断結果を見てから決めたい</option>
+            <option value="不要">紹介は不要（診断だけ）</option>
+          </select>
+        </div>
+
+        <button type="submit" class="w-full bg-ink text-white text-[14px] font-semibold px-7 py-3.5 rounded-xl hover:bg-slate-800 transition-all shadow-card hover:shadow-cardHover">
+          無料で診断してもらう
+        </button>
+        <p class="text-[11px] text-slate-400 text-center leading-relaxed">
+          営業メールを繰り返しお送りすることはありません。<br>お預かりした決算書は診断以外に使用しません。
+        </p>
+      </form>
+    </div>
+
+  </div>
+</section>
+<!-- FOOTER -->
+<footer class="border-t border-slate-100 bg-white">
+  <div class="max-w-6xl mx-auto px-6 py-14 grid sm:grid-cols-2 md:grid-cols-4 gap-10">
+    <div>
+      <div class="flex items-center gap-2 mb-3">
+        <div class="w-6 h-6 rounded-md bg-ink flex items-center justify-center">
+          <span class="text-white text-[11px] font-bold">T</span>
+        </div>
+        <span class="text-[14px] font-bold">Taxel</span>
+      </div>
+      <p class="text-[12.5px] text-slate-400 leading-relaxed">税理士 × AI ＝ CFO。税理士事務所のためのAI経営支援クラウド。</p>
+    </div>
+    <div>
+      <p class="text-[12px] font-semibold text-slate-400 mb-3">プロダクト</p>
+      <ul class="space-y-2 text-[13px] text-slate-600">
+        <li><a href="#features" class="hover:text-ink">機能</a></li>
+        <li><a href="#pricing" class="hover:text-ink">料金</a></li>
+        <li><a href="#voice" class="hover:text-ink">開発状況</a></li>
+        <li><a class='hover:text-ink' href="/taxel_column/">ブログ</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="text-[12px] font-semibold text-slate-400 mb-3">会社情報</p>
+      <ul class="space-y-2 text-[13px] text-slate-600">
+        <li><a href="/company/" class="hover:text-ink">会社概要</a></li>
+              </ul>
+    </div>
+    <div>
+      <p class="text-[12px] font-semibold text-slate-400 mb-3">サポート</p>
+      <ul class="space-y-2 text-[13px] text-slate-600">
+        <li><a href="#contact" class="hover:text-ink">お問い合わせ</a></li>
+        <li><a href="#faq" class="hover:text-ink">よくある質問</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-slate-100 py-6 text-center text-[12px] text-slate-400">
+    © 2026 Taxel. All rights reserved.
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
