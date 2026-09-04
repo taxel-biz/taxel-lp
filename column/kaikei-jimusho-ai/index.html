@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TMK64P44XG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TMK64P44XG');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>会計事務所のAI導入、実際どこで外れるのか｜開発側から見た3つの実測 ― Taxel ブログ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: {
+    fontFamily: { sans: ['Inter', '"Noto Sans JP"', 'sans-serif'] },
+    colors: { ink: '#0B1220', paper: '#FCFCFB' },
+    boxShadow: { soft: '0 1px 2px rgba(15,23,42,0.04), 0 1px 1px rgba(15,23,42,0.03)', card: '0 1px 3px rgba(15,23,42,0.05), 0 12px 32px -12px rgba(15,23,42,0.12)' },
+  } } }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-feature-settings: "palt"; }
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .article p { margin-bottom: 1.1em; }
+  .article h2 { font-size: 19px; font-weight: 700; margin-top: 2em; margin-bottom: 0.7em; }
+  .article h3 { font-size: 15.5px; font-weight: 700; margin-top: 1.5em; margin-bottom: 0.5em; }
+  .article ul, .article ol { padding-left: 1.4em; margin-bottom: 1.1em; }
+  .article ul { list-style: disc; }
+  .article ol { list-style: decimal; }
+  .article li { margin-bottom: 0.4em; }
+  .article table { width: 100%; border-collapse: collapse; margin-bottom: 1.1em; font-size: 13px; }
+  .article th, .article td { border: 1px solid #e2e8f0; padding: 8px 10px; text-align: left; vertical-align: top; }
+  .article th { background: #f8fafc; font-weight: 700; }
+  .article .note { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; font-size: 13px; margin-bottom: 1.2em; }
+  .article .tablewrap { overflow-x: auto; }
+</style>
+<meta name="description" content="会計事務所のAI活用は「何ができるか」より「どこで外れるか」を知っておくほうが実務では役に立ちます。税理士向けAIツールを自社開発する中で実測した、待ち時間の設計・数字と文章のズレ・レビュー回数の3点を公開します。">
+<link rel="canonical" href="https://www.taxel.biz/column/kaikei-jimusho-ai/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Taxel">
+<meta property="og:title" content="会計事務所のAI導入、実際どこで外れるのか｜開発側から見た3つの実測 ― Taxel ブログ">
+<meta property="og:description" content="会計事務所のAI活用で「どこが外れるか」。税理士向けAIツールを開発する中で実測した3点を公開します。">
+<meta property="og:image" content="https://www.taxel.biz/ogp.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://www.taxel.biz/ogp.png">
+<meta property="og:url" content="https://www.taxel.biz/column/kaikei-jimusho-ai/">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "会計事務所のAI導入、実際どこで外れるのか｜開発側から見た3つの実測",
+  "description": "会計事務所のAI活用で「どこが外れるか」。税理士向けAIツールを開発する中で実測した3点を公開します。",
+  "image": "https://www.taxel.biz/ogp.png",
+  "inLanguage": "ja",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.taxel.biz/column/kaikei-jimusho-ai/"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "平澤 建",
+    "jobTitle": "Taxel 代表"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Taxel",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.taxel.biz/apple-touch-icon.png"
+    }
+  },
+  "datePublished": "2026-09-01"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.taxel.biz/" },
+    { "@type": "ListItem", "position": 2, "name": "ブログ", "item": "https://www.taxel.biz/taxel_column/" },
+    { "@type": "ListItem", "position": 3, "name": "会計事務所のAI導入、実際どこで外れるのか", "item": "https://www.taxel.biz/column/kaikei-jimusho-ai/" }
+  ]
+}
+</script>
+</head>
+<body class="bg-paper text-ink antialiased">
+
+<header class="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-slate-200/70">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a class="flex items-center gap-2" href="/">
+      <div class="w-7 h-7 rounded-[9px] bg-ink flex items-center justify-center"><span class="text-white text-[13px] font-bold">T</span></div>
+      <span class="text-[15px] font-bold tracking-tight">Taxel</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-[13.5px] text-slate-600 font-medium">
+      <a class="hover:text-ink transition-colors" href="/#features">機能</a>
+      <a class="hover:text-ink transition-colors" href="/#pricing">料金</a>
+      <a class="text-ink transition-colors" href="/taxel_column/">ブログ</a>
+      <a href="/company/" class="hover:text-ink transition-colors">会社概要</a>
+    </nav>
+    <a class="text-[13.5px] font-semibold bg-ink text-white px-4 py-2 rounded-lg hover:bg-slate-800 transition-colors shadow-soft" href="/#contact">デモを予約する</a>
+  </div>
+</header>
+
+<article class="max-w-2xl mx-auto px-6 py-16">
+  <a class="reveal inline-flex items-center gap-1.5 text-[12.5px] text-slate-400 hover:text-ink mb-8" href="/taxel_column/">← ブログ一覧に戻る</a>
+
+  <div class="reveal flex items-center gap-2 mb-4">
+    <span class="text-[11px] font-semibold text-white bg-ink px-2.5 py-1 rounded-full">税理士向け</span>
+    <span class="text-[11.5px] font-semibold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">AI活用</span>
+  </div>
+  <h1 class="reveal text-[26px] sm:text-[32px] font-extrabold tracking-tight leading-tight mb-4">会計事務所のAI導入、実際どこで外れるのか｜開発側から見た3つの実測</h1>
+  <p class="reveal text-[12.5px] text-slate-400 mb-10">2026.09.01・平澤 建</p>
+
+  <div class="article text-[14.5px] text-slate-600 leading-[1.9]">
+
+    <p>「会計事務所 AI」で検索すると、活用事例と未来予測の記事がずらりと出てきます。記帳の自動化、月次レポートの自動生成、問い合わせ対応。どれも間違っていませんが、<strong>実際に事務所へ入れるときに必要なのは「何ができるか」ではなく「どこで外れるか」の情報</strong>です。そこはほとんど書かれていません。</p>
+
+    <p>私たちは税理士事務所向けのAI経営支援ツール（Taxel）を自社で開発しています。この記事では、その開発の中で実際に踏んだ失敗を3つ、数字つきで公開します。ツールを内製する先生にも、既製品を選ぶ先生にも、そのまま判断材料になるはずです。</p>
+
+    <h2>結論：AIに文章を書かせ、数字はプログラムに計算させる</h2>
+
+    <p>先に結論を書きます。<strong>会計事務所の業務でAIを使うときの分岐点は、「AIに数字を計算させているかどうか」です。</strong>計算までAIに任せた瞬間、事故の確率が跳ね上がります。数字はプログラム（あるいは会計ソフト）で確定させ、AIには「その数字をどう説明するか」だけを担当させる。この分離ができているかどうかで、実務に乗るかどうかが決まります。</p>
+
+    <p>以下、そう考えるに至った実測です。</p>
+
+    <h2>実測1：AIの応答は速くない。1回の分析に約5分かかる</h2>
+
+    <p>Taxelでは、決算書から財務分析と提案を生成する処理を動かしています。この1回の処理で、AIに渡している情報量は<strong>約16,000トークン</strong>（日本語でおよそ1万字強）、返ってくるまでの時間は<strong>約5分</strong>です。</p>
+
+    <p>「AIなら一瞬」というイメージと、実際の体感はまったく違います。そして5分間、画面に何も出ないと、人は<strong>「固まった」と判断してもう一度ボタンを押します。</strong>押した分だけ処理が二重に走り、費用も倍かかります。実際に私たちはこれを踏み、進行状況を出す画面と、二重起動を止める仕組みを後から入れました。</p>
+
+    <p>導入判断に落とすと、こうなります。</p>
+
+    <ul>
+      <li><strong>デモを見るときは、処理時間を必ず聞く。</strong>「速いです」ではなく秒数で。</li>
+      <li><strong>待っている間に何が表示されるかを見る。</strong>白い画面のまま数分止まるツールは、スタッフが使わなくなります。</li>
+      <li><strong>従量課金なら、二重起動の防止があるかを確認する。</strong>ここが無いと、請求書で気づくことになります。</li>
+    </ul>
+
+    <h2>実測2：数字は合っているのに、説明文がズレる</h2>
+
+    <p>これが一番やっかいでした。<strong>AIが出す文章は読めるし、数字も画面上は正しい。それなのに、その数字の「呼び名」や「説明」が計算の中身とズレている</strong>という不具合です。</p>
+
+    <p>私たちは開発中の1日に、この型のズレを6件見つけました。実例を挙げます。</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th>ズレの内容</th><th>なぜ見つけにくいか</th></tr>
+      <tr><td>健全性の判定ラベルが、実際の判定式と違う基準で表示されていた</td><td>ラベルも数字も自然に見えるため、読んでも違和感が出ない</td></tr>
+      <tr><td>金額の単位表記（億／万）が、内部の値と食い違っていた</td><td>桁が大きいほど、目視では検算できない</td></tr>
+      <tr><td>減価償却の一部の科目を集計から取りこぼしていた</td><td>合計は「それらしい額」になるので、画面は壊れない</td></tr>
+      <tr><td>同じ指標を2ヶ所で別々に計算していて、片方だけ直っていた</td><td>片方の画面では正しく、もう片方では違う値が出る</td></tr>
+    </table>
+    </div>
+
+    <p><strong>共通点は「動くし、画面も壊れない」ことです。</strong>だから目視のレビューを素通りします。エラーが出て止まってくれるバグのほうが、はるかに安全です。</p>
+
+    <p>顧問先に出す資料でこれが起きると、どうなるか。数字そのものは合っているので指摘されず、説明の言葉だけが間違ったまま社長に伝わります。<strong>気づくのは、社長がその説明を前提に判断を下した後です。</strong></p>
+
+    <h3>実務での対策</h3>
+
+    <ul>
+      <li><strong>AIが出した文章の中の数字を、必ず元の資料と手で突き合わせる。</strong>文章の自然さは、正しさの証拠になりません。</li>
+      <li><strong>計算はAIにさせない。</strong>税額・比率・増減は会計ソフトかプログラムで確定させ、AIは「その値をどう説明するか」だけを書く。</li>
+      <li><strong>顧問先に出す前に、1枚目の数字を声に出して読む。</strong>単位と前期比の向きの間違いは、これで大半が捕まります。</li>
+    </ul>
+
+    <h2>実測3：レビューは1周では終わらない。4周かかった</h2>
+
+    <p>AIが書いた内容を1度チェックして「問題なし」と判断するのは、危険です。私たちは同じ機能に対してレビューを4周実施し、<strong>各周で新しい不具合が出て、合計6件、すべて実際の誤りでした。</strong></p>
+
+    <p>なぜ1周で終わらないのか。<strong>修正そのものが、別の場所を壊すから</strong>です。1周目で指摘された箇所を直すと、その直し方が2周目の問題を生みます。そして自分（あるいはAI自身）が自分の直したものを見直しても、この型は捕まりません。</p>
+
+    <p>事務所の実務に置き換えると、<strong>AIが作った顧問先向けの資料は、作った人とは別の目が入る前提で運用する</strong>ということです。AI導入で工数が減るぶん、確認の工程は減らせません。むしろ、確認だけは残す設計にしないと事故ります。</p>
+
+    <h2>先生方から言われたこと：出力は「短く、絵で」</h2>
+
+    <p>もうひとつ、ヒアリングで繰り返し出た話を書いておきます。ある税理士の先生から、AIが生成したレポートについて<strong>「数字の羅列より、科目を集約してグラフにしてほしい」「中小企業の社長に説明するなら、簡易化は必須」</strong>という指摘をいただきました。</p>
+
+    <p>AIは放っておくと、情報を足す方向に働きます。項目を網羅し、丁寧に説明し、結果として社長が読まない資料ができあがる。<strong>AI活用の失敗として一番多いのは、精度ではなく「長すぎて使われない」なのではないかと考えています。</strong></p>
+
+    <p>私たちはこの指摘を受けて、月次レポートの前に「掴みの1枚」を置く構成に変えました。①いま何が起きているか、②だから何をすべきか、③そのために打つ手は何か。この3つだけを1ページに収め、詳細はその後ろに送る形です。</p>
+
+    <h2>そして、工数が浮いた後の話</h2>
+
+    <p>最後に、導入前に決めておいたほうがいいことを1つ。<strong>AIで作業時間が浮いても、それだけでは事務所の売上は増えません。</strong></p>
+
+    <p>私たちは税理士の先生方に9件のヒアリングを重ねてきましたが、そこで一貫して出てきたのが<strong>「顧問料3万円の壁」</strong>でした。月額3万円前後の顧問契約では、記帳のチェックと申告書の作成で稼働が埋まる。踏み込んだ経営助言まで手が回らない。これは能力の問題ではなく、値付けの構造です。</p>
+
+    <p>AIを入れて記帳まわりの工数が減っても、<strong>その顧問料のまま助言の量だけが増えるなら、事務所の利益率はむしろ下がります。</strong>だから、導入とセットで決めることが1つあります。</p>
+
+    <p><strong>浮いた時間で提供するものに、どう値段をつけるか。</strong></p>
+
+    <p>これを先に決めてから導入すると、AIは「効率化ツール」ではなく「新しい商品を作る道具」になります。順番が逆になると、忙しさだけが変わらないまま費用が増えます。</p>
+
+    <h2>まとめ：導入前に確認する3点</h2>
+
+    <ol>
+      <li><strong>そのAIは、数字を計算しているか。</strong>計算までAIがやっているなら、検算の工程を必ず残す。</li>
+      <li><strong>処理時間と、待っている間の画面はどうなっているか。</strong>スタッフが使い続けられるかはここで決まります。</li>
+      <li><strong>浮いた時間で何を売るか、値段は決まっているか。</strong>ここが空白のまま入れると、費用だけが増えます。</li>
+    </ol>
+
+    <p>AIは、正しく線を引けば会計事務所の武器になります。線の位置は「計算」と「説明」のあいだです。</p>
+
+  </div>
+
+  <div class="reveal mt-12 bg-slate-50 border border-slate-200 rounded-2xl p-6">
+    <p class="text-[11.5px] font-semibold text-slate-400 mb-2.5">執筆</p>
+    <p class="text-[14px] font-bold mb-1.5">平澤 建（ひらさわ たける）</p>
+    <p class="text-[12.5px] text-slate-600 leading-relaxed mb-3">
+      Taxel 代表。中小企業向けにKPI経営の伴走支援とEC運用支援を行っています。
+      税理士の先生方へのヒアリングを重ね、いただいた要望をそのまま機能にする形でTaxelを開発しています。
+    </p>
+    <p class="text-[11.5px] text-slate-400 leading-relaxed">
+      ※ 本記事は一般的な情報提供を目的としたものです。記載した数値は自社開発における実測値であり、他のツール・環境での結果を保証するものではありません。筆者は税理士ではありません。
+    </p>
+  </div>
+
+  <div class="reveal mt-14 bg-white border border-slate-200 rounded-2xl p-6 shadow-card text-center">
+    <p class="text-[14px] font-bold mb-2">顧問先への説明資料、作る時間はありますか</p>
+    <p class="text-[12.5px] text-slate-500 mb-4">Taxelが決算書から自動生成する「社長向け月次報告」の実物サンプルを無料でお送りします。</p>
+    <div class="flex flex-wrap gap-2.5 justify-center">
+      <a class="inline-block bg-ink text-white text-[13.5px] font-semibold px-5 py-2.5 rounded-lg hover:bg-slate-800 transition-colors" href="/download/">資料を受け取る（無料）</a>
+      <a class="inline-block bg-white border border-slate-200 text-[13.5px] font-semibold px-5 py-2.5 rounded-lg hover:border-slate-300 transition-colors" href="/#contact">デモを予約する</a>
+    </div>
+  </div>
+</article>
+
+<footer class="border-t border-slate-100 bg-white">
+  <div class="max-w-6xl mx-auto px-6 py-10 text-center text-[12px] text-slate-400">© 2026 Taxel. All rights reserved.</div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+<!-- TRACKING -->
+<script>
+(function(){
+  var G = function(n,p){ try{ if(window.gtag) window.gtag('event', n, p||{}); }catch(e){} };
+  var hit = {};
+  function depth(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    if (h <= 0) return;
+    var p = Math.round((window.scrollY / h) * 100);
+    [25,50,75,90].forEach(function(t){
+      if (p >= t && !hit[t]) { hit[t] = 1; G('scroll_depth', {percent: t}); }
+    });
+  }
+  var tick;
+  addEventListener('scroll', function(){
+    if (tick) return;
+    tick = setTimeout(function(){ tick = null; depth(); }, 250);
+  }, {passive:true});
+  depth();
+  var TARGETS = ['/shindan/','/download/','/#contact','#contact','/seminar/','/keiei/'];
+  document.addEventListener('click', function(ev){
+    var a = ev.target.closest ? ev.target.closest('a') : null;
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (TARGETS.indexOf(href) === -1) return;
+    G('cta_click', {link_url: href, link_text: (a.innerText||'').trim().slice(0,40)});
+  }, true);
+})();
+</script>
+
+</body>
+</html>
