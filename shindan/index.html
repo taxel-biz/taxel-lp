@@ -189,12 +189,46 @@
           </select>
         </div>
         <div>
+          <label for="s-area" class="block text-[12.5px] font-semibold mb-1.5">
+            会社の所在地
+            <span class="font-normal text-slate-400">（税理士をご紹介する場合のみ使います）</span>
+          </label>
+          <select id="s-area" name="所在地" class="f-in bg-white">
+            <option value="">選択してください</option>
+            <option value="北海道・東北">北海道・東北</option>
+            <option value="首都圏">首都圏（東京・神奈川・千葉・埼玉）</option>
+            <option value="関東その他">関東その他（茨城・栃木・群馬・山梨）</option>
+            <option value="中部・北陸">中部・北陸</option>
+            <option value="関西">関西</option>
+            <option value="中国・四国">中国・四国</option>
+            <option value="九州・沖縄">九州・沖縄</option>
+            <option value="オンライン希望">場所は問わない（オンライン希望）</option>
+          </select>
+        </div>
+        <div>
           <label for="s-advisor" class="block text-[12.5px] font-semibold mb-1.5">2人目の相談先について</label>
           <select id="s-advisor" name="2人目の相談先" class="f-in bg-white">
             <option value="話を聞いてみたい">話を聞いてみたい</option>
             <option value="診断結果を見てから">診断結果を見てから決めたい</option>
             <option value="いまは診断だけ">いまは診断だけでいい</option>
           </select>
+        </div>
+
+        <!-- 第三者提供の同意（個人情報保護法27条）。チェックされない限り税理士には一切渡さない -->
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+          <label class="flex items-start gap-2.5 cursor-pointer">
+            <input type="checkbox" name="税理士への情報提供に同意" value="同意する"
+                   class="mt-0.5 w-4 h-4 rounded border-slate-300 text-ink focus:ring-ink shrink-0">
+            <span class="text-[12.5px] text-slate-700 leading-relaxed">
+              税理士をご紹介する場合に限り、<strong class="font-semibold">会社名・所在地・年商レンジ・ご相談内容</strong>を
+              紹介先の税理士事務所に提供することに同意します。
+            </span>
+          </label>
+          <p class="text-[11px] text-slate-500 leading-relaxed mt-2.5 pl-[26px]">
+            チェックがない場合、税理士事務所に情報をお渡しすることはありません。診断結果はお返しします。<br>
+            提供先は、Taxelを導入している税理士事務所のうち、ご希望のエリアに対応できる事務所です。<br>
+            <strong class="text-slate-600">いまの顧問税理士に連絡することはありません。</strong>同意はあとから撤回できます。
+          </p>
         </div>
 
         <button type="submit" class="w-full bg-ink text-white text-[14px] font-semibold px-7 py-3.5 rounded-xl hover:bg-slate-800 transition-all shadow-card hover:shadow-cardHover">
