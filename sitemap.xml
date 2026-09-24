@@ -21,4 +21,10 @@
   <url><loc>https://www.taxel.biz/keiei/yakuin-hoshu-kimekata/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.taxel.biz/keiei/kicho-daiko-ryokin/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.taxel.biz/column/kaikei-jimusho-ai/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.taxel.biz/keiei/shikinguri-kaizen/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.taxel.biz/keiei/kaikei-soft-norikae/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.taxel.biz/column/zeirishi-hojokin/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.taxel.biz/keiei/zeirishi-komonryo-souba/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.taxel.biz/keiei/denshichobo-soft/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.taxel.biz/column/komonryo-iriguchi/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>

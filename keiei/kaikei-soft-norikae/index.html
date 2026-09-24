@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TMK64P44XG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TMK64P44XG');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>会計ソフトの乗り換え｜引き継げないデータと、決める前の3つの確認 ― Taxel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: {
+    fontFamily: { sans: ['Inter', '"Noto Sans JP"', 'sans-serif'] },
+    colors: { ink: '#0B1220', paper: '#FCFCFB' },
+    boxShadow: { soft: '0 1px 2px rgba(15,23,42,0.04), 0 1px 1px rgba(15,23,42,0.03)', card: '0 1px 3px rgba(15,23,42,0.05), 0 12px 32px -12px rgba(15,23,42,0.12)' },
+  } } }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-feature-settings: "palt"; }
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .article p { margin-bottom: 1.1em; }
+  .article h2 { font-size: 19px; font-weight: 700; margin-top: 2em; margin-bottom: 0.7em; }
+  .article h3 { font-size: 15.5px; font-weight: 700; margin-top: 1.5em; margin-bottom: 0.5em; }
+  .article ul, .article ol { padding-left: 1.4em; margin-bottom: 1.1em; }
+  .article ul { list-style: disc; }
+  .article ol { list-style: decimal; }
+  .article li { margin-bottom: 0.4em; }
+  .article table { width: 100%; border-collapse: collapse; margin-bottom: 1.1em; font-size: 13px; }
+  .article th, .article td { border: 1px solid #e2e8f0; padding: 8px 10px; text-align: left; vertical-align: top; }
+  .article th { background: #f8fafc; font-weight: 700; }
+  .article .note { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; font-size: 13px; margin-bottom: 1.2em; }
+  .article .tablewrap { overflow-x: auto; }
+</style>
+<meta name="description" content="会計ソフトの乗り換えで難しいのはソフト選びではなく「いつ切るか」「何が引き継げないか」「顧問税理士が対応しているか」の3点です。移行できるデータとできないデータ、乗り換え直後に前年同月比が使えなくなる問題、並行運用の期間まで、手順で解説します。">
+<link rel="canonical" href="https://www.taxel.biz/keiei/kaikei-soft-norikae/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Taxel">
+<meta property="og:title" content="会計ソフトの乗り換え｜引き継げないデータと、決める前の3つの確認 ― Taxel">
+<meta property="og:description" content="乗り換えの成否はソフト選びではなく「いつ切るか」「何が引き継げないか」「顧問税理士が対応しているか」で決まります。">
+<meta property="og:image" content="https://www.taxel.biz/ogp.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://www.taxel.biz/ogp.png">
+<meta property="og:url" content="https://www.taxel.biz/keiei/kaikei-soft-norikae/">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "会計ソフトの乗り換え｜引き継げないデータと、決める前の3つの確認",
+  "description": "乗り換えの成否はソフト選びではなく「いつ切るか」「何が引き継げないか」「顧問税理士が対応しているか」で決まります。",
+  "image": "https://www.taxel.biz/ogp.png",
+  "inLanguage": "ja",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.taxel.biz/keiei/kaikei-soft-norikae/"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "平澤 建",
+    "jobTitle": "Taxel 代表"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Taxel",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.taxel.biz/apple-touch-icon.png"
+    }
+  },
+  "datePublished": "2026-09-09"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.taxel.biz/" },
+    { "@type": "ListItem", "position": 2, "name": "経営の数字", "item": "https://www.taxel.biz/keiei/" },
+    { "@type": "ListItem", "position": 3, "name": "会計ソフトの乗り換え｜引き継げないデータと、決める前の3つの確認", "item": "https://www.taxel.biz/keiei/kaikei-soft-norikae/" }
+  ]
+}
+</script>
+</head>
+<body class="bg-paper text-ink antialiased">
+
+<header class="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-slate-200/70">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a class="flex items-center gap-2" href="/">
+      <div class="w-7 h-7 rounded-[9px] bg-ink flex items-center justify-center"><span class="text-white text-[13px] font-bold">T</span></div>
+      <span class="text-[15px] font-bold tracking-tight">Taxel</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-[13.5px] text-slate-600 font-medium">
+      <a class="hover:text-ink transition-colors" href="/#features">機能</a>
+      <a class="hover:text-ink transition-colors" href="/#pricing">料金</a>
+      <a class="text-ink transition-colors" href="/keiei/">経営の数字</a>
+      <a href="/company/" class="hover:text-ink transition-colors">会社概要</a>
+    </nav>
+    <a class="text-[13.5px] font-semibold bg-ink text-white px-4 py-2 rounded-lg hover:bg-slate-800 transition-colors shadow-soft" href="/shindan/">決算書を無料診断</a>
+  </div>
+</header>
+
+<article class="max-w-2xl mx-auto px-6 py-16">
+  <a class="reveal inline-flex items-center gap-1.5 text-[12.5px] text-slate-400 hover:text-ink mb-8" href="/keiei/">← 経営の数字 一覧に戻る</a>
+
+  <div class="reveal flex items-center gap-2 mb-4">
+    <span class="text-[11px] font-semibold text-white bg-ink px-2.5 py-1 rounded-full">社長向け</span>
+    <span class="text-[11.5px] font-semibold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">会計ソフト</span>
+  </div>
+  <h1 class="reveal text-[26px] sm:text-[32px] font-extrabold tracking-tight leading-tight mb-4">会計ソフトの乗り換え｜引き継げないデータと、決める前の3つの確認</h1>
+  <p class="reveal text-[12.5px] text-slate-400 mb-10">2026.09.09・平澤 建</p>
+
+  <div class="article text-[14.5px] text-slate-600 leading-[1.9]">
+
+    <p><strong>結論から書きます。会計ソフトの乗り換えでつまずくのは、ソフト選びではありません。①いつ切り替えるか、②何が引き継げないか、③顧問税理士がそのソフトに対応しているか――この3つを決める前に契約してしまうことです。</strong></p>
+
+    <p>移行そのものは、多くのソフトがCSVのインポート機能を用意しているので、思ったより進みます。問題になるのはその後です。この記事では、乗り換えた後に「こんなはずでは」となりやすい部分を先回りして潰します。</p>
+
+    <h2>確認1：いつ切り替えるか（原則は期首）</h2>
+
+    <p><strong>切り替えのタイミングは、事業年度の初日が原則です。</strong>3月決算なら4月1日、12月決算なら1月1日。理由は単純で、期の途中で切ると、<strong>1つの事業年度のデータが2つのシステムに割れる</strong>からです。</p>
+
+    <p>期中に割れると、決算のときに次の作業が発生します。</p>
+
+    <ul>
+      <li>旧ソフトから期首〜切替日までの試算表を出し、新ソフトに開始残高として手で入れ直す</li>
+      <li>決算書・申告書の添付資料を、2つのソフトから出した数字で組み立てる</li>
+      <li>消費税の集計を、課税区分ごとに両方から拾い直す</li>
+    </ul>
+
+    <p>どれも「できる」作業ですが、決算期の顧問税理士の稼働を確実に増やします。追加報酬の話になることもあります。期首まで待てるなら、待つほうが安いです。</p>
+
+    <p>例外として、期中でも切ったほうがいいケースがあります。<strong>いま使っているソフトが法改正への対応を止めた場合</strong>です。インボイス制度や電子帳簿保存法の要件に対応しないまま使い続けるほうがリスクが大きいので、この場合は期中でも動きます。</p>
+
+    <h2>確認2：何が引き継げないか</h2>
+
+    <p>ここが一番の落とし穴です。<strong>「データ移行できます」は、たいてい「仕訳データは移行できます」という意味</strong>です。実際には移らないもの、移るけれど作り直しになるものが複数あります。</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th>項目</th><th>移行の実際</th></tr>
+      <tr><td>仕訳データ</td><td>CSVで移せることが多い。ただし勘定科目名が一致しないと、取り込み時にマッピング作業が発生する</td></tr>
+      <tr><td>勘定科目・補助科目</td><td>標準科目は対応するが、独自に作った補助科目は作り直しになりやすい</td></tr>
+      <tr><td>部門・プロジェクト</td><td>階層の持ち方がソフトごとに違う。設計から作り直しになることが多い</td></tr>
+      <tr><td>固定資産台帳</td><td><strong>要注意。</strong>取得価額・耐用年数・償却方法・期首簿価を1件ずつ確認する。ここがずれると減価償却費が丸ごと狂う</td></tr>
+      <tr><td>消費税の課税区分</td><td>仕訳が移っても区分が落ちる場合がある。移行後に必ず課税区分別の集計で突き合わせる</td></tr>
+      <tr><td>銀行・カードの自動連携</td><td>移行できない。全口座を新ソフトで登録し直し、連携を再認証する</td></tr>
+      <tr><td>仕訳の自動学習（AI推測）</td><td>移行できない。新ソフト側でゼロから育て直しになる</td></tr>
+      <tr><td>請求・給与など他システムとの連携</td><td>個別に再設定。連携先が新ソフトに対応しているかは事前確認が必須</td></tr>
+    </table>
+    </div>
+
+    <h3>意外と効くのが「過去データの分断」</h3>
+
+    <p>私たちは決算書と試算表を読み込んで経営分析を出すツール（Taxel）を作っています。その開発の中で繰り返し当たったのが、<strong>乗り換え直後の会社は、しばらく前年同月比が出せない</strong>という問題でした。</p>
+
+    <p>新ソフトに入るのは、多くの場合「開始時点の残高」からです。過去2期・3期の月次推移は旧ソフトの中に置いたまま。すると、乗り換えた翌月から<strong>「去年の同じ月と比べてどうか」が画面上で出せなくなります。</strong>季節変動のある業種では、これは経営判断が1年間止まるのとほぼ同じです。</p>
+
+    <p>対策は難しくありません。<strong>旧ソフトを解約する前に、過去3期分の月次推移表（PLとBS）をCSVとPDFの両方で書き出しておく</strong>こと。これだけで、比較の材料は手元に残ります。解約してから気づくと、再契約するか、紙の決算書から手で入力するしかなくなります。</p>
+
+    <h2>確認3：顧問税理士は、そのソフトに対応しているか</h2>
+
+    <p>これを事前に聞かずに乗り換えて、揉めるケースがあります。</p>
+
+    <p>会計事務所には、事務所として使い慣れたソフトがあります。顧問先ごとにバラバラのソフトを扱うと、チェックの手順も、データの受け渡し方法も、事務所内の分担も全部変わる。そのため、<strong>「対応はできるが、その分の手数はいただきます」となる</strong>ことは珍しくありません。</p>
+
+    <p>これは先生が意地悪をしているわけではありません。私たちが税理士の先生方へのヒアリングを重ねる中で繰り返し出てきたのが<strong>「顧問料3万円の壁」</strong>で、月額3万円前後の顧問契約は、記帳のチェックと申告書の作成でほぼ稼働が埋まります。そこにソフトの学習コストが乗ると、料金の構造上どうしても吸収しきれない。</p>
+
+    <p>だから、決める前に3点だけ聞いてください。</p>
+
+    <ol>
+      <li><strong>そのソフトに対応していますか。</strong>対応している場合、顧問料は変わりますか</li>
+      <li><strong>記帳の分担はどう変わりますか。</strong>いまの分担（自社入力／記帳代行）が、乗り換えでどう変わるか</li>
+      <li><strong>切り替えは期首でいいですか。</strong>先生側の繁忙期（確定申告期・5月決算期など）とぶつからない時期はいつか</li>
+    </ol>
+
+    <p>この3つを先に聞いておくと、乗り換えの費用は「ソフト代の差額」ではなく「ソフト代 ± 顧問料の変動 ＋ 移行作業の時間」で正しく比較できるようになります。記帳を外に出す場合の相場は<a class="text-indigo-600 hover:underline" href="/keiei/kicho-daiko-ryokin/">記帳代行の料金</a>にまとめました。</p>
+
+    <h2>乗り換えの手順（期首切り替えの場合）</h2>
+
+    <ol>
+      <li><strong>切替の2ヶ月前：</strong>顧問税理士に相談し、上の3点を確認する。新ソフトの無料期間で、自社の主要な取引パターンを10件ほど実際に入力してみる</li>
+      <li><strong>1ヶ月前：</strong>旧ソフトから全データを書き出す。仕訳、試算表、月次推移（3期分）、固定資産台帳、勘定科目一覧。CSVとPDFの両方で保存する</li>
+      <li><strong>切替月：</strong>新ソフトに開始残高を入れ、勘定科目・補助科目・部門を整える。銀行連携を再設定する</li>
+      <li><strong>切替後1〜2ヶ月：</strong>旧ソフトは解約せず、閲覧できる状態で並行させる。最初の月次が締まったところで、試算表を旧ソフトの前月と見比べて、科目の対応が崩れていないかを確認する</li>
+      <li><strong>安定を確認してから：</strong>旧ソフトを解約する。<strong>解約日と、データを書き出し済みであることをメモに残す</strong></li>
+    </ol>
+
+    <div class="note">
+      <strong>※ 解約後も帳簿の保存義務は残ります。</strong>電子帳簿保存法の要件で電子データとして保存してきた帳簿・書類は、ソフトを解約した後も、法定の期間その要件を満たす形で保存し続ける必要があります。旧ソフトを解約する前に、保存しているデータの形式と保管場所を決めてください。対応の詳細は<a class="text-indigo-600 hover:underline" href="/column/denshi-chobo/">電子帳簿保存法の記事</a>と顧問税理士に確認を。
+    </div>
+
+    <h2>どのソフトに乗り換えるか</h2>
+
+    <p>ここは会社の事情で答えが変わるので、選ぶ軸だけ置きます。<strong>「機能が多いソフト」ではなく「自社の入力量が一番減るソフト」を選んでください。</strong></p>
+
+    <ul>
+      <li><strong>取引件数が多く、銀行・カード・決済サービスが多い会社：</strong>自動連携の対応先の数で決まります。使っている金融機関とサービスが全部つながるかを、契約前にリストで確認する</li>
+      <li><strong>部門別・案件別の損益を見たい会社：</strong>部門機能の設計思想がソフトごとに大きく違います。無料期間中に、自社の部門構成を実際に作ってみるのが確実です</li>
+      <li><strong>記帳を事務所に任せている会社：</strong>事務所の対応ソフトから選ぶのが、結局いちばん安く済みます</li>
+      <li><strong>製造・建設など原価管理が要る会社：</strong>汎用の会計ソフト単体では足りないことが多く、業務システムとの連携前提で考える</li>
+    </ul>
+
+    <p>クラウド型かインストール型かも、好みではなく条件で決まります。複数拠点や在宅から入力する、税理士とリアルタイムで同じ画面を見たい、という場合はクラウド型。ネット環境が不安定、あるいは特定の1台でしか使わないという場合は、インストール型でも困りません。</p>
+
+    <!-- TODO(アフィリ): ASP登録後、ここに会計ソフトの比較リンク（freee / マネーフォワード / 弥生）を挿入する。
+         現時点ではASP未登録のため、リンクは入れずベンダー名の中立記述にとどめている。
+         挿入位置の候補：この段落の直後に「主要3ソフトの無料期間」の表を置く。 -->
+
+    <h2>乗り換えで得られるものを、金額にしておく</h2>
+
+    <p>最後に判断の材料です。乗り換えは、それ自体が数日〜数週間の作業を生みます。だから<strong>「何がいくら良くなるのか」を先に数字にしておく</strong>と、途中で迷わなくなります。</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th>見る項目</th><th>計算のしかた</th></tr>
+      <tr><td>入力時間の削減</td><td>（月の記帳時間 − 移行後の見込み時間）× 12ヶ月 × 担当者の時間単価</td></tr>
+      <tr><td>ソフト代の差</td><td>（新ソフトの年額 − 旧ソフトの年額）。オプション・利用者数の課金まで含めて比べる</td></tr>
+      <tr><td>顧問料の変動</td><td>事務所に確認した増減額 × 12ヶ月</td></tr>
+      <tr><td>移行のコスト</td><td>移行作業の見込み時間 × 時間単価（＋外注する場合はその費用）</td></tr>
+    </table>
+    </div>
+
+    <p>この4つを足し引きして、1年でプラスになるなら乗り換える。ならないなら、いまのソフトの使い方を変えるほうが早い。<strong>「新しいほうが良さそう」で動くと、移行の時間だけ払って何も変わらない、という結果になりがちです。</strong></p>
+
+    <p>そして乗り換えの本当の目的は、入力が楽になることではなく、<strong>出てくる数字で経営判断ができるようになること</strong>です。月次が締まるのが翌月末なら、どのソフトに変えても判断は遅れたままです。切り替えのタイミングで、締めを何日早めるかもセットで決めましょう。</p>
+
+  </div>
+
+  <div class="reveal mt-12 bg-slate-50 border border-slate-200 rounded-2xl p-6">
+    <p class="text-[11.5px] font-semibold text-slate-400 mb-2.5">執筆</p>
+    <p class="text-[14px] font-bold mb-1.5">平澤 建（ひらさわ たける）</p>
+    <p class="text-[12.5px] text-slate-600 leading-relaxed mb-3">
+      Taxel 代表。中小企業向けにKPI経営の伴走支援とEC運用支援を行っています。
+      税理士の先生方へのヒアリングを重ね、いただいた要望をそのまま機能にする形でTaxelを開発しています。
+    </p>
+    <p class="text-[11.5px] text-slate-400 leading-relaxed">
+      ※ 本記事は一般的な情報提供を目的としたものです。各ソフトの仕様・料金・対応範囲は変更されます。導入の可否は、必ず提供元の最新情報と顧問税理士にご確認ください。筆者は税理士ではありません。
+    </p>
+  </div>
+
+  <div class="reveal mt-14 bg-white border border-slate-200 rounded-2xl p-6 shadow-card text-center">
+    <p class="text-[14px] font-bold mb-2">ソフトを変える前に、いまの数字で何が見えるかを確かめませんか</p>
+    <p class="text-[12.5px] text-slate-500 mb-4">決算書をお預かりして、資金繰りの見通しと打てる手をまとめてお返しします。乗り換えで本当に見たかったものが何かも、そこではっきりします。無料です。</p>
+    <div class="flex flex-wrap gap-2.5 justify-center">
+      <a class="inline-block bg-ink text-white text-[13.5px] font-semibold px-5 py-2.5 rounded-lg hover:bg-slate-800 transition-colors" href="/shindan/">決算書を無料で診断する</a>
+    </div>
+  </div>
+</article>
+
+<footer class="border-t border-slate-100 bg-white">
+  <div class="max-w-6xl mx-auto px-6 py-10 text-center text-[12px] text-slate-400">© 2026 Taxel. All rights reserved.</div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+<!-- TRACKING -->
+<script>
+(function(){
+  var G = function(n,p){ try{ if(window.gtag) window.gtag('event', n, p||{}); }catch(e){} };
+  var hit = {};
+  function depth(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    if (h <= 0) return;
+    var p = Math.round((window.scrollY / h) * 100);
+    [25,50,75,90].forEach(function(t){
+      if (p >= t && !hit[t]) { hit[t] = 1; G('scroll_depth', {percent: t}); }
+    });
+  }
+  var tick;
+  addEventListener('scroll', function(){
+    if (tick) return;
+    tick = setTimeout(function(){ tick = null; depth(); }, 250);
+  }, {passive:true});
+  depth();
+  var TARGETS = ['/shindan/','/download/','/#contact','#contact','/seminar/','/keiei/'];
+  document.addEventListener('click', function(ev){
+    var a = ev.target.closest ? ev.target.closest('a') : null;
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (TARGETS.indexOf(href) === -1) return;
+    G('cta_click', {link_url: href, link_text: (a.innerText||'').trim().slice(0,40)});
+  }, true);
+})();
+</script>
+
+</body>
+</html>
