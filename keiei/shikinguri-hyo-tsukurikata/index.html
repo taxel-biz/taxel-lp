@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TMK64P44XG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TMK64P44XG');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>資金繰り表の作り方｜3ヶ月先を読む最小構成は「7行」でいい ― Taxel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: {
+    fontFamily: { sans: ['Inter', '"Noto Sans JP"', 'sans-serif'] },
+    colors: { ink: '#0B1220', paper: '#FCFCFB' },
+    boxShadow: { soft: '0 1px 2px rgba(15,23,42,0.04), 0 1px 1px rgba(15,23,42,0.03)', card: '0 1px 3px rgba(15,23,42,0.05), 0 12px 32px -12px rgba(15,23,42,0.12)' },
+  } } }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-feature-settings: "palt"; }
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .article p { margin-bottom: 1.1em; }
+  .article h2 { font-size: 19px; font-weight: 700; margin-top: 2em; margin-bottom: 0.7em; }
+  .article h3 { font-size: 15.5px; font-weight: 700; margin-top: 1.5em; margin-bottom: 0.5em; }
+  .article ul, .article ol { padding-left: 1.4em; margin-bottom: 1.1em; }
+  .article ul { list-style: disc; }
+  .article ol { list-style: decimal; }
+  .article li { margin-bottom: 0.4em; }
+  .article table { width: 100%; border-collapse: collapse; margin-bottom: 1.1em; font-size: 13px; }
+  .article th, .article td { border: 1px solid #e2e8f0; padding: 8px 10px; text-align: left; vertical-align: top; }
+  .article th { background: #f8fafc; font-weight: 700; }
+  .article .note { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; font-size: 13px; margin-bottom: 1.2em; }
+  .article .tablewrap { overflow-x: auto; }
+  .article a { color: #0B1220; text-decoration: underline; text-underline-offset: 2px; }
+</style>
+<meta name="description" content="資金繰り表は最初から20行のひな形を埋めなくても作れます。月初残高・入金・仕入支払・固定費・大きな支払い・返済・月末残高の7行で3ヶ月先まで。入金の遅れは決算書の売掛金から1本の数字で出せます。税金・賞与の支払月カレンダーと記入例つき。">
+<link rel="canonical" href="https://www.taxel.biz/keiei/shikinguri-hyo-tsukurikata/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Taxel">
+<meta property="og:title" content="資金繰り表の作り方｜3ヶ月先を読む最小構成は「7行」でいい">
+<meta property="og:description" content="7行・3ヶ月で作る資金繰り表。入金の遅れは決算書から出し、税金と賞与の月を先に書き込みます。">
+<meta property="og:image" content="https://www.taxel.biz/ogp.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://www.taxel.biz/ogp.png">
+<meta property="og:url" content="https://www.taxel.biz/keiei/shikinguri-hyo-tsukurikata/">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "資金繰り表の作り方｜3ヶ月先を読む最小構成は「7行」でいい",
+  "description": "7行・3ヶ月で作る資金繰り表。入金の遅れは決算書から出し、税金と賞与の月を先に書き込みます。",
+  "image": "https://www.taxel.biz/ogp.png",
+  "inLanguage": "ja",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.taxel.biz/keiei/shikinguri-hyo-tsukurikata/"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "平澤 建",
+    "jobTitle": "Taxel 代表"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Taxel",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.taxel.biz/apple-touch-icon.png"
+    }
+  },
+  "datePublished": "2026-09-30"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.taxel.biz/" },
+    { "@type": "ListItem", "position": 2, "name": "経営の数字", "item": "https://www.taxel.biz/keiei/" },
+    { "@type": "ListItem", "position": 3, "name": "資金繰り表の作り方", "item": "https://www.taxel.biz/keiei/shikinguri-hyo-tsukurikata/" }
+  ]
+}
+</script>
+</head>
+<body class="bg-paper text-ink antialiased">
+
+<header class="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-slate-200/70">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a class="flex items-center gap-2" href="/">
+      <div class="w-7 h-7 rounded-[9px] bg-ink flex items-center justify-center"><span class="text-white text-[13px] font-bold">T</span></div>
+      <span class="text-[15px] font-bold tracking-tight">Taxel</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-[13.5px] text-slate-600 font-medium">
+      <a class="hover:text-ink transition-colors" href="/#features">機能</a>
+      <a class="hover:text-ink transition-colors" href="/#pricing">料金</a>
+      <a class="text-ink transition-colors" href="/keiei/">経営の数字</a>
+      <a href="/company/" class="hover:text-ink transition-colors">会社概要</a>
+    </nav>
+    <a class="text-[13.5px] font-semibold bg-ink text-white px-4 py-2 rounded-lg hover:bg-slate-800 transition-colors shadow-soft" href="/shindan/">無料で決算書を診断する</a>
+  </div>
+</header>
+
+<article class="max-w-2xl mx-auto px-6 py-16">
+  <a class="reveal inline-flex items-center gap-1.5 text-[12.5px] text-slate-400 hover:text-ink mb-8" href="/keiei/">← 経営の数字トップに戻る</a>
+
+  <div class="reveal flex items-center gap-2 mb-4">
+    <span class="text-[11px] font-semibold text-white bg-ink px-2.5 py-1 rounded-full">社長向け</span>
+    <span class="text-[11.5px] font-semibold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">資金繰り</span>
+  </div>
+  <h1 class="reveal text-[26px] sm:text-[32px] font-extrabold tracking-tight leading-tight mb-4">資金繰り表の作り方｜3ヶ月先を読む最小構成は「7行」でいい</h1>
+  <p class="reveal text-[12.5px] text-slate-400 mb-10">2026.09.30・平澤 建</p>
+
+  <div class="article text-[14.5px] text-slate-600 leading-[1.9]">
+
+    <p>「資金繰り表 作り方」で検索すると、エクセルのひな形と、通帳から入出金を書き写す手順が並びます。どれも間違ってはいません。ただ、実際にやってみると多くの社長が2ヶ月目で手が止まります。</p>
+
+    <p>止まる理由はだいたい2つです。<strong>行が多すぎて埋まらないこと</strong>と、<strong>「来月いくら入るか」を何を根拠に置けばいいか分からないこと</strong>です。</p>
+
+    <p>この記事では、行を7行まで削った最小構成と、予測の根拠を<strong>決算書から出す方法</strong>を説明します。最初の1枚は、1時間あれば作れます。</p>
+
+    <h2>結論：最初は「3ヶ月・7行」で作りましょう</h2>
+
+    <p>先に完成形を見せます。最初の資金繰り表は、この7行で十分です。</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th>行</th><th>中身</th><th>数字の置き方</th></tr>
+      <tr><td>① 月初の残高</td><td>全口座＋手元現金の合計</td><td>通帳の実残高（帳簿の数字ではない）</td></tr>
+      <tr><td>② 入金</td><td>売上の回収</td><td>「何ヶ月前の売上が入るか」で置く</td></tr>
+      <tr><td>③ 仕入・外注の支払い</td><td>売上に連動する支払い</td><td>売上 × 原価率を、支払月にずらして置く</td></tr>
+      <tr><td>④ 毎月の固定的な支払い</td><td>人件費・家賃・リース・通信費など</td><td>直近3ヶ月の平均をそのまま置く</td></tr>
+      <tr><td>⑤ 一度に大きく出る支払い</td><td>税金・賞与・社会保険料の上乗せなど</td><td>カレンダーから該当月にだけ置く</td></tr>
+      <tr><td>⑥ 借入の返済</td><td>元金＋利息</td><td>返済予定表から写す</td></tr>
+      <tr><td>⑦ 月末の残高</td><td>① ＋ ② − ③ − ④ − ⑤ − ⑥</td><td>計算するだけ。これが翌月の①になる</td></tr>
+    </table>
+    </div>
+
+    <p>検索上位の記事に載っているひな形は、経常収支・財務収支・設備投資と細かく分かれていて、20〜30行あるものが多くあります。銀行に提出する段階ではその形が必要になりますが、<strong>「来月・再来月にお金が足りるか」を知るだけなら7行で答えが出ます。</strong>細かい行は、7行が3ヶ月続けて回ってから足せば間に合います。</p>
+
+    <h2>1. 起点は「通帳の残高」。帳簿の現預金から始めない</h2>
+
+    <p>最初の行は、全口座の残高と手元現金を足した実額です。<strong>試算表の「現金預金」の数字は使いません。</strong>記帳が月末から数週間遅れて締まる会社では、試算表の現預金は最大で1ヶ月以上前の姿です。資金繰り表は「今、使えるお金」から出発しないと、最初の1行でズレます。</p>
+
+    <p>定期預金や、借入の担保に入っている預金は分けて書いておきましょう。残高には見えていても、今月の支払いには使えないお金です。</p>
+
+    <h2>2. 入金は「売上」ではなく「回収」で置く。根拠は決算書から出せる</h2>
+
+    <p>一番つまずくのがここです。来月の入金を「来月の売上見込み」で置くと、ほぼ確実に外れます。<strong>掛けで売っている会社の入金は、売上の数ヶ月後にやってくるからです。</strong></p>
+
+    <p>「何ヶ月遅れで入るか」は、取引先ごとの締め日と支払日から決めるのが正確ですが、取引先が多いと手間がかかります。そこで、<strong>決算書の2つの数字から、会社全体の平均を1本で出す</strong>方法を使います。</p>
+
+    <div class="note">
+      <strong>回収までの月数 ＝ 売掛金（＋受取手形）÷ 月の平均売上</strong><br>
+      例：年商1億2,000万円（月1,000万円）、決算書の売掛金が2,000万円 → 2,000 ÷ 1,000 ＝ <strong>2.0ヶ月</strong><br>
+      → 「今月の入金 ≒ 2ヶ月前の売上」と置けばよい、ということです。<br>
+      <span class="text-slate-500">※ 数値は説明のための仮定です。決算月の売上が季節で膨らむ会社では、月数が実態より長く出ます。</span>
+    </div>
+
+    <p>支払い側も同じ式で出せます。<strong>買掛金 ÷ 月の平均仕入</strong>が、仕入れてから払うまでの月数です。入金が2ヶ月後、支払いが1ヶ月後なら、その差の1ヶ月分は会社が立て替えている、ということになります。売上が伸びる月ほどお金が足りなくなるのは、この立て替えが膨らむからです。</p>
+
+    <h2>3. 「一度に大きく出る月」を先に書き込む</h2>
+
+    <p>毎月の支払いは、先月と大きく変わりません。資金繰りが崩れるのは、<strong>年に数回だけ大きく出ていく支払いを忘れていた月</strong>です。7行のうち⑤の行だけは、まずカレンダーを見て該当月に書き込みましょう。</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th>支払い</th><th>いつ出るか</th><th>確認するもの</th></tr>
+      <tr><td>法人税・消費税（確定申告）</td><td>決算日の翌日から2ヶ月以内</td><td>前期の申告書</td></tr>
+      <tr><td>法人税の中間納付</td><td>前期の法人税額が20万円超なら、期首から6ヶ月経過後2ヶ月以内</td><td>前期の申告書</td></tr>
+      <tr><td>消費税の中間納付</td><td>前期の消費税額（国税分）が48万円超で年1回、400万円超で年3回、4,800万円超で年11回</td><td>前期の申告書</td></tr>
+      <tr><td>賞与</td><td>支給月（夏・冬など）</td><td>就業規則・前年実績</td></tr>
+      <tr><td>社会保険料の上乗せ</td><td>賞与を払った月の翌月末（賞与にも保険料がかかる）</td><td>前年の賞与月の通帳</td></tr>
+      <tr><td>源泉所得税（納期の特例を受けている場合）</td><td>1〜6月分を7月10日、7〜12月分を翌年1月20日にまとめて納付</td><td>特例の承認の有無</td></tr>
+      <tr><td>労働保険料（年度更新）</td><td>6月1日〜7月10日</td><td>前年の申告書</td></tr>
+      <tr><td>固定資産税・自動車税など</td><td>自治体の納期（固定資産税は年4回が一般的）</td><td>納税通知書</td></tr>
+    </table>
+    </div>
+
+    <p class="text-[12.5px] text-slate-500">※ 納期は国税庁・日本年金機構・厚生労働省の公表内容にもとづく一般的なルールです。延納・特例の有無で会社ごとに変わるため、実際の納付月は前期の通帳と申告書で確認してください。</p>
+
+    <h2>4. 作ってみる：利益が出ている3ヶ月でも、お金は減る</h2>
+
+    <p>ここまでの手順で、仮の会社の3ヶ月分を作ってみます。9月決算、月商約1,000万円、原価率50％、回収2ヶ月・支払い1ヶ月、12月に賞与、という設定です。<strong>数字はすべて説明用の仮定で、特定の会社のものではありません。</strong></p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th>（単位：万円）</th><th>10月</th><th>11月</th><th>12月</th></tr>
+      <tr><td>① 月初の残高</td><td>1,500</td><td>1,600</td><td>1,200</td></tr>
+      <tr><td>② 入金（2ヶ月前の売上）</td><td>1,000</td><td>900</td><td>1,100</td></tr>
+      <tr><td>③ 仕入・外注の支払い</td><td>450</td><td>550</td><td>500</td></tr>
+      <tr><td>④ 毎月の固定的な支払い</td><td>350</td><td>350</td><td>350</td></tr>
+      <tr><td>⑤ 一度に大きく出る支払い</td><td>0</td><td>300（法人税・消費税の確定分）</td><td>400（賞与）</td></tr>
+      <tr><td>⑥ 借入の返済</td><td>100</td><td>100</td><td>100</td></tr>
+      <tr><td><strong>⑦ 月末の残高</strong></td><td><strong>1,600</strong></td><td><strong>1,200</strong></td><td><strong>950</strong></td></tr>
+    </table>
+    </div>
+
+    <p>この会社は、月々の損益で見れば1ヶ月あたり約150万円の黒字です（売上1,000万円 − 原価500万円 − 固定費350万円。年2回の賞与を12ヶ月に按分しても黒字は残ります）。それでも<strong>3ヶ月で現金は1,500万円から950万円へ、550万円減ります。</strong>税金と賞与が同じ四半期に重なり、しかも返済は利益ではなく手元のお金から出ていくからです。</p>
+
+    <p>試算表だけを見ていると、この減り方は12月末まで見えません。7行の表を3ヶ月先まで書いておけば、<strong>10月の時点で「12月末に1,000万円を切る」と分かります。</strong>分かっていれば、賞与の額を決める前に手を打てます。</p>
+
+    <h3>「ここを下回ったら動く」線を1本引く</h3>
+
+    <p>表ができたら、月末残高に最低ラインを1本引きましょう。筆者は目安として、<strong>④毎月の固定的な支払い＋⑥返済の1ヶ月分</strong>を使っています。上の例なら450万円です。売上の入金が1ヶ月まるごと遅れても、給与と返済は止めずに済む水準です。この線に3ヶ月以内に近づく月があれば、そこが動き出すタイミングです。</p>
+
+    <h2>5. 作ったあとに外しやすい3つのポイント</h2>
+
+    <ol>
+      <li><strong>見込みと実績を上書きしない。</strong>月が終わったら、見込みの横に実績を並べて差を1行で書きます。「入金が50万円少なかった＝A社の支払いが翌月にずれた」。この1行が、翌月の予測を正確にします。</li>
+      <li><strong>消費税を売上の一部として数えない。</strong>入金額には預かった消費税が含まれています。⑤の行に確定申告分と中間納付分を必ず置き、入金の全額を使えるお金と見なさないようにしましょう。</li>
+      <li><strong>3ヶ月より先を細かく作り込まない。</strong>4ヶ月目以降は外れる前提で、月ごとの合計だけを置けば足ります。精度を上げる努力は、目の前の3ヶ月に集中させるほうが効きます。</li>
+    </ol>
+
+    <h2>6. 「資金繰り表は誰が作るのか」への答え</h2>
+
+    <p>Googleの「関連する質問」にも「資金繰り表は誰が作るの？」が出てきます。結論から言うと、<strong>資金繰り表は会社が作るものです。</strong>標準的な顧問契約には含まれていないことがほとんどです（<a href="/keiei/zeirishi-komonryo-souba/">顧問料の相場と中身</a>で詳しく書きました）。</p>
+
+    <p>私たちは税理士事務所向けのツール（Taxel）を開発する過程で、税理士の先生方へのヒアリングを重ねてきました。2026年9月の面談では、ある先生から次のような話を聞いています。</p>
+
+    <ul>
+      <li>借入のある顧問先については、<strong>資金繰り表を毎月、金融機関へ送っている</strong>。</li>
+      <li>融資や補助金の申請では、<strong>「今のまま横ばい」という計画はまず通らない</strong>。先の数字を示すことが事実上の前提になっている。</li>
+      <li>一方で、<strong>未来の数字を作る作業は、税理士も社長も「できればやりたくない」</strong>。だから誰も手を付けないまま空いている。</li>
+    </ul>
+
+    <p class="text-[12.5px] text-slate-500">※ 融資審査の運用については、実務家1名の証言として紹介しています。金融機関ごとに扱いは異なります。</p>
+
+    <p>ここから言えることは、<strong>7行の表を社長が作って先生に見せるのが、一番早く回る分担だということです。</strong>ゼロから頼むと「顧問料の範囲外」になりますが、できあがった表に「⑤の税金の月と金額が合っているか見てください」と頼むのは、先生が本業で答えられる質問です。</p>
+
+    <h2>まとめ：今日やること3つ</h2>
+
+    <ol>
+      <li><strong>全口座の今日の残高を足す。</strong>それが①の行です。帳簿の数字は使いません。</li>
+      <li><strong>決算書を1冊出して、売掛金 ÷ 月の平均売上を計算する。</strong>入金が何ヶ月遅れで入るかが1本の数字で決まります。</li>
+      <li><strong>前期の申告書と通帳を見て、⑤の行に向こう3ヶ月分の大きな支払いを書き込む。</strong>ここまで埋まれば、資金繰り表の8割はできています。</li>
+    </ol>
+
+    <p>お金が足りなくなりそうな月が見えたら、次は打ち手の順番です。<a href="/keiei/shikinguri-kaizen/">資金繰りを改善する順番</a>で、「一度きりで効く手」と「毎月効く手」の分け方を書いています。3ヶ月先を読む考え方そのものは<a href="/column/shikinguri-yosoku/">3ヶ月先を予測する考え方</a>もあわせてどうぞ。</p>
+
+
+  </div>
+
+  <div class="reveal mt-12 bg-slate-50 border border-slate-200 rounded-2xl p-6">
+    <p class="text-[11.5px] font-semibold text-slate-400 mb-2.5">執筆</p>
+    <p class="text-[14px] font-bold mb-1.5">平澤 建（ひらさわ たける）</p>
+    <p class="text-[12.5px] text-slate-600 leading-relaxed mb-3">
+      Taxel 代表。中小企業向けにKPI経営の伴走支援とEC運用支援を行っています。
+      税理士の先生方へのヒアリングを重ね、いただいた要望をそのまま機能にする形でTaxelを開発しています。
+    </p>
+    <p class="text-[11.5px] text-slate-400 leading-relaxed">
+      ※ 本記事は一般的な情報提供を目的としたものです。記入例の数値はすべて説明用の仮定であり、特定の会社のものではありません。納期は2026年9月時点の一般的なルールで、特例の有無により会社ごとに異なります。筆者は税理士ではありません。個別の税務のご判断は、顧問税理士にご確認ください。
+    </p>
+  </div>
+
+  <div class="reveal mt-14 bg-white border border-slate-200 rounded-2xl p-6 shadow-card text-center">
+    <p class="text-[14px] font-bold mb-2">3ヶ月先の資金、決算書から一緒に見てみませんか</p>
+    <p class="text-[12.5px] text-slate-500 mb-4">決算書を1期分お送りいただくと、資金繰りと収益構造のポイントを無料で診断してお返しします。</p>
+    <div class="flex flex-wrap gap-2.5 justify-center">
+      <a class="inline-block bg-ink text-white text-[13.5px] font-semibold px-5 py-2.5 rounded-lg hover:bg-slate-800 transition-colors" href="/shindan/">無料で決算書を診断する</a>
+    </div>
+  </div>
+</article>
+
+<footer class="border-t border-slate-100 bg-white">
+  <div class="max-w-6xl mx-auto px-6 py-10 text-center text-[12px] text-slate-400">© 2026 Taxel. All rights reserved.</div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+<!-- TRACKING -->
+<script>
+(function(){
+  var G = function(n,p){ try{ if(window.gtag) window.gtag('event', n, p||{}); }catch(e){} };
+  var hit = {};
+  function depth(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    if (h <= 0) return;
+    var p = Math.round((window.scrollY / h) * 100);
+    [25,50,75,90].forEach(function(t){
+      if (p >= t && !hit[t]) { hit[t] = 1; G('scroll_depth', {percent: t}); }
+    });
+  }
+  var tick;
+  addEventListener('scroll', function(){
+    if (tick) return;
+    tick = setTimeout(function(){ tick = null; depth(); }, 250);
+  }, {passive:true});
+  depth();
+  var TARGETS = ['/shindan/','/download/','/#contact','#contact','/seminar/','/keiei/'];
+  document.addEventListener('click', function(ev){
+    var a = ev.target.closest ? ev.target.closest('a') : null;
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (TARGETS.indexOf(href) === -1) return;
+    G('cta_click', {link_url: href, link_text: (a.innerText||'').trim().slice(0,40)});
+  }, true);
+})();
+</script>
+
+</body>
+</html>
