@@ -12,7 +12,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>会計事務所のAI導入、実際どこで外れるのか｜開発側から見た3つの実測 ― Taxel ブログ</title>
+<title>会計事務所のAI導入、実際どこで外れるのか｜開発側から見た3つの実測 ― taXel ブログ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -45,8 +45,8 @@
 <meta name="description" content="会計事務所のAI活用は「何ができるか」より「どこで外れるか」を知っておくほうが実務では役に立ちます。税理士向けAIツールを自社開発する中で実測した、待ち時間の設計・数字と文章のズレ・レビュー回数の3点を公開します。">
 <link rel="canonical" href="https://www.taxel.biz/column/kaikei-jimusho-ai/">
 <meta property="og:type" content="article">
-<meta property="og:site_name" content="Taxel">
-<meta property="og:title" content="会計事務所のAI導入、実際どこで外れるのか｜開発側から見た3つの実測 ― Taxel ブログ">
+<meta property="og:site_name" content="taXel">
+<meta property="og:title" content="会計事務所のAI導入、実際どこで外れるのか｜開発側から見た3つの実測 ― taXel ブログ">
 <meta property="og:description" content="会計事務所のAI活用で「どこが外れるか」。税理士向けAIツールを開発する中で実測した3点を公開します。">
 <meta property="og:image" content="https://www.taxel.biz/ogp.png">
 <meta property="og:image:width" content="1200">
@@ -72,11 +72,11 @@
   "author": {
     "@type": "Person",
     "name": "平澤 建",
-    "jobTitle": "Taxel 代表"
+    "jobTitle": "taXel 代表"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "Taxel",
+    "name": "taXel",
     "logo": {
       "@type": "ImageObject",
       "url": "https://www.taxel.biz/apple-touch-icon.png"
@@ -102,8 +102,7 @@
 <header class="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-slate-200/70">
   <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
     <a class="flex items-center gap-2" href="/">
-      <div class="w-7 h-7 rounded-[9px] bg-ink flex items-center justify-center"><span class="text-white text-[13px] font-bold">T</span></div>
-      <span class="text-[15px] font-bold tracking-tight">Taxel</span>
+      <a href="/" class="flex items-center"><img src="/assets/brand/taxel-logo.png" alt="taXel タクセル" class="h-9 w-auto"></a>
     </a>
     <nav class="hidden md:flex items-center gap-8 text-[13.5px] text-slate-600 font-medium">
       <a class="hover:text-ink transition-colors" href="/#features">機能</a>
@@ -129,7 +128,7 @@
 
     <p>「会計事務所 AI」で検索すると、活用事例と未来予測の記事がずらりと出てきます。記帳の自動化、月次レポートの自動生成、問い合わせ対応。どれも間違っていませんが、<strong>実際に事務所へ入れるときに必要なのは「何ができるか」ではなく「どこで外れるか」の情報</strong>です。そこはほとんど書かれていません。</p>
 
-    <p>私たちは税理士事務所向けのAI経営支援ツール（Taxel）を自社で開発しています。この記事では、その開発の中で実際に踏んだ失敗を3つ、数字つきで公開します。ツールを内製する先生にも、既製品を選ぶ先生にも、そのまま判断材料になるはずです。</p>
+    <p>私たちは税理士事務所向けのAI経営支援ツール（taXel）を自社で開発しています。この記事では、その開発の中で実際に踏んだ失敗を3つ、数字つきで公開します。ツールを内製する先生にも、既製品を選ぶ先生にも、そのまま判断材料になるはずです。</p>
 
     <h2>結論：AIに文章を書かせ、数字はプログラムに計算させる</h2>
 
@@ -139,7 +138,7 @@
 
     <h2>実測1：AIの応答は速くない。1回の分析に約5分かかる</h2>
 
-    <p>Taxelでは、決算書から財務分析と提案を生成する処理を動かしています。この1回の処理で、AIに渡している情報量は<strong>約16,000トークン</strong>（日本語でおよそ1万字強）、返ってくるまでの時間は<strong>約5分</strong>です。</p>
+    <p>taXelでは、決算書から財務分析と提案を生成する処理を動かしています。この1回の処理で、AIに渡している情報量は<strong>約16,000トークン</strong>（日本語でおよそ1万字強）、返ってくるまでの時間は<strong>約5分</strong>です。</p>
 
     <p>「AIなら一瞬」というイメージと、実際の体感はまったく違います。そして5分間、画面に何も出ないと、人は<strong>「固まった」と判断してもう一度ボタンを押します。</strong>押した分だけ処理が二重に走り、費用も倍かかります。実際に私たちはこれを踏み、進行状況を出す画面と、二重起動を止める仕組みを後から入れました。</p>
 
@@ -223,8 +222,8 @@
     <p class="text-[11.5px] font-semibold text-slate-400 mb-2.5">執筆</p>
     <p class="text-[14px] font-bold mb-1.5">平澤 建（ひらさわ たける）</p>
     <p class="text-[12.5px] text-slate-600 leading-relaxed mb-3">
-      Taxel 代表。中小企業向けにKPI経営の伴走支援とEC運用支援を行っています。
-      税理士の先生方へのヒアリングを重ね、いただいた要望をそのまま機能にする形でTaxelを開発しています。
+      taXel 代表。中小企業向けにKPI経営の伴走支援とEC運用支援を行っています。
+      税理士の先生方へのヒアリングを重ね、いただいた要望をそのまま機能にする形でtaXelを開発しています。
     </p>
     <p class="text-[11.5px] text-slate-400 leading-relaxed">
       ※ 本記事は一般的な情報提供を目的としたものです。記載した数値は自社開発における実測値であり、他のツール・環境での結果を保証するものではありません。筆者は税理士ではありません。
@@ -233,7 +232,7 @@
 
   <div class="reveal mt-14 bg-white border border-slate-200 rounded-2xl p-6 shadow-card text-center">
     <p class="text-[14px] font-bold mb-2">顧問先への説明資料、作る時間はありますか</p>
-    <p class="text-[12.5px] text-slate-500 mb-4">Taxelが決算書から自動生成する「社長向け月次報告」の実物サンプルを無料でお送りします。</p>
+    <p class="text-[12.5px] text-slate-500 mb-4">taXelが決算書から自動生成する「社長向け月次報告」の実物サンプルを無料でお送りします。</p>
     <div class="flex flex-wrap gap-2.5 justify-center">
       <a class="inline-block bg-ink text-white text-[13.5px] font-semibold px-5 py-2.5 rounded-lg hover:bg-slate-800 transition-colors" href="/download/">資料を受け取る（無料）</a>
       <a class="inline-block bg-white border border-slate-200 text-[13.5px] font-semibold px-5 py-2.5 rounded-lg hover:border-slate-300 transition-colors" href="/#contact">デモを予約する</a>
@@ -242,7 +241,7 @@
 </article>
 
 <footer class="border-t border-slate-100 bg-white">
-  <div class="max-w-6xl mx-auto px-6 py-10 text-center text-[12px] text-slate-400">© 2026 Taxel. All rights reserved.</div>
+  <div class="max-w-6xl mx-auto px-6 py-10 text-center text-[12px] text-slate-400">© 2026 taXel. All rights reserved.</div>
 </footer>
 
 <script>
