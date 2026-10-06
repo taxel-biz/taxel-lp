@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TMK64P44XG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TMK64P44XG');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>運転資金の計算式｜「売掛金＋在庫−買掛金」と、足りなくなる前の4つのサイン ― Taxel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: {
+    fontFamily: { sans: ['Inter', '"Noto Sans JP"', 'sans-serif'] },
+    colors: { ink: '#0B1220', paper: '#FCFCFB' },
+    boxShadow: { soft: '0 1px 2px rgba(15,23,42,0.04), 0 1px 1px rgba(15,23,42,0.03)', card: '0 1px 3px rgba(15,23,42,0.05), 0 12px 32px -12px rgba(15,23,42,0.12)' },
+  } } }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-feature-settings: "palt"; }
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .article p { margin-bottom: 1.1em; }
+  .article h2 { font-size: 19px; font-weight: 700; margin-top: 2em; margin-bottom: 0.7em; }
+  .article h3 { font-size: 15.5px; font-weight: 700; margin-top: 1.5em; margin-bottom: 0.5em; }
+  .article ul, .article ol { padding-left: 1.4em; margin-bottom: 1.1em; }
+  .article ul { list-style: disc; }
+  .article ol { list-style: decimal; }
+  .article li { margin-bottom: 0.4em; }
+  .article table { width: 100%; border-collapse: collapse; margin-bottom: 1.1em; font-size: 13px; }
+  .article th, .article td { border: 1px solid #e2e8f0; padding: 8px 10px; text-align: left; vertical-align: top; }
+  .article th { background: #f8fafc; font-weight: 700; }
+  .article .note { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; font-size: 13px; margin-bottom: 1.2em; }
+  .article .tablewrap { overflow-x: auto; }
+  .article a { color: #0B1220; text-decoration: underline; text-underline-offset: 2px; }
+</style>
+<meta name="description" content="運転資金は「売掛金＋在庫−買掛金」で、決算書の3つの数字から自分で出せます。月商1,000万円の仮定例で計算し、売上が伸びると運転資金が先に増える理由と、足りなくなる前に見る4つのサイン、不足したときの順番を説明します。">
+<link rel="canonical" href="https://www.taxel.biz/keiei/untenshikin-keisan/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Taxel">
+<meta property="og:title" content="運転資金の計算式｜「売掛金＋在庫−買掛金」と、足りなくなる前の4つのサイン">
+<meta property="og:description" content="運転資金は決算書の3つの数字から出せます。計算例・売上が伸びたときの増え方・足りなくなる前のサインをまとめました。">
+<meta property="og:image" content="https://www.taxel.biz/ogp.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://www.taxel.biz/ogp.png">
+<meta property="og:url" content="https://www.taxel.biz/keiei/untenshikin-keisan/">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "運転資金の計算式｜「売掛金＋在庫−買掛金」と、足りなくなる前の4つのサイン",
+  "description": "運転資金は決算書の3つの数字から出せます。計算例・売上が伸びたときの増え方・足りなくなる前のサインをまとめました。",
+  "image": "https://www.taxel.biz/ogp.png",
+  "inLanguage": "ja",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.taxel.biz/keiei/untenshikin-keisan/"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "平澤 建",
+    "jobTitle": "Taxel 代表"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Taxel",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.taxel.biz/apple-touch-icon.png"
+    }
+  },
+  "datePublished": "2026-10-06"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.taxel.biz/" },
+    { "@type": "ListItem", "position": 2, "name": "経営の数字", "item": "https://www.taxel.biz/keiei/" },
+    { "@type": "ListItem", "position": 3, "name": "運転資金の計算", "item": "https://www.taxel.biz/keiei/untenshikin-keisan/" }
+  ]
+}
+</script>
+</head>
+<body class="bg-paper text-ink antialiased">
+
+<header class="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-slate-200/70">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a class="flex items-center gap-2" href="/">
+      <div class="w-7 h-7 rounded-[9px] bg-ink flex items-center justify-center"><span class="text-white text-[13px] font-bold">T</span></div>
+      <span class="text-[15px] font-bold tracking-tight">Taxel</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-[13.5px] text-slate-600 font-medium">
+      <a class="hover:text-ink transition-colors" href="/#features">機能</a>
+      <a class="hover:text-ink transition-colors" href="/#pricing">料金</a>
+      <a class="text-ink transition-colors" href="/keiei/">経営の数字</a>
+      <a href="/company/" class="hover:text-ink transition-colors">会社概要</a>
+    </nav>
+    <a class="text-[13.5px] font-semibold bg-ink text-white px-4 py-2 rounded-lg hover:bg-slate-800 transition-colors shadow-soft" href="/shindan/">無料で決算書を診断する</a>
+  </div>
+</header>
+
+<article class="max-w-2xl mx-auto px-6 py-16">
+  <a class="reveal inline-flex items-center gap-1.5 text-[12.5px] text-slate-400 hover:text-ink mb-8" href="/keiei/">← 経営の数字トップに戻る</a>
+
+  <div class="reveal flex items-center gap-2 mb-4">
+    <span class="text-[11px] font-semibold text-white bg-ink px-2.5 py-1 rounded-full">社長向け</span>
+    <span class="text-[11.5px] font-semibold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">資金繰り</span>
+  </div>
+  <h1 class="reveal text-[26px] sm:text-[32px] font-extrabold tracking-tight leading-tight mb-4">運転資金の計算式｜「売掛金＋在庫−買掛金」と、足りなくなる前の4つのサイン</h1>
+  <p class="reveal text-[12.5px] text-slate-400 mb-10">2026.10.06・平澤 建</p>
+
+  <div class="article text-[14.5px] text-slate-600 leading-[1.9]">
+
+    <p>「運転資金はいくら必要ですか」と聞かれて、「売上の3ヶ月分くらい」と答えていませんか。この目安は検索上位の記事にもよく出てきます（2026年10月6日、筆者の検索結果）。ただ、売上の3ヶ月分は、<strong>自社の商売が現金に変わるまでの長さ</strong>とは関係なく決まった数字です。回収に2ヶ月かかる会社と、翌日に現金が入る会社が、同じ額を用意する必要はありません。</p>
+
+    <p>この記事では、運転資金を<strong>決算書の3つの数字から自分で計算する方法</strong>と、売上が伸びたときに足りなくなる理由、そして足りなくなる前のサインを説明します。</p>
+
+    <h2>結論：運転資金＝売掛金＋在庫−買掛金。月数に直すと比べられる</h2>
+
+    <div class="note">
+      <strong>運転資金の計算式</strong><br>
+      運転資金 ＝ 売上債権（売掛金・受取手形）＋ 棚卸資産（在庫）− 仕入債務（買掛金・支払手形）<br>
+      月数にする ＝ 運転資金 ÷ 月商（月平均売上）
+    </div>
+
+    <p>意味はこうです。商品を売っても、代金が入るまでの間は「立て替えている」状態です（売掛金）。仕入れた商品が倉庫にある間も、お金が寝ています（在庫）。一方で、仕入先への支払いを待ってもらっている分は、その分だけ現金が助かっています（買掛金）。<strong>立て替えている額から待ってもらっている額を引いた残りが、会社が自前で用意しておくべきお金</strong>、つまり運転資金です。</p>
+
+    <p>すべて貸借対照表（決算書）の数字なので、<strong>3つ拾えば計算できます</strong>。難しい資料は要りません。</p>
+
+    <h2>計算例：月商1,000万円の会社（仮定値）</h2>
+
+    <p>次の数字は、説明のための仮定値です。実在の会社ではありません。</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th>項目</th><th>金額</th><th>月商に対する月数</th></tr>
+      <tr><td>月商（月平均売上）</td><td>1,000万円</td><td>―</td></tr>
+      <tr><td>売掛金</td><td>2,000万円</td><td>2.0ヶ月</td></tr>
+      <tr><td>在庫</td><td>600万円</td><td>0.6ヶ月</td></tr>
+      <tr><td>買掛金</td><td>800万円</td><td>0.8ヶ月</td></tr>
+      <tr><td><strong>運転資金</strong></td><td><strong>1,800万円</strong>（2,000＋600−800）</td><td><strong>1.8ヶ月</strong></td></tr>
+    </table>
+    </div>
+
+    <p>この会社の運転資金は1,800万円、月商の1.8ヶ月分です。「3ヶ月分」と覚えている人は、3,000万円を用意すると考えてしまいます。実際に必要なのは1,800万円で、1,200万円の差があります。逆に、回収が長い業種では3ヶ月でも足りません。</p>
+
+    <p>月数に直すメリットは、<strong>前期の自社と比べられること</strong>です。去年1.5ヶ月だったものが1.8ヶ月になっていれば、同じ売上でも必要な現金が増えています。</p>
+
+    <h2>売上が伸びるほど、運転資金は先に足りなくなる</h2>
+
+    <p>上の会社の月商が、1,000万円から1,200万円に20%伸びたとします。回収や支払いの条件が変わらなければ、運転資金も20%増えます。</p>
+
+    <ul>
+      <li>運転資金：1,800万円 × 1.2 ＝ 2,160万円</li>
+      <li>増える額：<strong>360万円</strong></li>
+    </ul>
+
+    <p>売上が伸びて利益が出ても、<strong>その利益が入金される前に、立て替えの額が先に膨らみます</strong>。黒字なのに預金が減っていく「黒字倒産」の入口はここです。売上を伸ばす計画を立てるときは、増える運転資金を一緒に計算しておきましょう。</p>
+
+    <p>もう1つ、回収条件の変化も効きます。大口の取引先から「支払いを翌月末から翌々月末にしてほしい」と言われて受けると、回収が1ヶ月延びます。上の会社なら、<strong>月商1,000万円 × 1ヶ月＝1,000万円</strong>が追加で必要になります。取引条件の変更は、金額に直してから返事をしましょう。</p>
+
+    <h2>足りなくなる前に見る4つのサイン</h2>
+
+    <ol>
+      <li><strong>売上は増えているのに、預金が減っている。</strong>運転資金の増加が利益を上回っています。</li>
+      <li><strong>売掛金の月数が、前期より延びている。</strong>回収が遅れているか、遅い取引先の比率が上がっています。</li>
+      <li><strong>買掛金の月数が、前期より縮んでいる。</strong>仕入先から支払いの短縮を求められると、その分がそのまま運転資金の増加になります。</li>
+      <li><strong>在庫の月数が、売上より速く増えている。</strong>仕入れ過ぎ、または売れ行きの鈍化のサインです。</li>
+    </ol>
+
+    <p>どれも、決算書の2期分があれば今日確認できます。月次の試算表でも、同じ3つの数字を拾えば追えます（<a href="/column/shisanhyo-yomikata/">試算表の見方</a>）。</p>
+
+    <h2>不足が見えたら：返済の順番と借り方</h2>
+
+    <p>運転資金が足りない（または足りなくなりそう）と分かったら、次の順番で考えましょう。</p>
+
+    <ol>
+      <li><strong>回収を早める・支払いを延ばす。</strong>請求書の発行日を早める、入金サイトの短い取引先を増やす。借りる前にできる、費用のかからない手です。</li>
+      <li><strong>在庫を減らす。</strong>動きの遅い商品から先に処分すると、寝ているお金が戻ります。</li>
+      <li><strong>それでも足りない分を、運転資金として借りる。</strong>金融機関は決算書から売掛金・在庫・買掛金で運転資金を計算するのが一般的です。ただし算定の細かい方法（期間の平均を取る等）は金融機関ごとに違うため、窓口で確認してください。</li>
+    </ol>
+
+    <p>借りる場合は、3ヶ月先までの現金の動きを表にして持っていくと話が早くなります。作り方は<a href="/keiei/shikinguri-hyo-tsukurikata/">資金繰り表の作り方</a>に7行の最小構成で書きました。全体の打ち手は<a href="/keiei/shikinguri-kaizen/">資金繰りを改善する順番</a>にあります。</p>
+
+    <h2>税理士の先生へのヒアリングで聞いたこと</h2>
+
+    <p>Taxelの開発で、税理士の先生に何度かお話を伺いました。ある先生は、2026年6月に「売掛金と入金は同じではないし、税金は先に出ていく。ここが社長に伝わっていない」という趣旨の指摘をされていました。同じ先生は9月に、借入のある顧問先の資金繰り表を毎月金融機関向けに送っていると話していました。1名の実務家の証言なので一般化はできませんが、<strong>運転資金は「計算式を知っているか」より「自社の月数を前期と比べているか」</strong>で差がつく、というのが私の見立てです。</p>
+
+    <p>決算書から3つの数字を拾うときの注意点が1つあります。Taxelの開発で、同じ決算書を「会計ソフトから出力したPDF」と「紙をスキャンしたPDF」で読み取り精度を比べました（2026年9月28日時点・5社17冊）。ソフト出力のPDFは58項目すべて正確、スキャンは88項目中85項目で、毎回1〜3項目、違う箇所で読み違えがありました。サンプルが少ないため統計的な保証はありません。ただ、<strong>売掛金・在庫・買掛金の桁を1つ読み違えるだけで、運転資金は大きくずれます</strong>。決算書は、会計ソフトからPDFで直接出力して使いましょう。</p>
+
+    <h2>まとめ：今日やること3つ</h2>
+
+    <ol>
+      <li><strong>直近2期の決算書から、売掛金・在庫・買掛金を拾う。</strong>月商で割って、それぞれ何ヶ月分かを出します。</li>
+      <li><strong>前期と比べて、延びているものを1つ見つける。</strong>延びた原因（取引先・仕入れ・条件変更）に1つだけ手を打ちましょう。</li>
+      <li><strong>来期の売上計画に、増える運転資金を足す。</strong>「売上増加率 × 現在の運転資金」が、先に必要になる現金です。</li>
+    </ol>
+
+    <p>関連記事：<a href="/keiei/shikinguri-kaizen/">資金繰りを改善する順番</a>／<a href="/keiei/shikinguri-hyo-tsukurikata/">資金繰り表の作り方</a>／<a href="/column/shikinguri-yosoku/">資金繰りの3ヶ月予測</a></p>
+
+
+  </div>
+
+  <div class="reveal mt-12 bg-slate-50 border border-slate-200 rounded-2xl p-6">
+    <p class="text-[11.5px] font-semibold text-slate-400 mb-2.5">執筆</p>
+    <p class="text-[14px] font-bold mb-1.5">平澤 建（ひらさわ たける）</p>
+    <p class="text-[12.5px] text-slate-600 leading-relaxed mb-3">
+      Taxel 代表。中小企業向けにKPI経営の伴走支援とEC運用支援を行っています。
+      税理士の先生方へのヒアリングを重ね、いただいた要望をそのまま機能にする形でTaxelを開発しています。
+    </p>
+    <p class="text-[11.5px] text-slate-400 leading-relaxed">
+      ※ 本記事は一般的な情報提供を目的としたものです。計算例は仮定値であり、実在の会社を示すものではありません。「売上の3ヶ月分」等の目安は一般に紹介されている考え方で、業種により異なります。融資の審査上の運転資金の算定方法は金融機関ごとに異なります。読み取り精度の数値は自社開発ツールでの測定で、サンプル数が少ないため統計的な保証はありません。筆者は税理士ではありません。
+    </p>
+  </div>
+
+  <div class="reveal mt-14 bg-white border border-slate-200 rounded-2xl p-6 shadow-card text-center">
+    <p class="text-[14px] font-bold mb-2">自社の運転資金、決算書から無料で出します</p>
+    <p class="text-[12.5px] text-slate-500 mb-4">決算書を1期分お送りいただくと、売掛金・在庫・買掛金の回転期間と、資金繰りのポイントを無料で診断してお返しします。</p>
+    <div class="flex flex-wrap gap-2.5 justify-center">
+      <a class="inline-block bg-ink text-white text-[13.5px] font-semibold px-5 py-2.5 rounded-lg hover:bg-slate-800 transition-colors" href="/shindan/">無料で決算書を診断する</a>
+    </div>
+  </div>
+</article>
+
+<footer class="border-t border-slate-100 bg-white">
+  <div class="max-w-6xl mx-auto px-6 py-10 text-center text-[12px] text-slate-400">© 2026 Taxel. All rights reserved.</div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+<!-- TRACKING -->
+<script>
+(function(){
+  var G = function(n,p){ try{ if(window.gtag) window.gtag('event', n, p||{}); }catch(e){} };
+  var hit = {};
+  function depth(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    if (h <= 0) return;
+    var p = Math.round((window.scrollY / h) * 100);
+    [25,50,75,90].forEach(function(t){
+      if (p >= t && !hit[t]) { hit[t] = 1; G('scroll_depth', {percent: t}); }
+    });
+  }
+  var tick;
+  addEventListener('scroll', function(){
+    if (tick) return;
+    tick = setTimeout(function(){ tick = null; depth(); }, 250);
+  }, {passive:true});
+  depth();
+  var TARGETS = ['/shindan/','/download/','/#contact','#contact','/seminar/','/keiei/'];
+  document.addEventListener('click', function(ev){
+    var a = ev.target.closest ? ev.target.closest('a') : null;
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (TARGETS.indexOf(href) === -1) return;
+    G('cta_click', {link_url: href, link_text: (a.innerText||'').trim().slice(0,40)});
+  }, true);
+})();
+</script>
+
+</body>
+</html>

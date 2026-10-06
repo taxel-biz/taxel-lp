@@ -30,4 +30,7 @@
   <url><loc>https://www.taxel.biz/keiei/shikinguri-hyo-tsukurikata/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.taxel.biz/keiei/yayoi-ryokin/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.taxel.biz/column/setsumei-shiryo/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.taxel.biz/keiei/untenshikin-keisan/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.taxel.biz/keiei/seikyusho-soft-osusume/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.taxel.biz/column/teian-mae-shitsumon/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>
