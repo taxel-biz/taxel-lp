@@ -20,7 +20,7 @@
 <script>
   tailwind.config = { theme: { extend: {
     fontFamily: { sans: ['Inter', '"Noto Sans JP"', 'sans-serif'] },
-    colors: { ink: '#0B1220', paper: '#FCFCFB' },
+    colors: { ink: '#0E1A33', paper: '#FCFCFB', brand: { 50: '#EEF5FE', 100: '#DCEBFD', 300: '#8CC6FA', 400: '#4AACF7', 500: '#2B78E6', 600: '#1645C4', 700: '#12379D' }, indigo: { 50: '#EEF5FE', 100: '#DCEBFD', 300: '#8CC6FA', 400: '#4AACF7', 500: '#2B78E6', 600: '#1645C4', 700: '#12379D' } },
     boxShadow: { soft: '0 1px 2px rgba(15,23,42,0.04), 0 1px 1px rgba(15,23,42,0.03)', card: '0 1px 3px rgba(15,23,42,0.05), 0 12px 32px -12px rgba(15,23,42,0.12)' },
   } } }
 </script>
@@ -112,8 +112,14 @@
     <a href="/keiei/" class="flex items-center gap-2">
       <img src="/assets/brand/taxel-logo.png" alt="taXel タクセル" class="h-9 w-auto"><span class="text-[15px] font-bold tracking-tight text-slate-400 font-medium ml-1">経営の数字</span>
     </a>
-    <nav class="hidden md:flex items-center gap-7 text-[13.5px] text-slate-600 font-medium">
-      <a href="/keiei/" class="hover:text-ink transition-colors">記事一覧</a>
+    <nav class="hidden lg:flex items-center gap-6 text-[14px] text-ink font-bold">
+      <a class="px-1 py-1 font-bold text-ink border-b-2 border-transparent hover:text-brand-600 hover:border-brand-600 transition-colors" href="/#flow">仕組み</a>
+      <a class="px-1 py-1 font-bold text-ink border-b-2 border-transparent hover:text-brand-600 hover:border-brand-600 transition-colors" href="/#features">機能</a>
+      <a class="px-1 py-1 font-bold text-ink border-b-2 border-transparent hover:text-brand-600 hover:border-brand-600 transition-colors" href="/#pricing">料金</a>
+      <a class="px-1 py-1 font-bold text-ink border-b-2 border-transparent hover:text-brand-600 hover:border-brand-600 transition-colors" href="/#security">セキュリティ</a>
+      <a class="px-1 py-1 font-bold text-ink border-b-2 border-transparent hover:text-brand-600 hover:border-brand-600 transition-colors" href="/#faq">FAQ</a>
+      <a class="px-1 py-1 font-bold text-ink border-b-2 border-transparent hover:text-brand-600 hover:border-brand-600 transition-colors" href="/taxel_column/">ブログ</a>
+      <a class="px-1 py-1 font-bold text-ink border-b-2 border-transparent hover:text-brand-600 hover:border-brand-600 transition-colors" href="/company/">会社概要</a>
     </nav>
     <a href="/shindan/" class="text-[13.5px] font-semibold bg-ink text-white px-4 py-2 rounded-lg hover:bg-slate-800 transition-colors shadow-soft">無料でざっくり試算</a>
   </div>
@@ -176,7 +182,7 @@
   <div class="reveal mt-4 text-center">
     <p class="text-[12px] text-slate-400">
       税理士・会計事務所の方は
-      <a class="text-slate-500 underline underline-offset-2 hover:text-ink" href="/download/">こちら（月次報告サンプルの無料DL）</a>
+      <a class="text-slate-500 underline underline-offset-2 hover:text-ink" href="/download/">こちら（サービス説明資料の無料DL）</a>
     </p>
   </div>
 </article>
@@ -260,5 +266,6 @@
 })();
 </script>
 
+<script src="/assets/nav.js?v=5" defer></script>
 </body>
 </html>
