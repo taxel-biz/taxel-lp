@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<script>
+  // 営業メールの型 A・S・C は型別LP（/lp/a/ 等）へ。クエリ（v・f・p）と #demo はそのまま渡す（2026-10-29）
+  // 移動する場合はこのページの計測を送らない（閲覧の二重計上を防ぐ）
+  (function(){try{var v=new URLSearchParams(location.search).get('v');
+    if(v==='A'||v==='S'||v==='C'){window.__lpGo=1;location.replace('/lp/'+v.toLowerCase()+'/'+location.search+location.hash);}
+  }catch(e){}})();
+</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TMK64P44XG"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-TMK64P44XG');
+  if (!window.__lpGo) gtag('config', 'G-TMK64P44XG');
 </script>
 
 <meta charset="UTF-8">
@@ -191,11 +198,29 @@
       <h2 id="demo-h" class="text-[28px] sm:text-[34px] font-extrabold tracking-tight leading-tight">デモ動画でわかる</h2>
       <p id="demo-sub" class="text-[13.5px] text-slate-300 mt-4 leading-relaxed">決算書の取り込みから、面談資料・打ち手・税務リスク・資金繰り表・補助金まで。β版の実際の画面です。</p>
       <script>
-        // 税理士法人向けの案内（?v=H）から来た方には、その話から見せる（2026-10-13）
-        (function(){try{if(new URLSearchParams(location.search).get('v')==='H'){
-          document.getElementById('demo-h').innerHTML='担当者が変わっても、<br class="hidden sm:block">社長への説明の型がそろう';
-          document.getElementById('demo-sub').textContent='決算書を入れると、同じ型（結論 → いま起きていること → 打つ手）で面談資料の下書きが出ます。担当者ごとのばらつきを抑えたい事務所に。β版の実際の画面です。';
-        }}catch(e){}})();
+        // 営業メールの型（?v=）ごとに、メールと同じ話から見せる（H: 2026-10-13 ／ A・B・C・S・T: 2026-10-28）
+        (function(){try{
+          var T = {
+            H: ['担当者が変わっても、<br class="hidden sm:block">社長への説明の型がそろう',
+                '決算書を入れると、同じ型（結論 → いま起きていること → 打つ手）で面談資料の下書きが出ます。担当者ごとのばらつきを抑えたい事務所に。β版の実際の画面です。'],
+            A: ['融資の相談で使う決算書から、<br class="hidden sm:block">補助金の候補まで',
+                '決算書・試算表をPDFやExcelのまま取り込み、合いそうな補助金の候補探しや資金繰り表の作成ができます。β版の実際の画面です。'],
+            B: ['まだ声をかけていない顧問先にも、<br class="hidden sm:block">補助金を案内できる',
+                '決算書から合いそうな補助金の候補を探し、融資の相談には銀行に出せる資金繰り表を作れます。β版の実際の画面です。'],
+            C: ['誰に何を案内したか、<br class="hidden sm:block">所内で共有できる',
+                '決算書・試算表を取り込むと、AIが分析して社長向けの面談資料を下書きします。補助金や融資の提案もれを減らしたい事務所に。β版の実際の画面です。'],
+            S: ['いつもの決算報告で、<br class="hidden sm:block">これからの話まで',
+                '決算書・試算表から業績や銀行がどう見るかを分析し、社長向けの面談資料をAIが下書きします。β版の実際の画面です。'],
+            T: ['面談資料の下書きはAIが、<br class="hidden sm:block">仕上げは担当者が',
+                '決算書・試算表を読み取り、社長向けの面談資料をAIが下書きします。担当者が仕上げ、所長先生は面談前に目を通すだけ。β版の実際の画面です。']
+          };
+          var k = new URLSearchParams(location.search).get('v');
+          var t = Object.prototype.hasOwnProperty.call(T, k) ? T[k] : null;
+          if (t) {
+            document.getElementById('demo-h').innerHTML = t[0];
+            document.getElementById('demo-sub').textContent = t[1];
+          }
+        }catch(e){}})();
       </script>
     </div>
     <div class="reveal relative rounded-2xl overflow-hidden border border-white/15 shadow-panel bg-black" id="demo-box">
@@ -206,8 +231,29 @@
         <span class="w-20 h-20 rounded-full bg-white text-brand-600 flex items-center justify-center shadow-panel"><i data-lucide="play" class="w-8 h-8 ml-1"></i></span>
       </button>
     </div>
-    <div class="reveal mt-8 text-center">
-      <a href="#contact" class="inline-block bg-white text-ink text-[14px] font-semibold px-6 py-3 rounded-xl hover:bg-slate-100 transition-colors">デモを予約する</a>
+    <!-- 動画を見た直後の軽い一歩：メールアドレスだけで資料（2026-10-28） -->
+    <div class="reveal mt-8 max-w-xl mx-auto text-center">
+      <p class="text-[15px] font-semibold">まずは資料で詳しく見る</p>
+      <p class="text-[13px] text-slate-300 mt-1">入力はメールアドレスだけ。送信後すぐに資料（PDF）を開けます。</p>
+      <form name="download-quick" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/download/thanks/" class="mt-4 flex flex-col sm:flex-row gap-2">
+        <input type="hidden" name="form-name" value="download-quick">
+        <input type="hidden" name="v" id="dq-v" value="">
+        <input type="hidden" name="f" id="dq-f" value="">
+        <p class="hidden"><label>この欄は入力しないでください <input name="bot-field"></label></p>
+        <label for="dq-email" class="sr-only">メールアドレス</label>
+        <input id="dq-email" type="email" name="メールアドレス" required autocomplete="email" placeholder="メールアドレス" class="flex-1 min-w-0 rounded-xl px-4 py-3 text-[14.5px] text-ink bg-white border border-white/20 focus:outline-none focus:ring-2 focus:ring-brand-300">
+        <button type="submit" class="bg-brand-500 hover:bg-brand-600 disabled:opacity-70 text-white text-[14.5px] font-semibold px-6 py-3 rounded-xl transition-colors whitespace-nowrap">資料を受け取る</button>
+      </form>
+      <p id="dq-msg" class="text-[13px] text-amber-200 mt-2 min-h-[1.2em]" role="status" aria-live="polite"></p>
+      <script>
+        // 営業メールの型（H/A/B/C/S/T/R）と事務所の識別子（英小文字・数字・ハイフンのみ）だけを持たせる
+        (function(){try{var q=new URLSearchParams(location.search);
+          var v=q.get('v')||'', f=q.get('f')||'';
+          document.getElementById('dq-v').value=/^[HABCSTR]$/.test(v)?v:'';
+          document.getElementById('dq-f').value=/^[a-z0-9-]{1,64}$/.test(f)?f:'';
+        }catch(e){}})();
+      </script>
+      <p class="text-[13px] text-slate-300 mt-6">画面を見ながら話を聞きたい方は <a href="#contact" class="underline underline-offset-4 font-semibold text-white hover:text-brand-300">デモを予約する</a></p>
     </div>
   </div>
 </section>
@@ -850,6 +896,42 @@
     if(!v||!b) return;
     b.addEventListener('click',function(){ b.style.display='none'; v.play(); try{ if(window.gtag) gtag('event','demo_video_play'); }catch(e){} });
     v.addEventListener('pause',function(){ if(v.currentTime===0) b.style.display=''; });
+    // 実際に再生した部分の割合（25/50/75/100%を各1回）2026-10-28
+    // video.played＝ブラウザが記録する「再生した区間」の和集合。シークで飛ばした所・見直した所は二重に数えない
+    var sent={};
+    function prog(p){ if(sent[p]) return; sent[p]=1; try{ if(window.gtag) gtag('event','demo_video_progress',{percent:p}); }catch(e){} }
+    v.addEventListener('timeupdate',function(){
+      if(!v.duration || !isFinite(v.duration) || !v.played) return;
+      var watched=0;
+      for(var i=0;i<v.played.length;i++){ watched+=v.played.end(i)-v.played.start(i); }
+      var r=watched/v.duration*100;
+      [25,50,75].forEach(function(p){ if(r>=p) prog(p); });
+      if(r>=97) prog(100);
+    });
+  })();
+  // 動画下の資料フォーム：二重送信を防ぎ、送信の試行を記録（受付の成否ではない）2026-10-28
+  (function(){
+    var f=document.querySelector('form[name="download-quick"]');
+    if(!f) return;
+    // 画面を切り替えずに送り（Netlify Forms の AJAX 送信）、受け付けられてから資料ページへ進む。
+    // 送信中は押せない。失敗したときだけ押せる状態に戻す（時間で解除しない＝二重登録を防ぐ）
+    var busy=false, btn=f.querySelector('button[type="submit"]'), msg=document.getElementById('dq-msg');
+    function setBtn(on){ if(btn){ btn.disabled=!on; btn.textContent=on?'資料を受け取る':'送信中…'; } }
+    f.addEventListener('submit',function(ev){
+      ev.preventDefault();
+      if(busy) return;
+      busy=true; setBtn(false); if(msg) msg.textContent='';
+      try{ if(window.gtag) gtag('event','download_quick_submit',{v:document.getElementById('dq-v').value}); }catch(e){}
+      if(!window.fetch){ f.submit(); return; }   // 古いブラウザは通常の送信（busyのまま遷移を待つ）
+      // 送る中身はフォームの欄から直接組み立てる（FormDataの対応差に依存しない）
+      var body=[].map.call(f.elements, function(el){ return el.name ? encodeURIComponent(el.name)+'='+encodeURIComponent(el.value) : null; })
+                 .filter(function(x){ return x!==null; }).join('&');
+      fetch('/', {method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:body})
+        .then(function(r){ if(!r.ok) throw new Error(r.status); location.href=f.getAttribute('action'); })
+        .catch(function(){ busy=false; setBtn(true); if(msg) msg.textContent='送信できませんでした。時間をおいてもう一度お試しください。'; });
+    });
+    // 戻るボタンでページに戻ったとき（bfcache）は押せる状態に戻す
+    addEventListener('pageshow',function(e){ if(e.persisted){ busy=false; setBtn(true); } });
   })();
 
   const io = new IntersectionObserver((entries) => {
