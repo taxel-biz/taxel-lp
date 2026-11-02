@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TMK64P44XG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TMK64P44XG');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>決算書をAIに読ませたら、何を間違えたか｜原本と照合した17冊の実測と、事務所で決めておく3つのこと ― Taxel ブログ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: {
+    fontFamily: { sans: ['Inter', '"Noto Sans JP"', 'sans-serif'] },
+    colors: { ink: '#0E1A33', paper: '#FCFCFB', brand: { 50: '#EEF5FE', 100: '#DCEBFD', 300: '#8CC6FA', 400: '#4AACF7', 500: '#2B78E6', 600: '#1645C4', 700: '#12379D' }, indigo: { 50: '#EEF5FE', 100: '#DCEBFD', 300: '#8CC6FA', 400: '#4AACF7', 500: '#2B78E6', 600: '#1645C4', 700: '#12379D' } },
+    boxShadow: { soft: '0 1px 2px rgba(15,23,42,0.04), 0 1px 1px rgba(15,23,42,0.03)', card: '0 1px 3px rgba(15,23,42,0.05), 0 12px 32px -12px rgba(15,23,42,0.12)' },
+  } } }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-feature-settings: "palt"; }
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .article p { margin-bottom: 1.1em; }
+  .article h2 { font-size: 19px; font-weight: 700; margin-top: 2em; margin-bottom: 0.7em; }
+  .article h3 { font-size: 15.5px; font-weight: 700; margin-top: 1.5em; margin-bottom: 0.5em; }
+  .article ul, .article ol { padding-left: 1.4em; margin-bottom: 1.1em; }
+  .article ul { list-style: disc; }
+  .article ol { list-style: decimal; }
+  .article li { margin-bottom: 0.4em; }
+  .article table { width: 100%; border-collapse: collapse; margin-bottom: 1.1em; font-size: 13px; }
+  .article th, .article td { border: 1px solid #e2e8f0; padding: 8px 10px; text-align: left; vertical-align: top; }
+  .article th { background: #f8fafc; font-weight: 700; }
+  .article .note { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; font-size: 13px; margin-bottom: 1.2em; }
+  .article .tablewrap { overflow-x: auto; }
+  .article a { color: #0E1A33; text-decoration: underline; text-underline-offset: 2px; }
+</style>
+<meta name="description" content="決算書のAI読み取りを原本と1項目ずつ照合した実測（5社・17冊）。会計ソフト出力のPDFは誤りゼロ、スキャンは毎回違う場所を誤った。実際に起きた誤りの型と、会計事務所でAIを使う前に決めておく3つのことをまとめました。">
+<link rel="canonical" href="https://www.taxel.biz/column/ai-yomitori-jissoku/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Taxel">
+<meta property="og:title" content="決算書をAIに読ませたら、何を間違えたか｜原本と照合した17冊の実測と、事務所で決めておく3つのこと">
+<meta property="og:description" content="決算書のAI読み取りを原本と照合した実測。ソフト出力PDFとスキャンで結果が割れた理由と、事務所で決めておく3つのこと。">
+<meta property="og:image" content="https://www.taxel.biz/ogp.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://www.taxel.biz/ogp.png">
+<meta property="og:url" content="https://www.taxel.biz/column/ai-yomitori-jissoku/">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "決算書をAIに読ませたら、何を間違えたか｜原本と照合した17冊の実測と、事務所で決めておく3つのこと",
+  "description": "決算書のAI読み取りを原本と照合した実測。ソフト出力PDFとスキャンで結果が割れた理由と、事務所で決めておく3つのこと。",
+  "image": "https://www.taxel.biz/ogp.png",
+  "inLanguage": "ja",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.taxel.biz/column/ai-yomitori-jissoku/"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "平澤 建",
+    "jobTitle": "Taxel 代表"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Taxel",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.taxel.biz/apple-touch-icon.png"
+    }
+  },
+  "datePublished": "2026-11-02"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.taxel.biz/" },
+    { "@type": "ListItem", "position": 2, "name": "ブログ", "item": "https://www.taxel.biz/taxel_column/" },
+    { "@type": "ListItem", "position": 3, "name": "AI読み取りの実測", "item": "https://www.taxel.biz/column/ai-yomitori-jissoku/" }
+  ]
+}
+</script>
+</head>
+<body class="bg-paper text-ink antialiased">
+
+<header class="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-slate-200/70">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a class="flex items-center gap-2" href="/">
+      <div class="w-7 h-7 rounded-[9px] bg-ink flex items-center justify-center"><span class="text-white text-[13px] font-bold">T</span></div>
+      <span class="text-[15px] font-bold tracking-tight">Taxel</span>
+    </a>
+    <nav class="hidden lg:flex items-center gap-6 text-[14px] text-ink font-bold">
+      <a class="px-1 py-1 font-bold text-ink border-b-2 border-transparent hover:text-brand-600 hover:border-brand-600 transition-colors" href="/#flow">仕組み</a>
+      <a class="px-1 py-1 font-bold text-ink border-b-2 border-transparent hover:text-brand-600 hover:border-brand-600 transition-colors" href="/#features">機能</a>
+      <a class="px-1 py-1 font-bold text-ink border-b-2 border-transparent hover:text-brand-600 hover:border-brand-600 transition-colors" href="/#pricing">料金</a>
+      <a class="px-1 py-1 font-bold text-ink border-b-2 border-transparent hover:text-brand-600 hover:border-brand-600 transition-colors" href="/#security">セキュリティ</a>
+      <a class="px-1 py-1 font-bold text-ink border-b-2 border-transparent hover:text-brand-600 hover:border-brand-600 transition-colors" href="/#faq">FAQ</a>
+      <a class="px-1 py-1 font-bold text-brand-600 border-b-2 border-brand-600 transition-colors" href="/taxel_column/">ブログ</a>
+      <a class="px-1 py-1 font-bold text-ink border-b-2 border-transparent hover:text-brand-600 hover:border-brand-600 transition-colors" href="/company/">会社概要</a>
+    </nav>
+    <a class="text-[13.5px] font-semibold bg-ink text-white px-4 py-2 rounded-lg hover:bg-slate-800 transition-colors shadow-soft" href="/#contact">デモを予約する</a>
+  </div>
+</header>
+
+<article class="max-w-2xl mx-auto px-6 py-16">
+  <a class="inline-flex items-center gap-1.5 text-[12.5px] text-slate-400 hover:text-ink mb-8" href="/taxel_column/">← ブログ一覧に戻る</a>
+
+  <div class="flex items-center gap-2 mb-4">
+    <span class="text-[11px] font-semibold text-white bg-ink px-2.5 py-1 rounded-full">税理士向け</span>
+    <span class="text-[11.5px] font-semibold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">AI活用</span>
+  </div>
+  <h1 class="text-[26px] sm:text-[32px] font-extrabold tracking-tight leading-tight mb-4">決算書をAIに読ませたら、何を間違えたか｜原本と照合した17冊の実測と、事務所で決めておく3つのこと</h1>
+  <p class="text-[12.5px] text-slate-400 mb-10">2026.11.02・平澤 建</p>
+
+  <div class="article text-[14.5px] text-slate-600 leading-[1.9]">
+
+    <p>顧問先の決算書をAIに読ませて、分析や資料作りを速くする。会計事務所向けのツールは、この数年で一気に増えました。紹介ページには「読み取り精度95%」「98.6%（社内ベンチマーク）」といった数字が並びます（2026年10月21日、「決算書 AI 読み取り 精度」の検索上位より）。</p>
+
+    <p>私たちもTaxelで、決算書をAIで読み取る仕組みを作っています。そして2026年9月、読み取った数字を<strong>決算書の原本と1項目ずつ照合</strong>しました。この記事では、そこで分かったことを、うまくいかなかった部分も含めてそのまま書きます。先生がAIツールを選ぶとき、そして事務所で使うときに、何を決めておけばいいかの材料にしてください。</p>
+
+    <h2>結論：精度は「1つの数字」ではなく、PDFの作り方で割れる</h2>
+
+    <div class="note">
+      <strong>原本照合で分かったこと（Taxel社内測定・2026年9月）</strong><br>
+      ① 会計ソフトから出力したPDF（文字データを持つ）：10冊・90項目で誤りゼロ（9月29日時点）<br>
+      ② 紙をスキャンしたPDF（画像）：88項目中85項目が正確。毎回1〜3項目、<strong>違う場所</strong>を誤る（9月28日時点）<br>
+      ③ 誤った数字は、合計も貸借も合ったまま保存されることがある。<strong>原本を見るまで誰も気づけなかった</strong>
+    </div>
+
+    <p>サンプルは5社・17冊で、統計的な保証はありません。たとえば「誤りが5%以下」と言い切るには約60冊、「1%以下」なら約300冊の検証が必要になると私たちは見積もっています。それでも、<strong>どの経路で読んだかによって結果がはっきり分かれた</strong>ことは、先生方にお伝えする価値があると考えました。</p>
+
+    <h2>何を間違えたのか（実際に起きた4つの型）</h2>
+
+    <p>照合の前、私たちのデータベースの中では、すべての数字のつじつまが合っていました。貸借は一致し、画面もきれいに出ていました。それでも原本と比べると、次のような誤りが見つかりました（顧問先の特定につながらないよう、会社名と金額は伏せています）。</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th>誤りの型</th><th>何が起きたか</th><th>分析への影響</th></tr>
+      <tr><td>2段組の読み違え</td><td>貸借対照表の左右の段を横に読み、固定負債の金額を流動負債に取り込んだ</td><td>借入のある会社が「無借金」として登録された</td></tr>
+      <tr><td>科目の拾い漏れ</td><td>「現金」の行だけを拾い、「預金」を落とした</td><td>手元資金が実際の数十分の一になり、資金ショート寸前と誤って判定された</td></tr>
+      <tr><td>呼び名の違い</td><td>JAバンク・ゆうちょの「普通貯金」を現預金として数えなかった</td><td>地方の中小企業ほど現預金が過少になる</td></tr>
+      <tr><td>月の並びの逆転</td><td>月次推移の月を逆順に取り込んだ</td><td>季節性の読みが逆になる</td></tr>
+    </table>
+    </div>
+
+    <p>どれも、決算書が間違っていたのではありません。<strong>読み取る側が間違えていました。</strong>そしてやっかいなのは、2つ目と3つ目の型です。現金の取りこぼしが内訳の中で起きると、合計はそのまま合ってしまいます。「全体の辻褄が合う」ことは、「その項目が正しい」ことを意味しませんでした。</p>
+
+    <h2>分かった3つのこと</h2>
+
+    <h3>1. 何度読ませても、同じところを同じように間違える</h3>
+
+    <p>同じスキャンPDFを繰り返し読ませると、毎回まったく同じ値で間違える項目がありました。一方で、読み方（解像度やページの切り方）を変えると、今度は別の項目で間違えます。<strong>回数を増やしても直らず、読み方を変えると違う場所がずれる。</strong>スキャンの精度は、AIの性能だけでは決まらないということです。</p>
+
+    <h3>2. 算数で裏を取ると、かなり直せる</h3>
+
+    <p>決算書は、自分で自分を検算できる書類です。流動資産の内訳を足せば流動資産合計になり、資産合計と負債・純資産合計は一致し、売上から原価を引けば粗利になります。私たちは、AIが読んだ数字を「正解」ではなく<strong>「候補」</strong>として扱い、こうした計算が合う候補だけを採るように作り直しました。ある会社の3期分は、この方法で42項目中39項目から42項目すべての一致に改善しました。ただし、区分そのものの取り違え（長期借入金を短期の負債に入れても負債合計は合う）は、決算書の中の計算だけでは正誤が出ません。</p>
+
+    <h3>3. いちばん効いたのは、コードではなく「一言」だった</h3>
+
+    <p>会計ソフトから直接出力したPDFは、文字データを持っているため、AIの画像読み取りを通さずに数字を取り出せます。この経路では誤りがゼロで、処理時間も1ファイルあたり約40秒からほぼ0秒になりました。つまり、精度を上げる最も安い方法は、<strong>顧問先に「紙をスキャンせず、会計ソフトから出したPDFでください」と一言添えること</strong>でした。</p>
+
+    <h2>事務所で決めておく3つのこと</h2>
+
+    <ol>
+      <li><strong>決算書・試算表は「ソフト出力のPDF」で受け取ると決める。</strong>事務所で会計ソフトを触れるなら、事務所側で出力するのが最も確実です。顧問先から受け取る場合は、依頼文に一言入れましょう。</li>
+      <li><strong>AIの出力は「候補」として扱い、社長に出す前に3か所だけ原本と突き合わせる。</strong>現金預金・借入金の合計・売上高の3つです。この3つがずれると、資金繰りの判断と打ち手がまるごと変わります。</li>
+      <li><strong>ツールを選ぶときは、精度の数字に3つの質問を足す。</strong>「何冊で測ったか」「スキャンとソフト出力で分けて測ったか」「原本と照合したか（自社データの整合ではなく）」。答えられるベンダーかどうかで、その数字の重みが分かります。</li>
+    </ol>
+
+    <h2>Taxelでは、こう扱っています</h2>
+
+    <p>Taxelでは、決算書のアップロード画面で、ファイルを選ぶ前に「会計ソフトから出力したPDFが最も正確です」と表示する改修を行いました（2026年9月）。読み取った数字は、合計・貸借・損益の整合で裏を取り、どうしても判断できない食い違いには警告を残します。そのうえで、<strong>原本の正解値と突き合わせる検証も残し、原本が手に入るたびに対象を増やしています。</strong>17冊で「安全です」とは言えないからです。</p>
+
+    <p>AIは、先生の手間を大きく減らせます。ただし、その数字を社長の前に出すのは先生です。<strong>どこまでがAIの仕事で、どこからが先生の確認か</strong>を、事務所の中で先に決めておきましょう。測定の詳細や、事務所での受け取り方の例は、資料でもご紹介しています。</p>
+
+    <p>関連記事：<a href="/column/kaikei-jimusho-ai/">会計事務所のAI活用</a>／<a href="/column/setsumei-shiryo/">社長が最後まで聞く月次報告の5原則</a>／<a href="/column/teian-mae-shitsumon/">社長に出す前に先生へ聞く5つの質問</a></p>
+
+  </div>
+
+  <div class="mt-12 bg-slate-50 border border-slate-200 rounded-2xl p-6">
+    <p class="text-[11.5px] font-semibold text-slate-400 mb-2.5">執筆</p>
+    <p class="text-[14px] font-bold mb-1.5">平澤 建（ひらさわ たける）</p>
+    <p class="text-[12.5px] text-slate-600 leading-relaxed mb-3">
+      Taxel 代表。中小企業向けにKPI経営の伴走支援とEC運用支援を行っています。
+      税理士の先生方へのヒアリングを重ね、いただいた要望をそのまま機能にする形でTaxelを開発しています。
+    </p>
+    <p class="text-[11.5px] text-slate-400 leading-relaxed">
+      ※ 本記事の数値は、Taxelの自社開発ツールで2026年9月に行った社内測定です（5社・17冊）。サンプル数が少ないため統計的な保証はなく、他社のツールの精度を示すものではありません。顧問先の特定につながらないよう、会社名・金額は伏せています。筆者は税理士ではありません。
+    </p>
+  </div>
+
+  <div class="mt-14 bg-white border border-slate-200 rounded-2xl p-6 shadow-card text-center">
+    <p class="text-[14px] font-bold mb-2">原本照合の結果と、受け取り方の例を資料でお送りします</p>
+    <p class="text-[12.5px] text-slate-500 mb-4">Taxelが決算書をどう読み、どこで裏を取っているか。測定の詳細と、事務所での決算書の受け取り方の例を無料でお送りします。</p>
+    <div class="flex flex-wrap gap-2.5 justify-center">
+      <a class="inline-block bg-ink text-white text-[13.5px] font-semibold px-5 py-2.5 rounded-lg hover:bg-slate-800 transition-colors" href="/download/">資料を受け取る（無料）</a>
+      <a class="inline-block bg-white border border-slate-200 text-[13.5px] font-semibold px-5 py-2.5 rounded-lg hover:border-slate-300 transition-colors" href="/#contact">デモを予約する</a>
+    </div>
+  </div>
+</article>
+
+<footer class="border-t border-slate-100 bg-white">
+  <div class="max-w-6xl mx-auto px-6 py-10 text-center text-[12px] text-slate-400">© 2026 Taxel. All rights reserved.</div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+<!-- TRACKING -->
+<script>
+(function(){
+  var G = function(n,p){ try{ if(window.gtag) window.gtag('event', n, p||{}); }catch(e){} };
+  var hit = {};
+  function depth(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    if (h <= 0) return;
+    var p = Math.round((window.scrollY / h) * 100);
+    [25,50,75,90].forEach(function(t){
+      if (p >= t && !hit[t]) { hit[t] = 1; G('scroll_depth', {percent: t}); }
+    });
+  }
+  var tick;
+  addEventListener('scroll', function(){
+    if (tick) return;
+    tick = setTimeout(function(){ tick = null; depth(); }, 250);
+  }, {passive:true});
+  depth();
+  var TARGETS = ['/shindan/','/download/','/#contact','#contact','/seminar/','/keiei/'];
+  document.addEventListener('click', function(ev){
+    var a = ev.target.closest ? ev.target.closest('a') : null;
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (TARGETS.indexOf(href) === -1) return;
+    G('cta_click', {link_url: href, link_text: (a.innerText||'').trim().slice(0,40)});
+  }, true);
+})();
+</script>
+
+<script src="/assets/nav.js?v=5" defer></script>
+</body>
+</html>
