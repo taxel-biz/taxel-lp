@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TMK64P44XG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TMK64P44XG');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>損益分岐点の計算｜決算書から固定費と変動費を分け、返済まで含めた「お金の分岐点」も出す ― Taxel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: {
+    fontFamily: { sans: ['Inter', '"Noto Sans JP"', 'sans-serif'] },
+    colors: { ink: '#0E1A33', paper: '#FCFCFB', brand: { 50: '#EEF5FE', 100: '#DCEBFD', 300: '#8CC6FA', 400: '#4AACF7', 500: '#2B78E6', 600: '#1645C4', 700: '#12379D' }, indigo: { 50: '#EEF5FE', 100: '#DCEBFD', 300: '#8CC6FA', 400: '#4AACF7', 500: '#2B78E6', 600: '#1645C4', 700: '#12379D' } },
+    boxShadow: { soft: '0 1px 2px rgba(15,23,42,0.04), 0 1px 1px rgba(15,23,42,0.03)', card: '0 1px 3px rgba(15,23,42,0.05), 0 12px 32px -12px rgba(15,23,42,0.12)' },
+  } } }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-feature-settings: "palt"; }
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .article p { margin-bottom: 1.1em; }
+  .article h2 { font-size: 19px; font-weight: 700; margin-top: 2em; margin-bottom: 0.7em; }
+  .article h3 { font-size: 15.5px; font-weight: 700; margin-top: 1.5em; margin-bottom: 0.5em; }
+  .article ul, .article ol { padding-left: 1.4em; margin-bottom: 1.1em; }
+  .article ul { list-style: disc; }
+  .article ol { list-style: decimal; }
+  .article li { margin-bottom: 0.4em; }
+  .article table { width: 100%; border-collapse: collapse; margin-bottom: 1.1em; font-size: 13px; }
+  .article th, .article td { border: 1px solid #e2e8f0; padding: 8px 10px; text-align: left; vertical-align: top; }
+  .article th { background: #f8fafc; font-weight: 700; }
+  .article .note { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; font-size: 13px; margin-bottom: 1.2em; }
+  .article .tablewrap { overflow-x: auto; }
+  .article a { color: #0E1A33; text-decoration: underline; text-underline-offset: 2px; }
+</style>
+<meta name="description" content="損益分岐点の計算式（固定費÷限界利益率）を、決算書の科目を固定費と変動費に分ける手順から解説。借入金の返済まで含めた「お金の分岐点」と、分岐点を下げる打ち手の金額比較まで、仮定値の計算例つきで説明します。">
+<link rel="canonical" href="https://www.taxel.biz/keiei/sonekibunkiten-keisan/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Taxel">
+<meta property="og:title" content="損益分岐点の計算｜決算書から固定費と変動費を分け、返済まで含めた「お金の分岐点」も出す">
+<meta property="og:description" content="損益分岐点の計算を、固変分解の手順と返済込みの「お金の分岐点」まで、計算例つきで解説。">
+<meta property="og:image" content="https://www.taxel.biz/ogp.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://www.taxel.biz/ogp.png">
+<meta property="og:url" content="https://www.taxel.biz/keiei/sonekibunkiten-keisan/">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "損益分岐点の計算｜決算書から固定費と変動費を分け、返済まで含めた「お金の分岐点」も出す",
+  "description": "損益分岐点の計算を、固変分解の手順と返済込みの「お金の分岐点」まで、計算例つきで解説。",
+  "image": "https://www.taxel.biz/ogp.png",
+  "inLanguage": "ja",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.taxel.biz/keiei/sonekibunkiten-keisan/"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "平澤 建",
+    "jobTitle": "Taxel 代表"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Taxel",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.taxel.biz/apple-touch-icon.png"
+    }
+  },
+  "datePublished": "2026-11-02"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.taxel.biz/" },
+    { "@type": "ListItem", "position": 2, "name": "経営の数字", "item": "https://www.taxel.biz/keiei/" },
+    { "@type": "ListItem", "position": 3, "name": "損益分岐点の計算", "item": "https://www.taxel.biz/keiei/sonekibunkiten-keisan/" }
+  ]
+}
+</script>
+</head>
+<body class="bg-paper text-ink antialiased">
+
+<header class="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-slate-200/70">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a class="flex items-center gap-2" href="/">
+      <div class="w-7 h-7 rounded-[9px] bg-ink flex items-center justify-center"><span class="text-white text-[13px] font-bold">T</span></div>
+      <span class="text-[15px] font-bold tracking-tight">Taxel</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-[13.5px] text-slate-600 font-medium">
+      <a class="hover:text-ink transition-colors" href="/#features">機能</a>
+      <a class="hover:text-ink transition-colors" href="/#pricing">料金</a>
+      <a class="text-ink transition-colors" href="/keiei/">経営の数字</a>
+      <a href="/company/" class="hover:text-ink transition-colors">会社概要</a>
+    </nav>
+    <a class="text-[13.5px] font-semibold bg-ink text-white px-4 py-2 rounded-lg hover:bg-slate-800 transition-colors shadow-soft" href="/shindan/">無料で決算書を診断する</a>
+  </div>
+</header>
+
+<article class="max-w-2xl mx-auto px-6 py-16">
+  <a class="inline-flex items-center gap-1.5 text-[12.5px] text-slate-400 hover:text-ink mb-8" href="/keiei/">← 経営の数字トップに戻る</a>
+
+  <div class="flex items-center gap-2 mb-4">
+    <span class="text-[11px] font-semibold text-white bg-ink px-2.5 py-1 rounded-full">社長向け</span>
+    <span class="text-[11.5px] font-semibold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">決算書の基本</span>
+  </div>
+  <h1 class="text-[26px] sm:text-[32px] font-extrabold tracking-tight leading-tight mb-4">損益分岐点の計算｜決算書から固定費と変動費を分け、返済まで含めた「お金の分岐点」も出す</h1>
+  <p class="text-[12.5px] text-slate-400 mb-10">2026.11.02・平澤 建</p>
+
+  <div class="article text-[14.5px] text-slate-600 leading-[1.9]">
+
+    <p>「損益分岐点 計算」で検索すると、「損益分岐点売上高＝固定費÷（1−変動費率）」という計算式と、その計算例が上位に並びます（2026年11月2日、筆者の検索結果）。式は正しく、覚えるのも難しくありません。ところが、いざ自社の決算書で計算しようとすると、2つのところで手が止まります。<strong>どの科目を固定費にし、どれを変動費にするのか。</strong>そして、<strong>計算した分岐点を超えているのに、なぜお金が残らないのか。</strong></p>
+
+    <p>この記事では、決算書の科目を固定費と変動費に分ける手順と、借入金の返済まで含めた「お金の分岐点」の出し方を、仮定値の計算例で説明します。最後に、分岐点を下げる打ち手を金額で比べるところまで進めましょう。</p>
+
+    <h2>結論：分岐点は2本出す。「利益の分岐点」と「お金の分岐点」</h2>
+
+    <div class="note">
+      <p style="margin-bottom:0.4em;"><strong>この記事で出す2つの数字</strong></p>
+      <p style="margin-bottom:0.2em;">① 利益の分岐点（損益分岐点売上高）＝ 固定費 ÷ 限界利益率</p>
+      <p style="margin-bottom:0;">② お金の分岐点 ＝（固定費 − 減価償却費 ＋ 借入金の元金返済）÷ 限界利益率</p>
+    </div>
+
+    <p>①は、会計上の利益がゼロになる売上です。②は、借入金の返済まで済ませたうえで、手元のお金が減らない売上です。減価償却費は費用ですがお金は出ていかないので引き、元金返済は費用ではないのにお金が出ていくので足します（法人税などの税金は、ここでは考えません）。借入金がある会社は、①を超えていても②を下回ると、手元のお金が少しずつ減っていきます。</p>
+
+    <h2>計算の前に：決算書の科目を「固定費」と「変動費」に分ける</h2>
+
+    <p>変動費は売上に比例して増える費用、固定費は売上がゼロでもかかる費用です。会計の世界では、勘定科目ごとにどちらかへ振り分ける方法を「勘定科目法」と呼びます。中小企業なら、まずこの方法で十分です。</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th>区分</th><th>主な勘定科目</th><th>迷いやすい点</th></tr>
+      <tr><td>変動費</td><td>商品仕入・材料費・外注費（売上に連動するもの）・販売手数料・荷造運賃</td><td>売上原価に含まれる人件費（製造業・建設業の労務費）は変動費に入れない</td></tr>
+      <tr><td>固定費</td><td>役員報酬・給料手当・賞与・法定福利費・地代家賃・リース料・減価償却費・支払利息</td><td>人件費は役員報酬から社会保険料まで1行にまとめると、後で比べやすい</td></tr>
+      <tr><td>どちらとも言えない</td><td>水道光熱費・消耗品費・広告宣伝費・旅費交通費</td><td>迷ったら固定費に入れる。分岐点が高めに出るので、判断は安全側になる</td></tr>
+    </table>
+    </div>
+
+    <p>いちばん多い間違いは、<strong>売上原価をまるごと変動費にしてしまうこと</strong>です。製造業や建設業では、売上原価の中に工場や現場の人件費（労務費）が入っています。これは売上が減っても払う費用なので、固定費です。製造原価報告書（工事原価報告書）がある会社は、そこから労務費を抜き出して固定費に移しましょう。</p>
+
+    <p>人件費をまとめる点は、私たちがTaxelの開発でヒアリングした税理士の先生から、2026年5月にいただいた指摘がもとになっています（1名の証言です）。社長に数字を説明するときは、役員報酬・給与・賞与・社会保険料を「人件費」の1行にまとめて見せたほうが伝わる、という趣旨でした。固定費の中身を見るときも、人件費・家賃・減価償却・その他の4行程度に丸めると、どこを動かせるかが見えやすくなります。</p>
+
+    <h2>計算例：分岐点比率90%の会社。返済を入れると97.5%（数字はすべて仮定値）</h2>
+
+    <p>年商1億2,000万円（月1,000万円）の会社で計算してみます。</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th>項目</th><th>金額（年）</th><th>メモ</th></tr>
+      <tr><td>売上高</td><td>1億2,000万円</td><td>月1,000万円</td></tr>
+      <tr><td>変動費（仕入・外注・運賃）</td><td>7,200万円</td><td>変動費率 60%</td></tr>
+      <tr><td>限界利益（売上−変動費）</td><td>4,800万円</td><td>限界利益率 40%</td></tr>
+      <tr><td>固定費：人件費</td><td>2,640万円</td><td>役員報酬・給与・賞与・法定福利費</td></tr>
+      <tr><td>固定費：地代家賃</td><td>480万円</td><td></td></tr>
+      <tr><td>固定費：減価償却費</td><td>240万円</td><td>お金は出ていかない費用</td></tr>
+      <tr><td>固定費：その他</td><td>960万円</td><td>支払利息を含む</td></tr>
+      <tr><td>固定費 合計</td><td>4,320万円</td><td></td></tr>
+      <tr><td>利益（限界利益−固定費）</td><td>480万円</td><td></td></tr>
+      <tr><td>借入金の元金返済</td><td>600万円</td><td>損益計算書には出てこない</td></tr>
+    </table>
+    </div>
+
+    <p><strong>① 利益の分岐点</strong>＝4,320万円÷40%＝<strong>1億800万円</strong>（月900万円）。今の売上に対する比率（損益分岐点比率）は1億800万÷1億2,000万＝90%です。売上が10%落ちるまでは赤字になりません。この「10%」を安全余裕率と呼びます。</p>
+
+    <p><strong>② お金の分岐点</strong>＝（4,320万円−240万円＋600万円）÷40%＝4,680万円÷40%＝<strong>1億1,700万円</strong>（月975万円）。比率は97.5%です。</p>
+
+    <p>帳簿の上では10%の余裕があるのに、返済まで含めると余裕は2.5%、月にすると25万円しかありません。<strong>売上が3%落ちた月から、手元のお金は減り始めます。</strong>「黒字なのにお金が増えない」と感じる会社は、まずこの2本目の数字を出してみてください。</p>
+
+    <p>ある先生からは2026年9月に、融資や補助金の場面では「今のまま続ける」計画では通らない、という趣旨の話も聞いています（1名の証言です）。金融機関に計画を見せるときも、返済を含めた分岐点を超える売上の見込みを、根拠つきで示すことが出発点になります。</p>
+
+    <h2>目標の利益から、必要な売上を逆算する</h2>
+
+    <p>同じ式で、目標の利益を出すための売上も出せます。</p>
+
+    <div class="note">
+      <p style="margin-bottom:0;">必要な売上 ＝（固定費 ＋ 目標利益）÷ 限界利益率</p>
+    </div>
+
+    <p>計算例の会社が利益1,000万円を目標にすると、（4,320万円＋1,000万円）÷40%＝<strong>1億3,300万円</strong>。今より1,300万円（約11%）の増収が必要です。月にすると約108万円の上乗せです。この数字を見て「売上で1,300万円は難しい」と感じたら、次の章の打ち手に移りましょう。</p>
+
+    <h2>分岐点を下げる3つの打ち手を、金額で比べる</h2>
+
+    <p>分岐点を動かす方法は3つしかありません。売上を増やす、変動費率を下げる、固定費を下げる。どれが効くかは、金額に直して比べると判断できます。</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th>打ち手（仮定）</th><th>計算</th><th>利益の分岐点</th><th>利益への効果（年）</th></tr>
+      <tr><td>変動費率を60%→58%（仕入先との条件交渉などで2ポイント）</td><td>4,320万÷42%</td><td>約1億286万円（−514万円）</td><td>＋240万円</td></tr>
+      <tr><td>固定費を240万円減らす（月20万円）</td><td>4,080万÷40%</td><td>1億200万円（−600万円）</td><td>＋240万円</td></tr>
+      <tr><td>売上を2%増やす（変動費率は同じ）</td><td>4,320万÷40%</td><td>変わらず1億800万円</td><td>＋96万円</td></tr>
+    </table>
+    </div>
+
+    <p>この会社では、売上を2%伸ばすより、変動費率を2ポイント下げるほうが2.5倍効きます。限界利益率が40%なので、増えた売上のうち利益に残るのは4割だけだからです。逆に、限界利益率が高い業種（サービス業など）では、売上を伸ばす打ち手の効きが大きくなります。<strong>自社の限界利益率を知ることが、打ち手の順番を決める近道です。</strong></p>
+
+    <p>打ち手を決めたら、「誰が・いつまでに・何をするか」まで1行で書きましょう。変動費率なら「仕入額の大きい3社について、今月中に見積もりを取り直す」、固定費なら「毎月の支払いのうち、使っていない契約を今週洗い出す」といった具合です。</p>
+
+    <h2>月次で回すときの注意</h2>
+
+    <ul>
+      <li><strong>単月で判断しない。</strong>賞与月や仕入れの多い月は数字がぶれます。直近12か月の合計で計算しましょう。</li>
+      <li><strong>固定費は「増えたとき」に分岐点を出し直す。</strong>人を1人採用すれば、その人件費÷限界利益率の分だけ分岐点が上がります。年収400万円（社会保険料込み）の採用なら、限界利益率40%の会社では1,000万円です。</li>
+      <li><strong>返済が変わったらお金の分岐点を出し直す。</strong>新しい借入れや、借り換えで元金返済額が変わったときです。</li>
+    </ul>
+
+    <h2>まとめ：今日やること3つ</h2>
+
+    <ol>
+      <li><strong>直近の決算書で、費用を変動費と固定費に分ける。</strong>売上原価の中の労務費は固定費へ。迷った科目は固定費に入れましょう。</li>
+      <li><strong>利益の分岐点とお金の分岐点を、2本とも出す。</strong>元金返済額は、借入金の返済予定表か通帳で確認できます。</li>
+      <li><strong>分岐点を下げる打ち手を3つ並べ、金額の大きい順に1つ選ぶ。</strong>選んだ打ち手には、担当と期限を付けましょう。</li>
+    </ol>
+
+    <p>関連記事：<a href="/keiei/shikinguri-kaizen/">資金繰りを改善する順番</a>／<a href="/keiei/untenshikin-keisan/">運転資金の計算式</a>／<a href="/keiei/shikinguri-hyo-tsukurikata/">資金繰り表の作り方</a>／<a href="/keiei/kessansho-yomikata/">決算書の読み方</a>／<a href="/keiei/taishaku-taishohyo-mikata/">貸借対照表の見方</a></p>
+
+  </div>
+
+  <div class="mt-12 bg-slate-50 border border-slate-200 rounded-2xl p-6">
+    <p class="text-[11.5px] font-semibold text-slate-400 mb-2.5">執筆</p>
+    <p class="text-[14px] font-bold mb-1.5">平澤 建（ひらさわ たける）</p>
+    <p class="text-[12.5px] text-slate-600 leading-relaxed mb-3">
+      Taxel 代表。中小企業向けにKPI経営の伴走支援とEC運用支援を行っています。
+      税理士の先生方へのヒアリングを重ね、いただいた要望をそのまま機能にする形でTaxelを開発しています。
+    </p>
+    <p class="text-[11.5px] text-slate-400 leading-relaxed">
+      ※ 本記事は一般的な情報提供を目的としたものです。計算例は仮定値であり、実在の会社を示すものではありません。計算例では法人税等の税金を考慮していません。筆者は税理士ではありません。
+    </p>
+  </div>
+
+  <div class="mt-14 bg-white border border-slate-200 rounded-2xl p-6 shadow-card text-center">
+    <p class="text-[14px] font-bold mb-2">自社の損益分岐点を、決算書から無料で出します</p>
+    <p class="text-[12.5px] text-slate-500 mb-4">決算書をお送りいただくと、費用を固定費と変動費に分け、利益の分岐点と返済まで含めたお金の分岐点を出してお返しします。</p>
+    <div class="flex flex-wrap gap-2.5 justify-center">
+      <a class="inline-block bg-ink text-white text-[13.5px] font-semibold px-5 py-2.5 rounded-lg hover:bg-slate-800 transition-colors" href="/shindan/">無料で決算書を診断する</a>
+    </div>
+  </div>
+</article>
+
+<footer class="border-t border-slate-100 bg-white">
+  <div class="max-w-6xl mx-auto px-6 py-10 text-center text-[12px] text-slate-400">© 2026 Taxel. All rights reserved.</div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+<!-- TRACKING -->
+<script>
+(function(){
+  var G = function(n,p){ try{ if(window.gtag) window.gtag('event', n, p||{}); }catch(e){} };
+  var hit = {};
+  function depth(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    if (h <= 0) return;
+    var p = Math.round((window.scrollY / h) * 100);
+    [25,50,75,90].forEach(function(t){
+      if (p >= t && !hit[t]) { hit[t] = 1; G('scroll_depth', {percent: t}); }
+    });
+  }
+  var tick;
+  addEventListener('scroll', function(){
+    if (tick) return;
+    tick = setTimeout(function(){ tick = null; depth(); }, 250);
+  }, {passive:true});
+  depth();
+  var TARGETS = ['/shindan/','/download/','/#contact','#contact','/seminar/','/keiei/'];
+  document.addEventListener('click', function(ev){
+    var a = ev.target.closest ? ev.target.closest('a') : null;
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (TARGETS.indexOf(href) === -1) return;
+    G('cta_click', {link_url: href, link_text: (a.innerText||'').trim().slice(0,40)});
+  }, true);
+})();
+</script>
+
+</body>
+</html>

@@ -39,4 +39,7 @@
   <url><loc>https://www.taxel.biz/keiei/taishaku-taishohyo-mikata/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.taxel.biz/keiei/kyuyo-keisan-soft-hikaku/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.taxel.biz/column/ai-yomitori-jissoku/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.taxel.biz/keiei/sonekibunkiten-keisan/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.taxel.biz/keiei/kaikei-soft-houjin/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.taxel.biz/column/teian-kingaku/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>
