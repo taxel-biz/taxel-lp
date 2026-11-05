@@ -329,12 +329,20 @@
   (function(){
     var v=document.getElementById('demo-video'), b=document.getElementById('demo-play');
     if(!v||!b) return;
-    b.addEventListener('click',function(){ b.style.display='none'; v.play(); try{ if(window.gtag) gtag('event','demo_video_play'); }catch(e){} });
+    // 営業リンクの ?f=事務所&v=型 をイベントに載せる（GAのカスタムディメンションで事務所別に見るため）2026-11-05
+    // 形式に合う値だけ送る（URLに個人名などを足されてもGAへ流さない）
+    var mk={};
+    try{
+      var q=new URLSearchParams(location.search), qf=q.get('f')||'', qv=q.get('v')||'';
+      if(/^[a-z0-9-]{1,100}$/.test(qf)) mk.firm=qf;
+      if(/^[A-Z]$/.test(qv)) mk.variant=qv;
+    }catch(e){}
+    b.addEventListener('click',function(){ b.style.display='none'; v.play(); try{ if(window.gtag) gtag('event','demo_video_play',mk); }catch(e){} });
     v.addEventListener('pause',function(){ if(v.currentTime===0) b.style.display=''; });
     // 実際に再生した部分の割合（25/50/75/100%を各1回）2026-10-28
     // video.played＝ブラウザが記録する「再生した区間」の和集合。シークで飛ばした所・見直した所は二重に数えない
     var sent={};
-    function prog(p){ if(sent[p]) return; sent[p]=1; try{ if(window.gtag) gtag('event','demo_video_progress',{percent:p}); }catch(e){} }
+    function prog(p){ if(sent[p]) return; sent[p]=1; try{ if(window.gtag) gtag('event','demo_video_progress',Object.assign({percent:p},mk)); }catch(e){} }
     v.addEventListener('timeupdate',function(){
       if(!v.duration || !isFinite(v.duration) || !v.played) return;
       var watched=0;
