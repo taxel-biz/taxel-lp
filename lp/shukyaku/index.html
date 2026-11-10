@@ -1,0 +1,769 @@
+<!DOCTYPE html><html lang="ja"><head><script async src="https://www.googletagmanager.com/gtag/js?id=G-TMK64P44XG"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-TMK64P44XG');</script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>taXel 集客改善サービス</title><meta name="claude:viewport-fit-sides" content="cover"><meta name="robots" content="noindex"><meta name="description" content="税理士事務所のサイト、Googleマップ、公式LINE、メール配信の運用を月額でお引き受けします。"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet"><style>/* v3：囲みと塗りをやめ、罫線・余白・文字の強弱で組む。色は紺と白、青は数字と小見出し、緑はLINEのボタンだけ */
+:root{
+  --ink:#0E1A33; --text:#26324A; --muted:#5A6476; --rule:#D9DEE6; --rule-strong:#0E1A33; --paper:#F6F7F9; --white:#FFFFFF;
+  --blue:#1645C4; --line-green:#06C755; --line-ink:#08280F;
+  --display:"Inter","Noto Sans JP","Hiragino Kaku Gothic ProN",sans-serif; --body:"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--white);color:var(--text);font-family:var(--body);font-size:16px;line-height:1.9;font-feature-settings:"palt"}
+img{max-width:100%;display:block}
+h1,h2,h3{color:var(--ink);font-family:var(--display);text-wrap:balance;margin:0}
+h2{font-size:clamp(24px,3.2vw,32px);line-height:1.45;font-weight:800;letter-spacing:-.01em}
+h3{font-size:17px;line-height:1.6;font-weight:700}
+p{margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.lead{color:var(--muted);margin-top:10px;max-width:42em}
+.note{font-size:13.5px;color:var(--muted);margin-top:14px}
+.muted{color:var(--muted);font-size:14px}
+section{padding-block:80px;border-top:1px solid var(--rule)}.s-paper{background:var(--paper)}.s-white{background:var(--white)}
+
+/* ヘッダー */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--white)}
+.hd{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--white);border-bottom:1px solid var(--rule)}
+.hd-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo img{height:34px;width:auto}.logo b{font-family:var(--display);font-size:22px;color:var(--ink)}
+.hd-btn{border:0;border-radius:4px;background:var(--line-green);color:var(--line-ink);font-weight:800;font-size:14px;padding:10px 16px;cursor:pointer;font-family:inherit}
+
+/* 最初の画面：写真の上に単色の紺 */
+.hero{position:relative;background:var(--ink);color:#fff;overflow:hidden}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.16;max-width:none;filter:grayscale(.4)}
+.fv{position:relative;z-index:1;display:none}.fv.on{display:block}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,400px);gap:48px;align-items:center;padding-block:72px 80px}
+.hero-copy{min-width:0}
+.kick{color:#AFC3E6;font-weight:700;font-size:14px;letter-spacing:.04em}
+.hero h1{color:#fff;font-size:clamp(26px,3.6vw,40px);line-height:1.32;font-weight:800;margin-top:18px;letter-spacing:-.015em;line-break:strict}
+.sub{color:#D6DDEA;margin-top:20px;font-size:16px;max-width:36em}
+.pts{margin:22px 0 0;padding-left:1.2em;display:grid;gap:4px;color:#EEF2F8;font-weight:600}
+.btn-line{display:block;width:100%;max-width:400px;margin-top:30px;border:0;border-radius:4px;background:var(--line-green);color:var(--line-ink);font-weight:800;font-size:17px;padding:17px 12px;cursor:pointer;font-family:inherit}
+.btn-line:hover{filter:brightness(1.05)}
+.btn-line:focus-visible,.hd-btn:focus-visible,summary:focus-visible,.mock-switch button:focus-visible{outline:3px solid #AFC3E6;outline-offset:3px}
+.price-line{font-size:13.5px;color:#C3CCDC;margin-top:14px;max-width:34em}.price-line b{color:#fff}
+.frame{background:#fff;border:1px solid var(--rule)}
+.frame-bar{display:none}
+.hero-shot{margin:0}.hero-shot img{width:100%;height:auto;max-height:420px;object-fit:cover;object-position:top}
+.hero .frame{border-color:rgba(255,255,255,.35)}
+.pricecard{background:var(--white);color:var(--ink);padding:28px}
+.pc-tag{font-weight:800;font-size:14px;color:var(--ink)}
+.pc-normal{font-size:13.5px;color:var(--muted);margin-top:6px}
+.pc-big{font-size:18px;font-weight:800;color:var(--ink);margin-top:10px}.pc-big b{font-family:var(--display);font-size:54px;line-height:1.1;color:var(--blue)}.pc-big span{font-size:12.5px;color:var(--muted);font-weight:500}
+.pc-zero{font-weight:800;font-size:18px}.pc-note{font-size:12.5px;color:var(--muted);margin-top:10px}
+
+/* 煽りの一文：塗らずに大きな文字と罫線で */
+.alert{background:var(--white);color:var(--ink);font-weight:800;font-size:clamp(18px,2.4vw,24px);line-height:1.6;padding-block:30px;border-bottom:1px solid var(--rule)}
+
+/* 5つの質問：罫線で区切った一覧 */
+.qs{list-style:none;margin:32px 0 0;padding:0;max-width:780px;border-top:1px solid var(--rule-strong)}
+
+/* 社長が選ぶ流れ：3列の表として組む */
+
+/* 実物の見本：囲まず、画像と説明を並べる */
+.real{display:grid;grid-template-columns:1fr 1fr;column-gap:48px;row-gap:64px;margin-top:40px}
+.real article{min-width:0;display:grid;gap:18px;align-content:start}
+.real-wide{grid-column:1/-1}.real-text{max-width:40em}.real-text p{color:var(--muted);margin-top:4px;font-size:15px}
+.ba{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) 150px;gap:20px;align-items:end}
+.ba figure{margin:0;min-width:0}.ba figcaption{font-size:13px;font-weight:700;color:var(--muted);margin-bottom:8px}
+.phone{border:7px solid #1D2433;border-radius:22px;overflow:hidden;background:#1D2433}
+.phone img{width:100%;height:auto}
+.phone.line{max-width:260px}
+.frame.tall img{max-height:440px;width:100%;object-fit:cover;object-position:top}
+.monthly{max-width:640px;border-top:1px solid var(--rule-strong)}
+.m-head{font-weight:800;color:var(--ink);display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--rule)}.m-head span{font-weight:500;color:var(--muted);font-size:13.5px}
+.monthly table{width:100%;border-collapse:collapse;font-size:15px}.monthly th,.monthly td{text-align:left;padding:12px 0;border-bottom:1px solid var(--rule);vertical-align:top}.monthly th{color:var(--muted);font-weight:500;width:36%}.monthly td{color:var(--ink);font-variant-numeric:tabular-nums}
+
+/* 任せられること：一覧表 */
+.svc{margin-top:32px;border-top:1px solid var(--rule-strong)}
+.svc>div{display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:28px;padding:20px 0;border-bottom:1px solid var(--rule)}
+.svc p{color:var(--muted);font-size:15px}
+.sub-h{margin-top:48px}
+.prep{margin-top:14px;border-top:1px solid var(--rule-strong)}.prep>div{display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:28px;padding:18px 0;border-bottom:1px solid var(--rule)}.prep p{color:var(--muted);font-size:15px}
+
+/* 表 */
+.tbl{overflow-x:auto;margin-top:32px;border-top:1px solid var(--rule-strong)}
+.tbl table{width:100%;min-width:560px;border-collapse:collapse;font-size:15px}
+.tbl th,.tbl td{padding:16px 14px 16px 0;text-align:left;border-bottom:1px solid var(--rule);vertical-align:top}.tbl thead th{color:var(--muted);font-size:13.5px;font-weight:700}.tbl tbody th{color:var(--ink);white-space:nowrap}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:32px}.two>div{min-width:0;border-top:1px solid var(--rule-strong);padding-top:18px}
+.two ul{margin:10px 0 0;padding-left:1.2em}.two li{margin-top:6px}
+
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:32px;max-width:820px}
+.plan{border-top:1px solid var(--rule);padding-top:18px}.plan.hl .p-big{color:var(--blue)}
+.p-tag{font-weight:800;color:var(--ink);font-size:14px}.p-tag.gray{color:var(--muted)}
+.p-big{font-family:var(--display);font-size:34px;font-weight:800;color:var(--ink);margin-top:4px}.p-big span{font-family:var(--body);font-size:13px;font-weight:500;color:var(--muted);margin-left:6px}
+
+/* 導入の流れ：順番があるので番号を残す */
+.steps{list-style:none;margin:32px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px;border-top:1px solid var(--rule-strong)}
+.steps li{padding-top:16px}.steps span{font-family:var(--display);font-weight:800;color:var(--blue);font-size:15px}
+.steps h3{margin-top:2px}.steps p{color:var(--muted);font-size:15px;margin-top:4px}
+
+.faq{margin-top:32px;max-width:820px;border-top:1px solid var(--rule-strong)}
+.faq details{border-bottom:1px solid var(--rule);padding:18px 0}.faq summary{font-weight:700;color:var(--ink);cursor:pointer}.faq details p{margin-top:8px;color:var(--text)}
+
+.final{background:var(--ink);color:#fff;border-top:0}.final h2{color:#fff}.final p{color:#D6DDEA;margin-top:10px;max-width:40em}
+.ft{padding-block:24px;font-size:13px;color:var(--muted);border-top:1px solid var(--rule)}
+
+/* 確認用の切り替え（共有版だけ） */
+.mock-switch{position:fixed;left:max(10px,env(safe-area-inset-left,0px));bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:70;display:flex;flex-wrap:wrap;gap:4px;max-width:calc(100% - 20px);background:#17202B;padding:6px}
+.mock-switch button{border:1px solid #5A6577;background:transparent;color:#fff;border-radius:2px;padding:6px 9px;font-size:12px;font-family:inherit;cursor:pointer}.mock-switch button[aria-pressed="true"]{background:#fff;color:#17202B}
+
+@media (max-width:860px){
+  .hero-grid{grid-template-columns:1fr;gap:36px;padding-block:48px 56px}
+  .real{grid-template-columns:1fr}.ba{grid-template-columns:1fr 1fr}.ba-sp{grid-column:1/-1;max-width:200px}
+  .svc>div,.prep>div{grid-template-columns:1fr;gap:4px}.two,.plans{grid-template-columns:1fr;gap:32px}.steps{grid-template-columns:1fr 1fr}
+  section{padding-block:56px}
+}
+@media (max-width:480px){.ba{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.hd-btn{font-size:13px;padding:9px 12px}}
+
+/* 5つの質問：アイコンつきの一覧 */
+.qs li{display:grid;grid-template-columns:28px 1fr;gap:14px;align-items:center;padding:18px 0;border-bottom:1px solid var(--rule)}
+.qs li svg{width:22px;height:22px;color:var(--blue);stroke-width:1.75}
+.qs li.key{font-weight:800;color:var(--ink);font-size:18px}
+
+/* 社長が選ぶ流れ：左から右へ進む4場面。場面は画面の一部として描く */
+.journey{list-style:none;margin:36px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:40px}
+.journey li{position:relative;min-width:0;display:grid;grid-row:span 5;grid-template-rows:subgrid;row-gap:0}
+.journey li:not(:last-child)::after{content:"";position:absolute;top:58px;right:-31px;width:22px;height:22px;
+  background:no-repeat center/22px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231645C4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14'/%3E%3Cpath d='m12 5 7 7-7 7'/%3E%3C/svg%3E")}
+.j-scene{height:150px;background:var(--white);border:1px solid var(--rule);padding:14px;display:flex;align-items:center;justify-content:center;font-size:13px;line-height:1.5;overflow:hidden}
+.j-step{font-family:var(--display);font-weight:800;color:var(--blue);font-size:15px;margin-top:16px}
+.journey h3{margin-top:2px}
+.j-why{margin-top:6px;color:var(--muted);font-size:14.5px}
+.j-do{margin-top:14px;align-self:start;border-top:1px solid var(--rule-strong);padding-top:10px}.j-do-h{font-size:12.5px;font-weight:700;color:var(--muted)}.j-do p:last-child{font-size:14.5px;color:var(--ink);margin-top:2px}
+.sc-search{display:grid;gap:7px;width:100%}.sc-q{display:flex;align-items:center;gap:6px;border:1px solid #C9D0DB;border-radius:20px;padding:5px 10px;color:var(--ink);font-weight:600}.sc-q svg{width:14px;height:14px;color:var(--muted)}
+.sc-r{display:grid}.sc-r b{color:#1A44B8;font-weight:600}.sc-r em{font-style:normal;color:var(--muted)}.sc-r.dim b,.sc-r.dim em{display:block;height:7px;background:#E7EAF0;margin-top:4px}.sc-r.dim em{width:70%}
+.sc-map{position:relative;width:100%;height:100%;background:repeating-linear-gradient(0deg,#EEF1F5 0 1px,transparent 1px 22px),repeating-linear-gradient(90deg,#EEF1F5 0 1px,transparent 1px 22px),#F8F9FB;display:flex;align-items:flex-end;padding:8px}
+.sc-pin{position:absolute;top:8px;right:18px;color:#D93025}.sc-pin svg{width:26px;height:26px;fill:#F28B82}
+.sc-card{background:#fff;border:1px solid var(--rule);padding:6px 8px;display:grid;width:100%}.sc-card b{color:var(--ink)}.sc-card em{font-style:normal;color:var(--muted)}
+.sc-chat{display:grid;gap:6px;width:100%;background:#9DB6DD;padding:8px;height:100%;align-content:center}.sc-chat span{background:#fff;padding:5px 8px;border-radius:2px 10px 10px 10px;max-width:88%}.sc-chat .me{justify-self:end;background:#9BE06A;border-radius:10px 2px 10px 10px}
+.sc-mail{display:flex;gap:10px;align-items:center;width:100%;border:1px solid var(--rule);padding:12px}.sc-mail svg{width:26px;height:26px;color:var(--blue);flex:none}.sc-mail span{display:grid}.sc-mail b{color:var(--ink)}.sc-mail em{font-style:normal;color:var(--muted)}
+
+/* 任せられること：見出しにアイコン */
+.svc h3{display:flex;align-items:center;gap:10px}.svc h3 svg{width:22px;height:22px;color:var(--blue);flex:none;stroke-width:1.75}
+@media (max-width:860px){.journey{grid-template-columns:1fr 1fr;row-gap:36px}.journey li:nth-child(2)::after{display:none}}
+@media (max-width:560px){.journey{grid-template-columns:1fr;gap:0}.journey li{padding-bottom:48px;grid-row:auto;grid-template-rows:none}.journey li:not(:last-child)::after{top:auto;bottom:12px;right:auto;left:50%;transform:translateX(-50%) rotate(90deg);display:block!important}}
+
+/* CTA：taxel.biz と同じ作り（濃い面では白地に紺の文字、明るい面では紺地に白の文字、角は12px）。LINEは小さな印で示す */
+.btn-line{display:inline-flex;align-items:center;justify-content:center;gap:12px;width:auto;min-width:300px;max-width:100%;background:#fff;color:var(--ink);border-radius:12px;font-size:16px;font-weight:700;padding:16px 28px;box-shadow:0 12px 30px -14px rgba(0,0,0,.45);transition:transform .15s}
+.btn-line:hover{filter:none;transform:translateY(-1px)}
+.btn-line .lm{display:inline-grid;place-items:center;background:var(--line-green);color:#fff;font-family:var(--display);font-weight:800;font-size:10.5px;letter-spacing:.02em;width:34px;height:22px;border-radius:5px}
+.s-white .btn-line,.s-paper .btn-line,.pricecard .btn-line{background:var(--ink);color:#fff;box-shadow:none}
+.hd-btn{background:var(--ink);color:#fff;border-radius:8px;font-weight:600}
+@media (max-width:480px){.btn-line{min-width:0;width:100%}}
+
+.wi{display:inline-flex;align-items:center;gap:10px}.wi svg{width:20px;height:20px;color:var(--blue);flex:none;stroke-width:1.75}
+
+.r-split.rev{align-items:center}.r-split.rev .r-text{max-width:30em}
+
+/* 流れの場面（v3）：実際の画面に近づける */
+.j-scene{height:168px;padding:0;align-items:stretch;justify-content:stretch;font-size:12px}
+.sc-g{width:100%;padding:10px 12px;display:grid;gap:7px;align-content:start}
+.g-q{display:flex;align-items:center;gap:6px;border:1px solid #DADCE0;border-radius:20px;padding:4px 10px;color:#202124;font-weight:600;margin:0}.g-q svg{width:13px;height:13px;color:#5F6368}
+.g-r{display:grid;gap:2px}.g-r.dim span{display:block;height:6px;background:#E8EAED;border-radius:2px}.g-r.dim .g-u{width:40%}.g-r.dim .g-t{width:85%;height:8px;background:#D2E3FC}.g-r.dim .g-s{width:70%}
+.g-r.me{border:1.5px solid var(--blue);padding:5px 7px;margin:0 -8px;background:#F5F8FF}.g-u2{color:#4D5156;font-size:10.5px}.g-r.me b{color:#1A0DAB;font-weight:500;font-size:12.5px;line-height:1.35}.g-r.me em{font-style:normal;color:#4D5156;font-size:11px}
+.sc-m{width:100%;display:grid;grid-template-rows:1fr auto}
+.m-map{position:relative;background:#E8EAED;overflow:hidden}
+.m-map .road{position:absolute;background:#fff}.m-map .r1{left:0;right:0;top:45%;height:7px}.m-map .r2{top:0;bottom:0;left:38%;width:7px}.m-map .r3{left:-10%;width:130%;top:20%;height:5px;transform:rotate(-14deg)}
+.m-map::after{content:"";position:absolute;right:10px;bottom:8px;width:40px;height:28px;background:#C8E6C9;border-radius:4px}
+.pin{position:absolute;width:12px;height:12px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:#9AA0A6;left:20%;top:22%}
+.pin.p2{left:62%;top:30%}.pin.p3{left:28%;top:62%}.pin.me{width:18px;height:18px;background:#EA4335;left:50%;top:52%}
+.m-list{background:#fff;border-top:1px solid #DADCE0;padding:6px 10px;display:grid}.m-list b{color:#202124;font-size:12.5px}.m-list em{font-style:normal;color:#5F6368;font-size:11px}
+.sc-l{position:relative;width:100%;padding:10px}
+.l-page{display:grid;gap:7px}.l-page span{display:block;background:#E8EAED;height:7px;border-radius:2px}.l-page .l-h{height:14px;width:60%;background:#C9D2E3}.l-page .s{width:70%}
+.l-ban{position:absolute;right:10px;bottom:10px;left:28px;display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #DADCE0;border-radius:10px;padding:8px 10px;font-weight:700;color:#111;box-shadow:0 6px 16px -8px rgba(0,0,0,.35)}
+.l-mark{display:inline-grid;place-items:center;background:var(--line-green);color:#fff;font-size:9.5px;font-weight:800;width:30px;height:20px;border-radius:5px}
+.sc-r{width:100%;padding:10px 12px;display:grid;align-content:start;gap:8px}
+.r-h{display:flex;align-items:center;gap:6px;font-weight:700;color:var(--ink);margin:0}.r-h svg{width:15px;height:15px;color:var(--blue)}
+.r-slots{display:grid;grid-template-columns:1fr 1fr;gap:5px}.r-slots span{border:1px solid #D5DAE2;padding:4px;text-align:center;font-size:11px}.r-slots .on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.r-note{margin:0;font-size:11px;color:var(--muted);border-top:1px dashed var(--rule);padding-top:6px}
+
+/* 顧問後の節 */
+.crm{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center}
+.crm-pts{display:grid;margin-top:20px;border-top:1px solid var(--rule-strong)}.crm-pts>div{padding:14px 0;border-bottom:1px solid var(--rule)}.crm-pts p{color:var(--muted);font-size:15px;margin-top:2px}
+.inbox{border:1px solid var(--rule);background:#fff}
+.ib-h{display:flex;align-items:center;gap:8px;font-weight:700;color:var(--ink);padding:12px 16px;border-bottom:1px solid var(--rule);margin:0}.ib-h svg{width:18px;height:18px;color:var(--blue)}
+.ib-row{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:12px 16px;border-bottom:1px solid var(--rule)}.ib-row:last-child{border-bottom:0}
+.ib-row b{color:var(--ink);font-size:14.5px}.ib-row em{font-style:normal;color:var(--muted);font-size:13px;grid-column:1}.ib-row span{grid-column:2;grid-row:1/3;align-self:center;font-size:12.5px;color:var(--muted);white-space:nowrap}
+@media (max-width:860px){.crm{grid-template-columns:1fr;gap:28px}}
+
+/* 流れの場面（v4）：比べる＝マップからサイトへ、聞く＝サイトを離れる前のLINE案内 */
+.m-list{position:relative}.m-web{position:absolute;right:8px;top:50%;transform:translateY(-50%);border:1px solid #DADCE0;border-radius:14px;padding:2px 8px;font-size:10.5px;color:#1A73E8;background:#fff}
+.sc-l .l-ban{display:none}
+.sc-l::after{content:"";position:absolute;inset:0;background:rgba(15,20,28,.38)}
+.l-pop{position:absolute;left:18px;right:18px;top:50%;transform:translateY(-50%);z-index:1;background:#fff;padding:10px 10px 9px;text-align:center;box-shadow:0 10px 24px -8px rgba(0,0,0,.45)}
+.l-pop p{margin:0 0 7px;font-weight:700;color:var(--ink);font-size:12px}
+.l-go{display:flex;align-items:center;justify-content:center;gap:6px;background:var(--line-green);color:#fff;font-weight:800;font-size:11.5px;padding:6px}.l-go .l-mark{background:#fff;color:#06A848}
+.m-list{padding-right:78px}.m-list em{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* 無料診断の節（37の構成に戻した） */
+.diag{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:48px;align-items:center}@media (max-width:860px){.diag{grid-template-columns:1fr;gap:20px}}.diag .btn-line{margin-top:18px}
+
+/* LINEを通らない予約の入口（文字のリンク。主役はLINEボタン） */
+.book-link{display:inline-block;margin-top:12px;font-size:14px;font-weight:600;color:inherit;text-decoration:underline;text-underline-offset:3px;opacity:.9}
+.hero .book-link{color:#fff;display:block}.final .book-link{color:#fff;display:block;width:max-content}.diag .book-link{display:block}
+/* 役割分担表：スマホは縦並び */
+@media (max-width:640px){.tbl table{min-width:0}.tbl thead{display:none}.tbl tr{display:grid;padding:12px 0;border-bottom:1px solid var(--rule)}
+ .tbl th,.tbl td{border:0;padding:3px 0}.tbl td::before{content:attr(data-h)"　";font-weight:800;color:var(--ink)}}
+
+/* 料金に含む・含まないの表（スマホは縦並び：.tbl の規則を使う） */
+.incl table{min-width:0}.incl td{width:50%}
+/* 運営者情報 */
+.op{display:grid;gap:4px;margin:0 0 10px}.op div{display:flex;gap:12px}.op dt{color:var(--muted);min-width:4em}.op dd{margin:0;color:var(--text)}
+.ft-links{display:flex;gap:18px;margin:0 0 8px}.ft-links a{color:var(--text)}
+@media (max-width:640px){.incl td{width:auto}}
+
+/* ===== 文字の大きさと余白（11/09 Codex版2の数値を移植：小さい文字・詰まった余白はAIっぽい） =====
+   本文17px／注記15px以上／節の見出しはスマホ30px・PC40px（本文の約1.8倍）／小見出し20px／節の上下 スマホ88px・PC120px
+   画面の見本（LINE・地図・検索結果など）の中の小さな文字は、実物の縮尺に合わせるため対象外 */
+body{font-size:17px;line-height:1.85}
+section{padding-block:120px}
+h2{font-size:40px;line-height:1.4;font-weight:700;letter-spacing:0}
+h2+.lead,h2+p{margin-top:20px}
+h3{font-size:20px;line-height:1.55}
+.lead{font-size:17px;line-height:1.85}
+.note,.muted,.kick,.price-line,.pc-tag,.pc-normal,.pc-note,.p-tag,.j-do-h,.book-link,.ft{font-size:15px}
+.j-why,.j-do p{font-size:16px}
+.hd-btn{font-size:15px}
+.alert{padding-block:40px}
+@media (max-width:860px){
+  section{padding-block:88px}
+  h2{font-size:30px}
+  .hero h1{font-size:34px;line-height:1.35}
+  .hero-grid{padding-block:64px 72px}
+}
+/* 見出しは文節の切れ目で折り返す（言葉の途中で折れない） */
+h1,h2,h3,.alert,.j-step{word-break:auto-phrase;text-wrap:balance}
+/* 流れの段階名（探す・比べる・聞く・相談する）は大きく */
+.j-step{font-size:28px;line-height:1.3;font-weight:800;color:var(--blue);margin:20px 0 6px;letter-spacing:.02em}
+.journey h3{font-size:20px}
+@media (max-width:860px){.j-step{font-size:26px}}
+/* ===== スマホ（560px以下）の流れの節：左の縦線で4段階をつなぐ ===== */
+@media (max-width:560px){
+  .journey{gap:0;margin-top:28px}
+  .journey li{display:flex;flex-direction:column;padding:0 0 44px 26px;margin-left:6px;border-left:2px solid var(--rule-strong)}
+  .journey li:last-child{border-left-color:transparent;padding-bottom:0}
+  .journey li::before{content:"";position:absolute;left:-8px;top:8px;width:14px;height:14px;background:var(--blue)}
+  .journey li:not(:last-child)::after{display:none!important}
+  .journey li>.j-step{order:1;margin:0 0 4px;font-size:26px}
+  .journey li>h3{order:2;margin:0 0 14px}
+  .journey li>div:first-child{order:3}
+  .journey li>.j-why{order:4;margin-top:12px}
+  .journey li>.j-do{order:5}
+  .journey .j-scene{height:156px}
+  .journey .sc-cap{display:none}
+}
+/* 確認用の5パターン切り替え：1行にまとめる */
+.mock-switch{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.mock-switch::-webkit-scrollbar{display:none}.mock-switch button{white-space:nowrap;flex:none}
+/* ===== 流れの節：紺の背景で区切る（11/09 Codex版1の組み方を採用） ===== */
+section.s-ink{background:var(--ink);color:#fff;border-top:0}
+.s-ink h2,.s-ink h3{color:#fff}.s-ink .lead{color:#C9D2E3}
+.s-ink .journey{counter-reset:js}
+.s-ink .j-step{color:#fff;counter-increment:js}
+.s-ink .j-step::before{content:counter(js,decimal-leading-zero);font-size:15px;font-weight:600;color:#9FB0CC;margin-right:16px;letter-spacing:.04em;vertical-align:.35em}
+.s-ink .j-why{color:#E3E8F0}
+.s-ink .j-do{border-top-color:rgba(255,255,255,.28)}
+.s-ink .j-do-h{color:#A9C0F0}.s-ink .j-do p:last-child{color:#fff}
+.s-ink .sc-cap{color:#9FB0CC}
+.s-ink .journey li:not(:last-child)::after{filter:brightness(0) invert(1);opacity:.6}
+.s-ink .j-scene{border-color:rgba(255,255,255,.2)}
+/* スマホ：絵を外し、罫線で段階を区切る（縦線はやめる） */
+@media (max-width:560px){
+  .s-ink .journey{margin-top:36px;border-top:1px solid rgba(255,255,255,.28)}
+  .s-ink .journey li{border-left:0;margin-left:0;padding:32px 0;border-bottom:1px solid rgba(255,255,255,.28)}
+  .s-ink .journey li:last-child{padding-bottom:32px}
+  .s-ink .journey li::before{display:none}
+  .s-ink .journey li>div:first-child{display:none}
+  .s-ink .journey li>.j-step{font-size:30px;margin-bottom:14px}
+  .s-ink .journey li>h3{display:none}
+  .s-ink .journey li>.j-why{margin-top:0;font-size:17px}
+  .s-ink .j-do{border-top:0;padding-top:0;margin-top:22px}
+  .s-ink .j-do-h{font-size:15px}.s-ink .j-do p:last-child{font-size:17px;margin-top:6px}
+}
+.s-ink .j-scene{color:var(--ink)}
+/* ヘッダー：LINEを使わない予約の入口 */
+.hd-act{display:flex;align-items:center;gap:18px}
+.hd-book{font-size:15px;font-weight:700;color:var(--ink);text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.hd-book .sp{display:none}
+@media (max-width:560px){.hd-act{gap:12px}.hd-book{font-size:14px}.hd-book .pc{display:none}.hd-book .sp{display:inline}.hd-btn{font-size:14px;padding:9px 12px}}
+
+/* 無料診断：送るもの・届くもの／指摘の例／見本の出どころ（11/10） */
+.dg-io{display:grid;gap:22px;margin:24px 0 8px}
+.dg-io h3{font-size:18px;margin-bottom:6px}.dg-io p{margin:0 0 6px}
+.dg-q,.dg-out{margin:6px 0 0;padding-left:1.4em}.dg-q li,.dg-out li{margin:4px 0}
+.src{font-size:15px;color:var(--muted);margin:0 0 8px}
+.dg-ex{margin-top:20px;border-top:2px solid var(--ink);padding-top:14px;background:var(--white)}
+.dg-ex-h{font-size:15px;font-weight:700;color:var(--blue);margin:0 0 4px}
+.dg-ex h3{font-size:20px;margin:0 0 10px}
+.dg-ex dl{margin:0}.dg-ex dl div{padding:10px 0;border-top:1px solid var(--rule)}
+.dg-ex dt{font-size:15px;font-weight:700;color:var(--muted)}.dg-ex dd{margin:2px 0 0;font-size:17px}
+.s-paper .dg-ex{background:transparent}
+.rd-title,.dg-ex h3{word-break:auto-phrase}
+
+/* LINEのトーク画面：公式の画面（白いヘッダー、認証バッジ、アイコン、時刻、既読、カード型メッセージ）に合わせる */
+.r-phone{justify-self:center;width:310px;max-width:100%;border:8px solid #111;border-radius:42px;overflow:hidden;background:#111}
+.chat-ui{display:flex;flex-direction:column;height:640px;position:relative}
+/* 離脱防止ポップアップの場面（動きを止める設定の人には出さない） */
+.cu-site{position:absolute;left:0;right:0;top:30px;bottom:0;z-index:3;background:#fff;overflow:hidden;display:none;transition:opacity .45s}
+.cu-site.on{display:block}.cu-site.out{opacity:0}
+.cs-view{position:absolute;inset:0;overflow:hidden}.cs-img{width:100%;display:block;transform:translateY(0);transition:transform 3.4s ease-in-out}
+.cs-cap{position:absolute;z-index:2;left:0;right:0;top:10px;margin:0 auto;width:max-content;background:rgba(20,35,61,.85);color:#fff;font-size:11.5px;padding:3px 10px;border-radius:10px;opacity:0;transition:opacity .3s}
+.cu-site.pop .cs-cap{opacity:1}
+.cs-pop{position:absolute;z-index:2;left:14px;right:14px;top:50%;transform:translate(0,-40%) scale(.96);opacity:0;transition:opacity .3s,transform .3s;background:#fff;border:1px solid #D5DAE2;padding:18px 16px 12px;box-shadow:0 18px 40px -12px rgba(0,0,0,.45)}
+.cu-site.pop::before{content:'';position:absolute;inset:0;z-index:1;background:rgba(15,20,28,.5)}
+.cu-site.pop .cs-pop{opacity:1;transform:translate(0,-50%) scale(1)}
+.cs-x{position:absolute;right:8px;top:4px;color:#777;font-size:16px}
+.cs-q{margin:0;font-weight:800;color:#14233D;font-size:15px;line-height:1.5}.cs-b{margin:8px 0 12px;font-size:12.5px;color:#444;line-height:1.6}
+.cs-go{display:flex;align-items:center;justify-content:center;gap:8px;background:#06C755;color:#fff;font-weight:800;font-size:14px;padding:11px;transition:transform .15s,filter .15s}
+.cs-go .l-mark{background:#fff;color:#06A848}.cs-go.tap{transform:scale(.96);filter:brightness(.9)}
+.cs-no{display:block;text-align:center;font-size:11.5px;color:#777;margin-top:8px}.cu-log{flex:1;min-height:0;overflow-y:auto;scrollbar-width:none}.cu-log::-webkit-scrollbar{display:none}
+.cu-row.cu-h{display:none}.cu-row.cu-in{animation:cuin .28s ease-out}@keyframes cuin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.cu-typing{display:inline-flex;gap:4px;background:#fff;border-radius:16px;padding:11px 12px}.cu-typing i{width:6px;height:6px;border-radius:50%;background:#9AA3AE;animation:cudot 1s infinite}.cu-typing i:nth-child(2){animation-delay:.15s}.cu-typing i:nth-child(3){animation-delay:.3s}@keyframes cudot{0%,60%,100%{opacity:.3}30%{opacity:1}}
+.cu-qr{display:flex;gap:6px;overflow:hidden;background:#fff;padding:0 10px;max-height:0;transition:max-height .25s,padding .25s}.cu-qr.on{max-height:60px;padding:8px 10px}
+.cu-qr span{flex:none;border:1.5px solid #06C755;color:#06A848;border-radius:18px;padding:5px 11px;font-size:12px;font-weight:700;white-space:nowrap;background:#fff;transition:background .2s,color .2s}.cu-qr span.tap{background:#06C755;color:#fff}
+.chat-ui.paused *,.chat-ui.halt *{animation-play-state:paused!important}
+.cu-ctl{display:flex;justify-content:center;gap:8px;margin-top:10px}.cu-replay{display:block;margin:0;border:1px solid var(--rule);background:#fff;color:var(--ink);font:inherit;font-size:13px;padding:6px 14px;cursor:pointer}
+@media (prefers-reduced-motion:reduce){.cu-row.cu-in{animation:none}.cu-qr{display:none}}
+.chat-ui{background:linear-gradient(180deg,#8FA8D2 0%,#9AB3DC 100%);font-size:13.5px;line-height:1.55;color:#111}
+.cu-status{display:flex;justify-content:space-between;align-items:center;background:#fff;padding:8px 20px 2px;font-weight:700;font-size:13px}.cu-sig{display:flex;gap:4px}.cu-sig svg{width:14px;height:14px}
+.cu-bar{display:flex;align-items:center;gap:6px;background:#fff;padding:8px 12px 10px;border-bottom:1px solid #E3E6EB}.cu-bar svg{width:20px;height:20px}.cu-bar b{font-size:14.5px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cu-badge{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:#06C755;color:#fff}.cu-badge svg{width:12px;height:12px}
+.cu-tools{display:flex;gap:12px}.cu-tools svg{width:19px;height:19px}
+.cu-log{display:flex;flex-direction:column;gap:10px;padding:12px 10px 14px}
+.cu-day{align-self:center;background:rgba(0,0,0,.18);color:#fff;font-size:11px;padding:1px 10px;border-radius:10px}
+.cu-row{display:flex;align-items:flex-end;gap:6px}.cu-row.me{justify-content:flex-end}
+.cu-av{flex:none;align-self:flex-start;width:30px;height:30px;border-radius:50%;background:#1E5C3A;color:#fff;display:grid;place-items:center;font-size:13px;font-weight:700}
+.cu-m{max-width:72%;background:#fff;padding:8px 11px;border-radius:16px;margin:0}
+.cu-row.me .cu-m{background:#8DE055}
+.cu-t{font-size:10px;color:#3D4F6E;line-height:1.3;text-align:right;white-space:nowrap}
+.cu-card{background:#fff;border-radius:16px;overflow:hidden;max-width:78%;padding:12px 12px 8px}
+.cu-car{display:flex;gap:8px;overflow:hidden;width:calc(100% - 4px)}.cu-car .cu-card{flex:0 0 82%;max-width:none}
+.cu-ct{color:#06A848;font-weight:700;font-size:12px;margin:0}.cu-ch{font-weight:800;font-size:15px;line-height:1.45;margin:4px 0 6px}.cu-cb{font-size:12.5px;color:#444;margin:0 0 8px}
+.cu-card.wide{max-width:84%}.cu-done{align-self:center;color:#fff;font-size:11px;margin:0;opacity:.9}
+.cu-ul{list-style:none;margin:0 0 8px;padding:0;font-size:12.5px;color:#444}.cu-ul li{padding:6px 0;border-top:1px solid #EEF0F2}.cu-ul b{display:block;color:#111;font-size:13px}
+.cu-cbtn{display:block;background:#F1F2F4;border-radius:8px;text-align:center;padding:8px;font-weight:600;font-size:13px;margin-top:6px}
+.cu-input{display:flex;align-items:center;gap:12px;background:#fff;padding:10px 14px 14px;color:#555}.cu-input svg{width:19px;height:19px}.cu-input span{flex:1;background:#F1F2F4;border-radius:16px;padding:4px 12px;color:#999;font-size:13px}
+
+/* 実際の画面と資料（v2） */
+.real2{display:grid;gap:72px;margin-top:40px}
+.r-block{display:grid;gap:22px;min-width:0}.r-text{max-width:40em}.r-text p{color:var(--muted);margin-top:4px;font-size:15px}
+.shot{border:1px solid var(--rule);background:#fff;overflow:hidden}.shot img{width:100%;height:auto;display:block}
+.ba2{display:grid;grid-template-columns:minmax(0,1fr) 40px minmax(0,1fr);gap:16px;align-items:center;padding-bottom:64px;padding-right:20px}
+.ba2 figure{margin:0;min-width:0}.ba2 figcaption{font-size:13px;font-weight:700;color:var(--muted);margin-bottom:8px}
+.ba2 .shot{aspect-ratio:1280/820}.ba2 .shot img{height:100%;object-fit:cover;object-position:top}
+.ba-arrow{display:grid;place-items:center;color:var(--blue);padding-top:24px}.ba-arrow svg{width:28px;height:28px}
+.ba-after,.ba-before{position:relative}.ba-before .ba-phone{right:auto;left:-12px;width:128px;bottom:-64px}
+.ba-tbl{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px}.ba-tbl th,.ba-tbl td{text-align:left;vertical-align:top;padding:12px 14px 12px 0;border-bottom:1px solid var(--rule)}
+.ba-tbl thead th{font-size:13px;color:var(--muted);font-weight:700;border-bottom:1px solid var(--ink)}.ba-tbl tbody th{color:var(--ink);font-weight:700;white-space:nowrap;width:8em}
+.ba-tbl td:nth-child(2){color:var(--muted);width:44%}.ba-tbl td:nth-child(3){color:var(--ink)}
+.ba-phone{position:absolute;right:-12px;bottom:-56px;width:172px;border:6px solid #1D2433;border-radius:20px;overflow:hidden;background:#1D2433}
+.ba-phone img{width:100%;height:auto;display:block}
+.r-split{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:48px;align-items:start}
+.r-split.rev{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center}
+.r-report{max-height:520px}.r-report img{object-fit:cover;object-position:top}
+.report-doc{border:1px solid var(--rule);background:#fff;padding:26px 28px;max-width:900px}
+.rd-head{display:flex;justify-content:space-between;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:12px}
+.rd-to{font-size:14px;color:var(--muted)}.rd-title{font-family:var(--display);font-weight:800;color:var(--ink);font-size:20px}
+.rd-from{text-align:right;font-family:var(--display);font-weight:800;color:var(--ink)}.rd-from span{font-family:var(--body);font-weight:500;font-size:12px;color:var(--muted)}
+.rd-kpi{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:18px 0 0;border-bottom:1px solid var(--rule)}
+.rd-kpi>div{padding:4px 16px 16px;border-left:1px solid var(--rule)}.rd-kpi>div:first-child{border-left:0;padding-left:0}
+.rd-kpi dt{font-size:13px;color:var(--muted)}.rd-kpi dd{margin:2px 0 0;font-family:var(--display);font-weight:800;font-size:30px;color:var(--ink);font-variant-numeric:tabular-nums}.rd-kpi small{font-size:13px;margin-left:2px;font-weight:600}
+.rd-kpi .up{font-size:12.5px;color:#1B7A43;font-weight:600}
+.rd-find{margin-top:20px;border-top:1px solid var(--rule);padding-top:14px}.rd-find p{font-size:15px;margin:4px 0 12px;color:var(--text)}.rd-find .rd-h{margin:0}
+.rd-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:18px}
+.rd-h{font-weight:800;color:var(--ink);font-size:14px}.rd-cols ol,.rd-cols ul{margin:6px 0 0;padding-left:1.2em;font-size:14px}.rd-cols li{margin-top:3px}
+.sc-cap{display:block;margin-top:8px;font-size:12px;color:var(--muted)}
+@media (max-width:860px){.ba-before .ba-phone{left:8px}.ba-before{margin-bottom:72px}.ba2 .ba-arrow{margin-bottom:12px}.ba-tbl thead{display:none}.ba-tbl tr{display:grid;padding:12px 0;border-bottom:1px solid var(--rule)}.ba-tbl th,.ba-tbl td{border:0;padding:2px 0;width:auto!important}.ba-tbl td:nth-child(2)::before{content:"改修前　";font-weight:700}.ba-tbl td:nth-child(3)::before{content:"改修後　";font-weight:700;color:var(--blue)}
+ .ba2{grid-template-columns:1fr;padding-bottom:56px}.ba-arrow{transform:rotate(90deg);padding:0}.ba-phone{right:8px;width:140px}
+ .r-split,.r-split.rev{grid-template-columns:1fr;gap:20px}.rd-kpi{grid-template-columns:1fr 1fr}.rd-kpi>div:nth-child(3){border-left:0;padding-left:0}.rd-cols{grid-template-columns:1fr}}
+
+/* スマホ（560px以下）：改修前後のスマホ画面を左右に同じ大きさで並べる */
+@media (max-width:560px){
+ .ba2{grid-template-columns:minmax(0,1fr) 22px minmax(0,1fr);gap:8px;padding:0;align-items:start}
+ .ba2 .shot{display:none}
+ .ba2 .ba-before{margin-bottom:0}
+ .ba2 .ba-phone,.ba-before .ba-phone{position:static;width:100%;border-width:5px;border-radius:18px}
+ .ba2 .ba-phone img{aspect-ratio:390/600;object-fit:cover;object-position:top}
+ .ba-arrow{transform:none!important;padding:0;align-self:center;margin:0!important}.ba-arrow svg{width:20px;height:20px}
+}
+
+/* トップの流れの見本（動画風） */
+.hv{margin:0;min-width:0}
+.hv-stage{position:relative;aspect-ratio:16/11;background:#fff;overflow:hidden;border:1px solid rgba(255,255,255,.35)}
+.hv-sc{position:absolute;inset:0;opacity:0;transition:opacity .6s ease;pointer-events:none}.hv-sc.on{opacity:1}
+.hv-shot{position:absolute;inset:0}.hv-shot img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.hv-sc.on .hv-shot img{animation:hvpan 3.6s ease-out both}@keyframes hvpan{from{transform:scale(1.04)}to{transform:scale(1)}}
+.hv-tag{position:absolute;left:10px;top:10px;background:#5A6476;color:#fff;font-size:12px;font-weight:700;padding:3px 10px}.hv-tag.on{background:var(--blue)}
+.hv-note{position:absolute;background:#fff;color:var(--ink);font-size:12px;font-weight:700;padding:5px 9px;border-left:3px solid var(--blue);box-shadow:0 6px 16px -8px rgba(0,0,0,.4);opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s}
+.hv-note.n1{left:8%;top:44%}.hv-note.n2{right:6%;top:16%}
+.hv-sc.on .hv-note{opacity:1;transform:none}.hv-sc.on .hv-note.n1{transition-delay:.7s}.hv-sc.on .hv-note.n2{transition-delay:1.3s}
+.hv-shot.dim::after{content:"";position:absolute;inset:0;background:rgba(15,20,28,.5)}
+.hv-pop{position:absolute;z-index:1;left:50%;top:50%;width:62%;transform:translate(-50%,-44%) scale(.95);opacity:0;transition:opacity .4s .6s,transform .4s .6s;background:#fff;padding:14px;text-align:center}
+.hv-sc.on .hv-pop{opacity:1;transform:translate(-50%,-50%)}
+.hv-pop p{margin:0 0 9px;font-weight:800;color:var(--ink);font-size:14px}
+.hv-go{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--line-green);color:#fff;font-weight:800;font-size:13px;padding:9px}
+.hv-go .lm{background:#fff;color:#06A848;font-size:10px;padding:1px 4px;border-radius:3px}
+.hv-map{position:absolute;inset:0;background:#E8EAED}
+.hm-area{position:absolute;inset:0}.hm-area span{position:absolute;background:#fff}.hm-area .r1{left:0;right:0;top:34%;height:10px}.hm-area .r2{top:0;bottom:0;left:30%;width:10px}
+.hm-area .pin{position:absolute;width:14px;height:14px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:#9AA0A6;left:16%;top:18%}.hm-area .p2{left:68%;top:14%}
+.hm-area .me{width:22px;height:22px;background:#EA4335;left:44%;top:22%}
+.hv-sc.on .hm-area .me{animation:hvpin .6s .3s both}@keyframes hvpin{from{transform:rotate(-45deg) translate(0,-14px);opacity:0}to{transform:rotate(-45deg);opacity:1}}
+.hm-card{position:absolute;left:0;right:0;bottom:0;background:#fff;padding:12px 14px;display:grid;gap:3px;color:#202124;box-shadow:0 -6px 18px -10px rgba(0,0,0,.35)}
+.hm-card b{font-size:15px}.hm-card em{font-style:normal;font-size:12px;color:#5F6368}.hm-rate span{color:#F4B400;letter-spacing:1px}
+.hm-ph{display:flex;gap:5px;margin-top:4px}.hm-ph img{width:31%;height:50px;object-fit:cover}
+.hm-act{display:flex;gap:6px;margin-top:6px}.hm-act span{border:1px solid #DADCE0;border-radius:14px;padding:2px 10px;font-size:11.5px;color:#1A73E8}
+.hv-loop{position:absolute;right:10px;top:10px;background:var(--ink);color:#fff;font-size:11.5px;font-weight:700;padding:4px 10px}
+.hv-chat{position:absolute;inset:0;background:#8FA8D2;padding:14px;display:flex;flex-direction:column;gap:8px}
+.hc-b{margin:0;max-width:75%;background:#fff;padding:7px 11px;border-radius:14px;font-size:13px;color:#111;opacity:0;transform:translateY(6px);transition:opacity .35s,transform .35s}
+.hc-b.me{align-self:flex-end;background:#8DE055}
+.hc-card{background:#fff;border-radius:14px;padding:10px 12px;display:grid;gap:3px;max-width:86%;opacity:0;transform:translateY(6px);transition:opacity .35s,transform .35s}
+.hc-card b{color:#111;font-size:13px}.hc-card span{font-size:12px;color:#444}.hc-card em{font-style:normal;margin-top:5px;background:#F1F2F4;border-radius:8px;text-align:center;padding:6px;font-weight:700;font-size:12.5px;color:#111}
+.hv-sc.on .hc-b,.hv-sc.on .hc-card{opacity:1;transform:none}.hv-sc.on .hc-b.me{transition-delay:.7s}.hv-sc.on .hc-card{transition-delay:1.4s}
+.hv-inbox{position:absolute;inset:0;background:#fff;padding:6px 0}
+.hi-h{margin:0;padding:8px 14px;font-weight:800;color:var(--ink);font-size:14px;border-bottom:1px solid var(--rule)}
+.hv-inbox div{display:grid;grid-template-columns:1fr auto;gap:0 10px;padding:10px 14px;border-bottom:1px solid var(--rule);opacity:0;transform:translateX(8px);transition:opacity .35s,transform .35s}
+.hv-inbox b{color:var(--ink);font-size:13.5px}.hv-inbox span{font-size:12px;color:var(--muted);grid-column:1}.hv-inbox em{font-style:normal;grid-column:2;grid-row:1/3;align-self:center;font-size:12px;color:var(--muted)}
+.hv-sc.on .hv-inbox div{opacity:1;transform:none}.hv-sc.on .hv-inbox div:nth-of-type(2){transition-delay:.5s}.hv-sc.on .hv-inbox div:nth-of-type(3){transition-delay:1s}
+.hv-cap{margin-top:12px;min-height:3.2em;font-size:14px;line-height:1.6;color:#fff}
+.hv-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:6px}
+.hv-steps button{font:inherit;font-size:12.5px;font-weight:700;color:rgba(255,255,255,.65);background:none;border:0;border-top:3px solid rgba(255,255,255,.25);padding:7px 0 0;text-align:left;cursor:pointer}
+.hv-steps button.on{color:#fff;border-top-color:var(--line-green)}
+.hv-stage{cursor:pointer}.hv.paused .hv-stage *,.hv.halt .hv-stage *{animation-play-state:paused!important}
+.hv-stage.hold,.hv-stage.hold *{transition:none!important;animation:none!important}
+.hv.paused .hv-stage::after{content:"一時停止中";position:absolute;right:8px;bottom:8px;z-index:5;background:rgba(14,26,51,.85);color:#fff;font-size:13px;padding:3px 9px}
+@media (prefers-reduced-motion:reduce){.hv-sc,.hv-note,.hv-pop,.hc-b,.hc-card,.hv-inbox div,.hv-sc .hv-shot img,.hv-sc .hm-area .me{transition:none!important;animation:none!important}}
+.hv-pause{display:block;margin-top:10px;margin-left:auto;font:inherit;font-size:14px;font-weight:700;color:#fff;background:none;border:1px solid rgba(255,255,255,.5);padding:6px 14px;cursor:pointer}
+.hv-pause:focus-visible,.hv-steps button:focus-visible{outline:3px solid #AFC3E6;outline-offset:2px}
+</style></head><body><header class="hd"><div class="wrap hd-in"><a class="logo" href="/"><img src="/assets/brand/taxel-logo.png" alt="taXel タクセル"></a><div class="hd-act"><a class="hd-book" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0THxEfmFAbMM24_U7hvCWGjHQNR2w2Bo2b9hinyHPR2wZ9s9SzGMj_qMYtuGjqmVpljHgDjzw1" data-book><span class="pc">オンライン説明を予約</span><span class="sp">説明を予約</span></a><button type="button" class="hd-btn" data-line>LINEで無料診断</button></div></div></header><div class="hero"><img class="hero-bg" src="img/hero-office.jpg" alt=""><div class="fv" data-fv="o"><div class="wrap hero-grid"><div class="hero-copy"><p class="kick">税理士事務所の集客改善サービス</p><h1>集客、できていますか？<br>運用まで、手が回っていますか？</h1><p class="sub">サイト・Googleマップ・公式LINE・メールの運用を、月額でお引き受けします。</p><ul class="pts"><li>サイトの更新作業を代行します</li><li>相談前によくある質問をサイトとLINEでご案内します</li><li>顧問先へのお知らせを代わりに作ります</li></ul><button type="button" class="btn-line" data-line><span class="lm" aria-hidden="true">LINE</span>LINEで無料診断を受ける</button><a class="book-link" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0THxEfmFAbMM24_U7hvCWGjHQNR2w2Bo2b9hinyHPR2wZ9s9SzGMj_qMYtuGjqmVpljHgDjzw1" data-book>LINEを使わずに、オンライン説明（15分）を予約する</a><p class="price-line">通常 月19,800円〜・初期費用100,000円 → <b>2026年11月30日までのお申し込みで、初年度（契約から12か月）月10,000円・初期費用0円</b>（税別）</p></div><figure class="hv" aria-label="改修から毎月の運用までの流れ（見本）"><div class="hv-stage"><div class="hv-sc on" data-step="0" data-cap="改修前：何の事務所か、どこから相談するかが分かりにくいサイト"><div class="hv-shot"><img src="img/before_pc.png" alt=""><span class="hv-tag">改修前</span></div></div><div class="hv-sc" data-step="0" data-cap="改修後：地域と業務が分かり、電話や相談のボタンがすぐ押せます" aria-hidden="true"><div class="hv-shot"><img src="img/after_pc.png" alt=""><span class="hv-tag on">改修後</span><span class="hv-note n1">地域と業務が一目で分かる</span><span class="hv-note n2">相談ボタンがすぐ押せる</span></div></div><div class="hv-sc" data-step="1" data-cap="Googleマップの情報と写真を、今の事務所に合わせて整えます" aria-hidden="true"><div class="hv-map"><div class="hm-area"><span class="r1"></span><span class="r2"></span><i class="pin"></i><i class="pin p2"></i><i class="pin me"></i></div><div class="hm-card"><b>みどり税理士事務所</b><em>税理士・営業中・〇〇駅から徒歩10分</em><div class="hm-ph"><img src="img/p_meeting_long.jpg" alt=""><img src="img/p_desk_chair.jpg" alt=""><img src="img/p_office_plant.jpg" alt=""></div><div class="hm-act"><span>ウェブサイト</span><span>電話</span><span>経路</span></div></div></div></div><div class="hv-sc" data-step="2" data-cap="サイトを離れようとした社長に、LINEで質問できる案内を出します" aria-hidden="true"><div class="hv-shot dim"><img src="img/after_pc.png" alt=""><div class="hv-pop"><p>相談先、迷っていませんか？</p><span class="hv-go"><span class="lm">LINE</span>LINEで質問する</span></div></div></div><div class="hv-sc" data-step="2" data-cap="LINEで悩みを伺い、合う案内から面談の予約まで進めます" aria-hidden="true"><div class="hv-chat"><p class="hc-b">一番相談したいことは？</p><p class="hc-b me">節税できているか確かめたい</p><div class="hc-card"><b>まだ使っていない可能性のある制度</b><span>経営セーフティ共済 ／ iDeCo ／ 役員報酬の設計</span><em>無料面談を予約する</em></div></div></div><div class="hv-sc" data-step="3" data-cap="顧問になった後も、決算や補助金のご案内を顧問先に届けます" aria-hidden="true"><div class="hv-inbox"><p class="hi-h">顧問先への配信</p><div><b>決算3か月前の準備のご案内</b><span>3月決算の顧問先へ</span><em>確認待ち</em></div><div><b>〇〇市の設備投資の補助金のお知らせ</b><span>製造業の顧問先へ</span><em>配信予定</em></div><div><b>税制改正のお知らせ</b><span>すべての顧問先へ</span><em>配信済み</em></div></div></div><div class="hv-sc" data-step="4" data-cap="満足した顧問先の評判と紹介が、Googleマップでの見え方にもつながります" aria-hidden="true"><div class="hv-map"><div class="hm-area"><span class="r1"></span><span class="r2"></span><i class="pin"></i><i class="pin p2"></i><i class="pin me"></i></div><div class="hm-card"><b>みどり税理士事務所</b><em class="hm-rate"><span>★★★★★</span>　口コミ 28件</em><em>税理士・営業中・〇〇駅から徒歩10分</em><div class="hm-act"><span>ウェブサイト</span><span>電話</span><span>経路</span></div></div><span class="hv-loop">マップに戻って、次の社長へ</span></div></div></div><figcaption class="hv-cap" aria-live="off">改修前：何の事務所か、どこから相談するかが分かりにくいサイト</figcaption><div class="hv-steps"><button type="button" data-go="0" class="on" aria-current="step">改修</button><button type="button" data-go="1">マップ</button><button type="button" data-go="2">LINE</button><button type="button" data-go="3">顧問後</button><button type="button" data-go="4">評判</button></div><button type="button" class="hv-pause" aria-pressed="false">一時停止</button></figure></div></div><div class="fv" data-fv="a"><div class="wrap hero-grid"><div class="hero-copy"><p class="kick">税理士事務所向け｜Web集客運用代行</p><h1>そのホームページ、<br>顧問先を逃していませんか？</h1><p class="sub">ホームページがあるだけで、集客できていると思っていませんか？ 地域検索で見つからない。訪問されても問い合わせにつながらない。更新する時間もない。そんな取りこぼしを減らすために、サイト・Googleマップ・LINE・記事更新をまとめてお引き受けします。</p><ul class="pts"><li>地域検索で見つけてもらう入口を整備</li><li>LINEで相談前の見込み客とつながる</li><li>記事更新やマップ管理もまとめて代行</li></ul><button type="button" class="btn-line" data-line><span class="lm" aria-hidden="true">LINE</span>LINEで無料診断を受ける</button><a class="book-link" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0THxEfmFAbMM24_U7hvCWGjHQNR2w2Bo2b9hinyHPR2wZ9s9SzGMj_qMYtuGjqmVpljHgDjzw1" data-book>LINEを使わずに、オンライン説明（15分）を予約する</a><p class="price-line">通常 月19,800円〜・初期費用100,000円 → <b>2026年11月30日までのお申し込みで、初年度（契約から12か月）月10,000円・初期費用0円</b>（税別）</p></div><figure class="hv" aria-label="改修から毎月の運用までの流れ（見本）"><div class="hv-stage"><div class="hv-sc on" data-step="0" data-cap="改修前：何の事務所か、どこから相談するかが分かりにくいサイト"><div class="hv-shot"><img src="img/before_pc.png" alt=""><span class="hv-tag">改修前</span></div></div><div class="hv-sc" data-step="0" data-cap="改修後：地域と業務が分かり、電話や相談のボタンがすぐ押せます" aria-hidden="true"><div class="hv-shot"><img src="img/after_pc.png" alt=""><span class="hv-tag on">改修後</span><span class="hv-note n1">地域と業務が一目で分かる</span><span class="hv-note n2">相談ボタンがすぐ押せる</span></div></div><div class="hv-sc" data-step="1" data-cap="Googleマップの情報と写真を、今の事務所に合わせて整えます" aria-hidden="true"><div class="hv-map"><div class="hm-area"><span class="r1"></span><span class="r2"></span><i class="pin"></i><i class="pin p2"></i><i class="pin me"></i></div><div class="hm-card"><b>みどり税理士事務所</b><em>税理士・営業中・〇〇駅から徒歩10分</em><div class="hm-ph"><img src="img/p_meeting_long.jpg" alt=""><img src="img/p_desk_chair.jpg" alt=""><img src="img/p_office_plant.jpg" alt=""></div><div class="hm-act"><span>ウェブサイト</span><span>電話</span><span>経路</span></div></div></div></div><div class="hv-sc" data-step="2" data-cap="サイトを離れようとした社長に、LINEで質問できる案内を出します" aria-hidden="true"><div class="hv-shot dim"><img src="img/after_pc.png" alt=""><div class="hv-pop"><p>相談先、迷っていませんか？</p><span class="hv-go"><span class="lm">LINE</span>LINEで質問する</span></div></div></div><div class="hv-sc" data-step="2" data-cap="LINEで悩みを伺い、合う案内から面談の予約まで進めます" aria-hidden="true"><div class="hv-chat"><p class="hc-b">一番相談したいことは？</p><p class="hc-b me">節税できているか確かめたい</p><div class="hc-card"><b>まだ使っていない可能性のある制度</b><span>経営セーフティ共済 ／ iDeCo ／ 役員報酬の設計</span><em>無料面談を予約する</em></div></div></div><div class="hv-sc" data-step="3" data-cap="顧問になった後も、決算や補助金のご案内を顧問先に届けます" aria-hidden="true"><div class="hv-inbox"><p class="hi-h">顧問先への配信</p><div><b>決算3か月前の準備のご案内</b><span>3月決算の顧問先へ</span><em>確認待ち</em></div><div><b>〇〇市の設備投資の補助金のお知らせ</b><span>製造業の顧問先へ</span><em>配信予定</em></div><div><b>税制改正のお知らせ</b><span>すべての顧問先へ</span><em>配信済み</em></div></div></div><div class="hv-sc" data-step="4" data-cap="満足した顧問先の評判と紹介が、Googleマップでの見え方にもつながります" aria-hidden="true"><div class="hv-map"><div class="hm-area"><span class="r1"></span><span class="r2"></span><i class="pin"></i><i class="pin p2"></i><i class="pin me"></i></div><div class="hm-card"><b>みどり税理士事務所</b><em class="hm-rate"><span>★★★★★</span>　口コミ 28件</em><em>税理士・営業中・〇〇駅から徒歩10分</em><div class="hm-act"><span>ウェブサイト</span><span>電話</span><span>経路</span></div></div><span class="hv-loop">マップに戻って、次の社長へ</span></div></div></div><figcaption class="hv-cap" aria-live="off">改修前：何の事務所か、どこから相談するかが分かりにくいサイト</figcaption><div class="hv-steps"><button type="button" data-go="0" class="on" aria-current="step">改修</button><button type="button" data-go="1">マップ</button><button type="button" data-go="2">LINE</button><button type="button" data-go="3">顧問後</button><button type="button" data-go="4">評判</button></div><button type="button" class="hv-pause" aria-pressed="false">一時停止</button></figure></div></div><div class="fv" data-fv="b"><div class="wrap hero-grid"><div class="hero-copy"><p class="kick">税理士事務所向け｜Web集客運用代行</p><h1>新しい顧問先との出会いを、<br>先生が忙しい間にも。</h1><p class="sub">紹介だけに頼らない集客の仕組みを。サイト改善・地域検索対策・Googleマップ・LINE・記事更新まで、仕組みづくりと日々の運用をまとめてお任せいただけます。</p><ul class="pts"><li>新しい相談の入口をつくる</li><li>問い合わせ前から関係をつくる</li><li>集客に取られる時間を減らす</li></ul><button type="button" class="btn-line" data-line><span class="lm" aria-hidden="true">LINE</span>LINEで無料診断を受ける</button><a class="book-link" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0THxEfmFAbMM24_U7hvCWGjHQNR2w2Bo2b9hinyHPR2wZ9s9SzGMj_qMYtuGjqmVpljHgDjzw1" data-book>LINEを使わずに、オンライン説明（15分）を予約する</a><p class="price-line">通常 月19,800円〜・初期費用100,000円 → <b>2026年11月30日までのお申し込みで、初年度（契約から12か月）月10,000円・初期費用0円</b>（税別）</p></div><figure class="hv" aria-label="改修から毎月の運用までの流れ（見本）"><div class="hv-stage"><div class="hv-sc on" data-step="0" data-cap="改修前：何の事務所か、どこから相談するかが分かりにくいサイト"><div class="hv-shot"><img src="img/before_pc.png" alt=""><span class="hv-tag">改修前</span></div></div><div class="hv-sc" data-step="0" data-cap="改修後：地域と業務が分かり、電話や相談のボタンがすぐ押せます" aria-hidden="true"><div class="hv-shot"><img src="img/after_pc.png" alt=""><span class="hv-tag on">改修後</span><span class="hv-note n1">地域と業務が一目で分かる</span><span class="hv-note n2">相談ボタンがすぐ押せる</span></div></div><div class="hv-sc" data-step="1" data-cap="Googleマップの情報と写真を、今の事務所に合わせて整えます" aria-hidden="true"><div class="hv-map"><div class="hm-area"><span class="r1"></span><span class="r2"></span><i class="pin"></i><i class="pin p2"></i><i class="pin me"></i></div><div class="hm-card"><b>みどり税理士事務所</b><em>税理士・営業中・〇〇駅から徒歩10分</em><div class="hm-ph"><img src="img/p_meeting_long.jpg" alt=""><img src="img/p_desk_chair.jpg" alt=""><img src="img/p_office_plant.jpg" alt=""></div><div class="hm-act"><span>ウェブサイト</span><span>電話</span><span>経路</span></div></div></div></div><div class="hv-sc" data-step="2" data-cap="サイトを離れようとした社長に、LINEで質問できる案内を出します" aria-hidden="true"><div class="hv-shot dim"><img src="img/after_pc.png" alt=""><div class="hv-pop"><p>相談先、迷っていませんか？</p><span class="hv-go"><span class="lm">LINE</span>LINEで質問する</span></div></div></div><div class="hv-sc" data-step="2" data-cap="LINEで悩みを伺い、合う案内から面談の予約まで進めます" aria-hidden="true"><div class="hv-chat"><p class="hc-b">一番相談したいことは？</p><p class="hc-b me">節税できているか確かめたい</p><div class="hc-card"><b>まだ使っていない可能性のある制度</b><span>経営セーフティ共済 ／ iDeCo ／ 役員報酬の設計</span><em>無料面談を予約する</em></div></div></div><div class="hv-sc" data-step="3" data-cap="顧問になった後も、決算や補助金のご案内を顧問先に届けます" aria-hidden="true"><div class="hv-inbox"><p class="hi-h">顧問先への配信</p><div><b>決算3か月前の準備のご案内</b><span>3月決算の顧問先へ</span><em>確認待ち</em></div><div><b>〇〇市の設備投資の補助金のお知らせ</b><span>製造業の顧問先へ</span><em>配信予定</em></div><div><b>税制改正のお知らせ</b><span>すべての顧問先へ</span><em>配信済み</em></div></div></div><div class="hv-sc" data-step="4" data-cap="満足した顧問先の評判と紹介が、Googleマップでの見え方にもつながります" aria-hidden="true"><div class="hv-map"><div class="hm-area"><span class="r1"></span><span class="r2"></span><i class="pin"></i><i class="pin p2"></i><i class="pin me"></i></div><div class="hm-card"><b>みどり税理士事務所</b><em class="hm-rate"><span>★★★★★</span>　口コミ 28件</em><em>税理士・営業中・〇〇駅から徒歩10分</em><div class="hm-act"><span>ウェブサイト</span><span>電話</span><span>経路</span></div></div><span class="hv-loop">マップに戻って、次の社長へ</span></div></div></div><figcaption class="hv-cap" aria-live="off">改修前：何の事務所か、どこから相談するかが分かりにくいサイト</figcaption><div class="hv-steps"><button type="button" data-go="0" class="on" aria-current="step">改修</button><button type="button" data-go="1">マップ</button><button type="button" data-go="2">LINE</button><button type="button" data-go="3">顧問後</button><button type="button" data-go="4">評判</button></div><button type="button" class="hv-pause" aria-pressed="false">一時停止</button></figure></div></div><div class="fv" data-fv="c"><div class="wrap hero-grid"><div class="hero-copy"><p class="kick">税理士事務所向け｜Web集客運用代行</p><h1>ホームページも。Googleマップも。<br>LINEも。記事更新も。</h1><p class="sub">税理士事務所のWeb集客を、まとめて。制作して終わりにせず、集客の運用までお任せいただけます。</p><ul class="pts"><li>サイト改修・地域検索向けの記事</li><li>Googleマップの管理</li><li>LINE登録と自動案内</li><li>顧問先へのメール配信</li></ul></div><div class="pricecard"><p class="pc-tag">2026年11月30日までのお申し込み</p><p class="pc-normal">通常 月19,800円〜・初期費用100,000円</p><p class="pc-big">月<b>10,000</b>円<span>（税別・初年度）</span></p><p class="pc-zero">初期費用 0円</p><button type="button" class="btn-line" data-line><span class="lm" aria-hidden="true">LINE</span>LINEで無料診断を受ける</button><a class="book-link" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0THxEfmFAbMM24_U7hvCWGjHQNR2w2Bo2b9hinyHPR2wZ9s9SzGMj_qMYtuGjqmVpljHgDjzw1" data-book>LINEを使わずに、オンライン説明（15分）を予約する</a><p class="pc-note">最低利用6か月・13か月目から月19,800円〜</p></div></div></div><div class="fv" data-fv="n"><div class="wrap hero-grid"><div class="hero-copy"><p class="kick">税理士事務所向け｜Web集客運用代行</p><h1>そのホームページ、<br>顧問先を逃していませんか？</h1><p class="sub">同じ地域の事務所と比べ、検索・Googleマップ・サイトから問い合わせまでの流れを分析します。改善から毎月の運用までお任せいただけます。</p><button type="button" class="btn-line" data-line><span class="lm" aria-hidden="true">LINE</span>自分の事務所を無料で分析する</button><a class="book-link" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0THxEfmFAbMM24_U7hvCWGjHQNR2w2Bo2b9hinyHPR2wZ9s9SzGMj_qMYtuGjqmVpljHgDjzw1" data-book>LINEを使わずに、オンライン説明（15分）を予約する</a><p class="price-line">通常 月19,800円〜・初期費用100,000円 → <b>2026年11月30日までのお申し込みで、初年度（契約から12か月）月10,000円・初期費用0円</b>（税別）</p></div><figure class="frame hero-shot"><div class="frame-bar"><i></i><i></i><i></i><span>集客分析レポート（見本）</span></div><img src="img/report.png" alt="集客分析レポートの見本。同じ地域の10事務所と、表示速度や問い合わせまでのクリック数を数字で比べている"></figure></div></div></div><div class="alert"><div class="wrap">見つからない。つながらない。更新も止まったまま。相談先の候補から、外れていませんか？</div></div><section class="s-paper" id="diag"><div class="wrap"><div class="r-split diag"><div class="r-text"><h2>まずは、公式LINEで無料診断を</h2><p class="lead">同じ地域の事務所と比べ、検索・マップ・サイト・問い合わせの流れを確認。先に直したい3点と改善策をお伝えします。</p><div class="dg-io"><div><h3>お送りいただくもの</h3><p>サイトのURLと、LINEでの3つの質問への回答です。</p><ol class="dg-q"><li>サイトに最後に手を入れた時期</li><li>Googleマップの情報が今の事務所と合っているか</li><li>サイトの改善や運用を、毎月だれがしているか</li></ol></div><div><h3>2営業日以内にお届けするもの</h3><ul class="dg-out"><li>同じ地域の事務所との比較</li><li>先に直したい3点と、それぞれの直す場所・修正案・先に直す理由</li></ul></div></div><p class="note">診断だけで契約にはなりません。診断後のご説明は、ご希望の方だけに行います。</p><button type="button" class="btn-line" data-line><span class="lm" aria-hidden="true">LINE</span>公式LINEで無料診断を受ける</button><a class="book-link" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0THxEfmFAbMM24_U7hvCWGjHQNR2w2Bo2b9hinyHPR2wZ9s9SzGMj_qMYtuGjqmVpljHgDjzw1" data-book>LINEを使わずに、オンライン説明（15分）を予約する</a></div><div><p class="src">診断レポートの見本　数値は実際の診断結果。事務所名と画面は差し替えています</p><div class="shot r-report"><img src="img/report.png" alt="集客分析レポートの見本。同じ地域の10事務所と数字で比べ、先に手を入れたい3つと改善策を示している"></div><div class="dg-ex"><p class="dg-ex-h">指摘の例</p><h3>スマホから、そのまま電話できるようにしましょう</h3><dl><div><dt>確認した場所</dt><dd>トップページの電話番号</dd></div><div><dt>今の状態</dt><dd>番号はありますが、押して発信できる設定（電話リンク）を確認できませんでした。同じ地域の10事務所中7事務所は、電話番号に発信用のリンクがあります。</dd></div><div><dt>修正案</dt><dd>全ページの電話番号を、押すと電話がかかる形にします。スマホ画面の下に、電話と相談の固定ボタンを置きます。</dd></div><div><dt>先に直す理由</dt><dd>スマホで見た社長が、番号を書き写さずに電話できるようになるためです。</dd></div></dl></div></div></div></div></section>
+<section class="s-white"><div class="wrap"><h2>サイトの運用、5つ伺います</h2><p class="lead">日々の仕事を思い浮かべて、お答えください。</p><ol class="qs"><li><i data-lucide="calendar-clock" aria-hidden="true"></i>サイトを最後に更新したのは、いつですか？</li><li><i data-lucide="map-pin" aria-hidden="true"></i>Googleマップの営業時間や写真は、今と合っていますか？</li><li><i data-lucide="message-circle-question" aria-hidden="true"></i>税理士を探す社長が、問い合わせ前にLINEなどで質問できますか？</li><li><i data-lucide="mail" aria-hidden="true"></i>過去の相談者へ、最後に案内を送ったのはいつですか？</li><li class="key"><i data-lucide="user-round-check" aria-hidden="true"></i>毎月のサイト改善や運用は、誰がしていますか？</li></ol></div></section>
+<section class="s-ink"><div class="wrap"><h2>探して、比べて、相談するまで</h2><p class="lead">社長が知りたい順に、検索から面談予約までの案内を整えます。</p><ol class="journey"><li><div><div class="j-scene"><div class="sc-g"><p class="g-q"><i data-lucide="search" aria-hidden="true"></i>〇〇市 税理士</p><div class="g-r dim"><span class="g-u"></span><span class="g-t"></span><span class="g-s"></span></div><div class="g-r me"><span class="g-u2">midori-tax.jp</span><b>〇〇市の税理士｜みどり税理士事務所</b><em>相続・会社設立・顧問のご相談</em></div><div class="g-r dim"><span class="g-u"></span><span class="g-t"></span></div></div></div><span class="sc-cap">Googleの検索結果</span></div><p class="j-step">探す</p><h3>地域名と税理士で探す</h3><p class="j-why">「地域名 税理士」で検索。検索結果やGoogleマップから候補を探します。</p><div class="j-do"><p class="j-do-h">taXelが行うこと</p><p>対応地域と業務別のページを整え、記事を週1本公開します。</p></div></li><li><div><div class="j-scene"><div class="sc-m"><div class="m-map"><span class="road r1"></span><span class="road r2"></span><span class="road r3"></span><i class="pin"></i><i class="pin p2"></i><i class="pin p3"></i><i class="pin me"></i></div><div class="m-list"><b>みどり税理士事務所</b><em>税理士・営業中・〇〇駅から徒歩5分</em><span class="m-web">ウェブサイト</span></div></div></div><span class="sc-cap">Googleマップと事務所のサイト</span></div><p class="j-step">比べる</p><h3>マップとサイトで比べる</h3><p class="j-why">マップで場所や口コミを確認。サイトで料金や相談の進め方を比べます。</p><div class="j-do"><p class="j-do-h">taXelが行うこと</p><p>Googleマップの情報・写真を整え、サイトに料金の目安と相談の流れを載せます。</p></div></li><li><div><div class="j-scene"><div class="sc-l"><div class="l-page"><span class="l-h"></span><span class="l-t"></span><span class="l-t s"></span><span class="l-t"></span></div><div class="l-pop"><p>相談先、迷っていませんか？</p><span class="l-go"><span class="l-mark">LINE</span>LINEで質問する</span></div></div></div><span class="sc-cap">サイトを離れる前のLINE案内</span></div><p class="j-step">聞く</p><h3>迷ったら、LINEで聞く</h3><p class="j-why">サイトを閉じそうな社長にもLINEを案内。電話やフォームをためらう方も気軽に質問できます。</p><div class="j-do"><p class="j-do-h">taXelが行うこと</p><p>サイトを離れる前のLINE案内と、悩み別の質問から予約までの流れを作ります。税務の回答は事務所です。</p></div></li><li><div><div class="j-scene"><div class="sc-r"><p class="r-h"><i data-lucide="calendar-check" aria-hidden="true"></i>面談のご予約</p><div class="r-slots"><span>11/12 10:00</span><span class="on">11/12 14:00</span><span>11/13 10:00</span></div><p class="r-note">事前のご質問：顧問料の目安</p></div></div><span class="sc-cap">面談の予約</span></div><p class="j-step">相談する</p><h3>面談を予約し、相談する</h3><p class="j-why">面談前の質問が分かれば、事務所も相談内容を踏まえて話を始められます。</p><div class="j-do"><p class="j-do-h">taXelが行うこと</p><p>予約までの案内を整え、事前に伺った内容を事務所へ引き継ぎます。</p></div></li></ol></div></section>
+<section class="s-paper"><div class="wrap"><div class="crm"><div class="crm-text"><h2>顧問先へのお知らせも、止めずに</h2><p class="lead">役立つ情報で顧問先の満足を高め、長いお付き合いと、知り合いの経営者のご紹介につながることを目指します。</p><div class="crm-pts"><div><h3>仕事に役立つ情報を届ける</h3><p>決算の準備、業種・規模に合う補助金・助成金、税制改正、事務所からの提案を届けます。</p></div><div><h3>内容に合わせて送る相手を選ぶ</h3><p>顧問先の決算月や業種などを登録し、内容に合わせて送る相手を絞ります。</p></div><div><h3>事務所の確認後に配信</h3><p>taXelが原稿を作り、事務所の確認後、事務所名で配信。開封などの反応を毎月報告します。</p></div><div><h3>顧問先情報の管理</h3><p>顧問先情報は事務所名義で管理し、解約時に削除します。</p></div></div></div><div class="inbox" aria-label="顧問先への配信の見本"><p class="ib-h"><i data-lucide="mail" aria-hidden="true"></i>顧問先への配信（見本）</p><div class="ib-row"><b>決算3か月前の準備のご案内</b><em>3月決算の顧問先へ</em><span>事務所の確認待ち</span></div><div class="ib-row"><b>〇〇市の設備投資の補助金のお知らせ</b><em>製造業の顧問先へ</em><span>11/15 配信予定</span></div><div class="ib-row"><b>役員報酬を決める時期のご案内</b><em>決算2か月前の法人へ</em><span>事務所の確認待ち</span></div><div class="ib-row"><b>税制改正のお知らせ</b><em>すべての顧問先へ</em><span>配信済み</span></div></div></div></div></section>
+<section class="s-white"><div class="wrap"><h2>毎月の制作も運用も、お任せください</h2><div class="svc"><div><h3><i data-lucide="layout-template" aria-hidden="true"></i>ホームページの改修</h3><p>事務所の特徴・業務・相談方法が伝わるよう、内容や構成を変えます。</p></div><div><h3><i data-lucide="pen-line" aria-hidden="true"></i>地域に合う記事を週1本</h3><p>地域や得意分野に合う原稿をtaXelが作成し、事務所の承認後に週1本公開します。</p></div><div><h3><i data-lucide="map-pin" aria-hidden="true"></i>Googleマップの情報・写真管理</h3><p>基本情報と写真を管理します。オーナー確認は事務所にお願いします。</p></div><div><h3><i data-lucide="message-circle" aria-hidden="true"></i>見込み客向けLINEの自動案内</h3><p>事務所名義で開設いただく公式LINEに、相談前の案内と自動メッセージを設定します。</p></div><div><h3><i data-lucide="mail" aria-hidden="true"></i>顧問先へのメールと毎月の報告</h3><p>メールは月1通の予定です。原稿作成から承認後の配信まで担い、毎月の作業と状況を報告します。</p></div></div><h3 class="sub-h">税理士事務所の仕事に合わせて</h3><div class="prep"><div><h3>税務の日程に合う記事</h3><p>確定申告・年末調整・決算期に合わせ、相談する方が知りたい内容を記事にします。</p></div><div><h3>受けたい相談に合う案内</h3><p>創業・相続・法人化など、受けたい相談に合わせてページとLINEの案内を作ります。</p></div><div><h3>税制改正や期限のお知らせ</h3><p>顧問先に伝えたい税制改正や手続きの期限を原稿にし、事務所の確認後に配信します。</p></div></div></div></section>
+<section class="s-paper" id="samples"><div class="wrap"><h2>画面と資料で、作業の中身を</h2><p class="lead">サイトの改修例から毎月の報告まで、見本をご覧ください。</p>
+<div class="real2">
+ <div class="r-block"><div class="r-text"><h3>サイトの改修前と改修後</h3><p>架空のみどり税理士事務所の改修例です。古いサイトの課題と変更点を、下の表で比べられます。</p></div>
+  <p class="src">サイトの見本　架空の事務所による制作例です</p><div class="ba2">
+   <figure class="ba-before"><figcaption>改修前</figcaption><div class="shot"><img src="img/before_pc.png" alt="改修前のサイトの見本。固定幅の古い作りで、決まり文句の見出しと2021年で止まったお知らせ"></div>
+    <div class="ba-phone"><img src="img/before_sp.png" alt="改修前のサイトをスマホで見た見本。文字が小さく、相談方法はメニューの奥にある"></div></figure>
+   <p class="ba-arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></p>
+   <figure class="ba-after"><figcaption>改修後</figcaption><div class="shot"><img src="img/after_pc.png" alt="改修後のサイトの見本"></div>
+    <div class="ba-phone"><img src="img/after_sp.png" alt="改修後のサイトをスマホで見た見本"></div></figure>
+  </div><div class="ba-tbl-wrap"><table class="ba-tbl"><thead><tr><th scope="col">見るところ</th><th scope="col">改修前の課題</th><th scope="col">改修後の変更点</th></tr></thead><tbody><tr><th scope="row">何の事務所か</th><td>「信頼と実績で経営をサポート」だけで、地域も具体的な業務も分からない</td><td>見出し上に地域と業務を記載。毎月の試算表で資金繰り・節税を相談できると明記</td></tr><tr><th scope="row">スマホ</th><td>スマホ表示はあるが文字が小さく、相談方法はメニューの奥</td><td>文字を読みやすくし、電話と相談のボタンを画面の下に固定</td></tr><tr><th scope="row">電話</th><td>番号を押しても発信できず、書き写す必要がある</td><td>電話番号を押すと、そのまま発信できる</td></tr><tr><th scope="row">相談の入口</th><td>電話のみ。受付は平日9時〜17時</td><td>「無料相談」ボタンと公式LINEで、時間外も相談を受け付ける</td></tr><tr><th scope="row">料金</th><td>「お問い合わせください」だけで、料金の目安がない</td><td>料金の目安と報酬の計算方法を載せる</td></tr><tr><th scope="row">更新</th><td>お知らせが2021年で止まり、今も営業しているか不安</td><td>毎月の運用で、解説記事やお知らせを追加する</td></tr></tbody></table></div></div>
+ <div class="r-block r-split rev"><div class="r-text"><h3>迷っている方に、LINEの相談窓口を</h3><p>しばらく読んで迷っている方や、閉じようとした方にLINEを案内します。友だち登録後は、悩み別の質問から面談予約へ進めます。下は節税の状況を確かめたい社長の例です。</p></div><div><p class="src">LINEの見本　架空の事務所による例です</p><div class="r-phone"><div class="chat-ui" data-anim aria-label="公式LINEのトーク画面の見本">
+ <div class="cu-status"><span>9:41</span><span class="cu-sig"><i data-lucide="signal" aria-hidden="true"></i><i data-lucide="wifi" aria-hidden="true"></i><i data-lucide="battery-full" aria-hidden="true"></i></span></div>
+ <div class="cu-bar"><i data-lucide="chevron-left" aria-hidden="true"></i><span class="cu-badge" aria-hidden="true"><i data-lucide="shield-check"></i></span><b>みどり税理士事務所</b><span class="cu-tools"><i data-lucide="search" aria-hidden="true"></i><i data-lucide="phone" aria-hidden="true"></i><i data-lucide="menu" aria-hidden="true"></i></span></div>
+ <div class="cu-site" aria-hidden="true">
+  <div class="cs-view"><img class="cs-img" src="img/after_sp_long.jpg" alt=""></div>
+  <p class="cs-cap">サイトを離れようとすると…</p>
+  <div class="cs-pop"><span class="cs-x">×</span><p class="cs-q">税理士への相談、どこから始めればよいか迷っていませんか。</p>
+   <p class="cs-b">いくつかの質問に答えると、ご相談に合う準備と、面談で確認できることをご案内します。</p>
+   <span class="cs-go"><span class="l-mark">LINE</span>LINEで質問に答える</span><span class="cs-no">今は閉じる</span></div>
+ </div>
+ <div class="cu-log">
+  <p class="cu-day">11/10(月)</p>
+  <div class="cu-row"><span class="cu-av" aria-hidden="true">み</span><p class="cu-m">友だち追加ありがとうございます。いくつかの質問で、ご相談に合う案内をお届けします。</p><span class="cu-t">10:02</span></div>
+  <div class="cu-row"><span class="cu-av" aria-hidden="true">み</span><p class="cu-m">Q1 事業の形は？</p><span class="cu-t">10:02</span></div>
+  <div class="cu-row me" data-opts="個人事業主|法人|これから開業"><span class="cu-t">既読<br>10:02</span><p class="cu-m">法人</p></div>
+  <div class="cu-row"><span class="cu-av" aria-hidden="true">み</span><p class="cu-m">Q2 年間の売上は？</p><span class="cu-t">10:02</span></div>
+  <div class="cu-row me" data-opts="1,000万円未満|1,000万〜3,000万円|3,000万〜1億円|1億円以上"><span class="cu-t">既読<br>10:03</span><p class="cu-m">3,000万〜1億円</p></div>
+  <div class="cu-row"><span class="cu-av" aria-hidden="true">み</span><p class="cu-m">Q3 一番相談したいことは？</p><span class="cu-t">10:03</span></div>
+  <div class="cu-row me" data-opts="開業・法人化|税理士を変えたい|融資・資金繰り|記帳の手間|節税できているか確かめたい|相続・事業承継"><span class="cu-t">既読<br>10:03</span><p class="cu-m">節税できているか確かめたい</p></div>
+  <div class="cu-row"><span class="cu-av" aria-hidden="true">み</span><p class="cu-m">Q4 去年の利益（所得）は？</p><span class="cu-t">10:03</span></div>
+  <div class="cu-row me" data-opts="赤字・ほぼ0|500万円未満|500万〜1,000万円未満|1,000万円以上"><span class="cu-t">既読<br>10:04</span><p class="cu-m">500万〜1,000万円未満</p></div>
+  <div class="cu-row"><span class="cu-av" aria-hidden="true">み</span><p class="cu-m">Q5 使っている制度は？（複数可）</p><span class="cu-t">10:04</span></div>
+  <div class="cu-row me" data-opts="小規模企業共済|経営セーフティ共済|iDeCo|役員報酬の設計|特にない"><span class="cu-t">既読<br>10:04</span><p class="cu-m">小規模企業共済</p></div>
+  <div class="cu-row"><span class="cu-av" aria-hidden="true">み</span><div class="cu-card"><p class="cu-ct">1/3　状況のまとめ</p><p class="cu-cb">利益 500万〜1,000万円未満、使用中の制度は小規模企業共済のみ</p></div></div>
+  <div class="cu-row"><span class="cu-av" aria-hidden="true">み</span><div class="cu-card wide"><p class="cu-ct">2/3　回答から分かること</p><p class="cu-ch">まだ使っていない可能性のある制度・取り組み</p><ul class="cu-ul"><li><b>経営セーフティ共済</b>掛金を損金に算入できる制度。月5,000円〜20万円</li><li><b>iDeCo</b>掛金の全額が個人の所得控除の対象</li><li><b>役員報酬の設計</b>会社と役員個人、両方の状況で決まります</li></ul><p class="cu-cb">制度ごとに加入条件があり、税負担への影響も異なります。使えるかどうかは、決算書を見ながら一度お話ししましょう。</p></div></div>
+  <div class="cu-row"><span class="cu-av" aria-hidden="true">み</span><div class="cu-card"><p class="cu-ct">3/3　面談で確認すること</p><p class="cu-cb">今年の利益の見込みと、手元に残したい資金を一緒に確認します。</p><span class="cu-cbtn">無料面談を予約する</span></div></div>
+ </div>
+ <div class="cu-qr" aria-hidden="true"></div>
+ <div class="cu-input"><i data-lucide="plus" aria-hidden="true"></i><i data-lucide="camera" aria-hidden="true"></i><i data-lucide="image" aria-hidden="true"></i><span>Aa</span><i data-lucide="mic" aria-hidden="true"></i></div>
+</div></div><div class="cu-ctl"><button type="button" class="cu-replay" data-pause aria-pressed="false">一時停止</button><button type="button" class="cu-replay" data-replay hidden>最初から再生</button></div></div></div>
+ <div class="r-block"><div class="r-text"><h3>毎月の数字と、次に行うこと</h3><p>訪問数・検索語・LINEの友だち数・問い合わせ数と翌月の作業を毎月報告します。数値は架空です。</p></div><p class="src">月次報告の書式見本　数値と内容は架空です</p><div class="report-doc" aria-label="月次報告の見本">
+ <div class="rd-head"><div><p class="rd-to">みどり税理士事務所 様</p><p class="rd-title">集客の月次報告　2026年10月分</p></div><p class="rd-from">taXel</p></div>
+ <dl class="rd-kpi">
+  <div><dt>サイトの訪問数</dt><dd>412<small>回</small></dd><p class="up">前月より +38</p></div>
+  <div><dt>問い合わせ</dt><dd>5<small>件</small></dd><p class="up">前月より +2</p></div>
+  <div><dt>LINEの友だち</dt><dd>28<small>人</small></dd><p class="up">前月より +9</p></div>
+  <div><dt>Googleマップでの表示</dt><dd>1,180<small>回</small></dd><p class="up">前月より +140</p></div>
+ </dl>
+ <div class="rd-cols">
+  <div><p class="rd-h">よく検索された言葉</p><ol><li>〇〇市 相続 税理士</li><li>〇〇市 税理士</li><li>相続税 申告 期限</li></ol></div>
+  <div><p class="rd-h">今月行ったこと</p><ul><li>相続の記事を4本公開</li><li>Googleマップの写真を3枚追加</li><li>顧問先へ年末調整のご案内を配信</li></ul></div>
+  <div><p class="rd-h">来月行うこと</p><ul><li>相続相談のページに必要書類の案内を追加</li><li>確定申告の準備の記事を公開</li></ul></div>
+ </div>
+ <div class="rd-find"><p class="rd-h">今月の数字から分かったこと</p><p>問い合わせ5件のうち3件は相続のご相談で、どれも相続の記事を読んだ後でした。一方、相続相談のページで面談の前に何を用意すればよいかが分からず、LINEで同じ質問が2件ありました。</p>
+ <p class="rd-h">来月の作業の理由</p><p>相談前の不明点を減らすため、相続相談のページに必要書類と面談の流れを足します。確定申告の記事は、申告の時期より前に読まれるよう12月中に公開します。</p></div>
+</div></div>
+</div></div></section>
+<section class="s-white"><div class="wrap"><h2>先生には、内容の確認を</h2><p class="lead">最初の情報確認は約2時間。その後は毎月1回、原稿をまとめてご確認いただきます。</p><div class="tbl"><table><thead><tr><th>項目</th><th>taXel</th><th>事務所</th></tr></thead><tbody><tr><th scope='row'><span class='wi'><i data-lucide='clipboard-list' aria-hidden='true'></i>開始時の情報確認</span></th><td data-h='taXel'>事務所情報・対応業務・得意分野を伺い、掲載内容を作ります。</td><td data-h='事務所'>情報の共有と内容の確認をお願いします。目安は約2時間です。</td></tr><tr><th scope='row'><span class='wi'><i data-lucide='pen-line' aria-hidden='true'></i>記事・お知らせの制作</span></th><td data-h='taXel'>記事や配信原稿を作り、毎月1回まとめてお送りします。</td><td data-h='事務所'>原稿の修正点と、公開・配信の可否をお知らせください。</td></tr><tr><th scope='row'><span class='wi'><i data-lucide='message-circle-question' aria-hidden='true'></i>個別の税務質問</span></th><td data-h='taXel'>自動案内と、事務所への連絡方法を設定します。</td><td data-h='事務所'>相談者からの個別の税務質問にご回答ください。</td></tr><tr><th scope='row'><span class='wi'><i data-lucide='key-round' aria-hidden='true'></i>アカウントの準備</span></th><td data-h='taXel'>Googleマップと公式LINEの設定・管理の手順をご案内します。</td><td data-h='事務所'>Googleマップのオーナー確認と、事務所名義でのLINE開設をお願いします。</td></tr><tr><th scope='row'><span class='wi'><i data-lucide='send' aria-hidden='true'></i>公開・配信と毎月の報告</span></th><td data-h='taXel'>承認後に公開・配信し、毎月の作業と状況をご報告します。</td><td data-h='事務所'>報告を確認し、業務や対応方針に変更があればお知らせください。</td></tr></tbody></table></div><p class="note">公開・配信前に必ず事務所の確認を受けます。ドメイン・LINEアカウント・Googleマップは事務所名義です。</p></div></section>
+<section class="s-paper"><div class="wrap"><h2>こんなご希望に応えます</h2><div class="two"><div><h3>向いている事務所</h3><ul><li>地域で税理士を探す方に、事務所を知ってほしい</li><li>記事作成やサイト更新を任せ、原稿の確認だけにしたい</li><li>得意分野を伝え、その分野の相談を受けたい</li></ul></div><div><h3>先にご相談ください</h3><ul><li>サイトを大きく作り替えたい方は、無料診断でご希望をお聞かせください。</li><li>顧問先への連絡にもLINEを使う場合は、専用の料金をご案内します。</li><li>制作会社との契約やサイトの管理方法が分からない場合も、お知らせください。</li></ul></div></div></div></section>
+<section class="s-white"><div class="wrap"><h2>運営について</h2><div class="two"><div><h3>株式会社EMSテクノロジー</h3><p class="muted">代表 平澤 建（ひらさわ たける）の経歴</p><ul><li>ECモールのファッション事業責任者</li><li>BtoB卸マーケットプレイスの事業部長</li><li>経営コンサル会社を創業・売却</li><li>AI事業会社のAI事業部長</li></ul></div><div><h3>運営の約束</h3><ul><li>記事や配信原稿は、事務所の承認後に公開・配信します。</li><li>個別の税務質問には、事務所からご回答いただきます。</li><li>毎月の作業と翌月の予定をご報告します。</li><li>追加費用がかかる作業は、金額を伝え、了承を得てから始めます。</li></ul></div></div></div></section>
+<section class="s-paper" id="price"><div class="wrap"><h2>2026年11月30日までのお申し込みは、初年度 月10,000円</h2><div class="plans">
+<div class="plan hl"><p class="p-tag">2026年11月30日までのお申し込み</p><p class="p-big">月10,000円<span>税別・初年度</span></p><p>初期費用 0円</p><p class="note">最低利用6か月・13か月目から月19,800円〜</p></div>
+<div class="plan"><p class="p-tag gray">通常価格</p><p class="p-big">月19,800円〜<span>税別</span></p><p>初期費用 100,000円</p></div></div>
+<p class="note">見込み客向けのLINEは、LINEの無料プランで運用します。顧問先との連絡にもLINEを使う場合は別のプランで、月24,800円に加え、LINEのライトプラン利用料5,000円を事務所からLINEへ直接お支払いいただきます。範囲外の制作は別途お見積もりです。検索順位や問い合わせ数は保証しておりません。</p><h3 class="sub-h">月額に含むもの・含まないもの</h3><div class="tbl incl"><table><thead><tr><th>含むもの</th><th>含まないもの</th></tr></thead><tbody>
+<tr><td data-h="含む">サイトの制作・改修、SEOの初期設定、記事を週1本</td><td data-h="含まない">取材を伴う記事、専門ライターによる個別の執筆、オリジナルデザイン、大きな機能の追加</td></tr>
+<tr><td data-h="含む">Googleマップの情報の修正、外部サイトの住所表記の整理</td><td data-h="含まない">検索順位の保証、Googleマップ以外の広告運用</td></tr>
+<tr><td data-h="含む">見込み客向け公式LINEの設定と案内、顧問先へのメール配信</td><td data-h="含まない">相談者からの個別の質問への回答（事務所にお願いします）</td></tr>
+<tr><td data-h="含む">毎月の分析とご報告、次の月の提案</td><td data-h="含まない">事務所に伺っての運用支援</td></tr>
+</tbody></table></div><p class="note">含まない作業をご希望の場合は、金額をお伝えし、了承をいただいてから始めます。</p><h3 class="sub-h">解約時のサイトについて</h3><p>taXelが作り直して運用するサイトは、解約時に公開を終了します。他社へ移す場合は、有料で移管用のデータをお渡しします（金額は契約前にお伝えします）。今のサイトを直した場合は、事務所のサイトとしてそのまま残ります。ドメイン・公式LINE・Googleマップは事務所に残ります。</p></div></section>
+<section class="s-white"><div class="wrap"><h2>よくあるご質問</h2><div class="faq"><details><summary>今のホームページを使えますか？</summary><p>今のサイトを直すことも、taXelが作り直すこともできます。サイトと管理方法を確認し、事務所に合う方法をご提案します。範囲外の制作は別途お見積もりします。</p></details><details><summary>原稿の確認は、どのくらいの頻度ですか？</summary><p>毎月1回、原稿をまとめてご確認いただきます。公開・配信は必ず承認後に行います。</p></details><details><summary>検索順位や問い合わせ数の保証は？</summary><p>順位や問い合わせ数の増加は保証しません。記事公開や各媒体の管理を続け、毎月の作業と状況を報告します。</p></details><details><summary>LINEの税務質問にも回答しますか？</summary><p>taXelはLINEの設定と自動案内を担当します。個別の税務質問への回答は事務所にお願いします。</p></details><details><summary>ドメインやアカウントの名義は？</summary><p>ドメイン・LINEアカウント・Googleマップは事務所名義です。解約後も事務所に残ります。</p></details><details><summary>解約はできますか？</summary><p>最低利用期間の6か月を過ぎると解約できます。解約時はLINE運用を終了し、作業データとお預かりした顧客データを削除します。taXelが作り直して運用するサイトは公開を終了し、他社へ移す場合は有料で移管用のデータをお渡しします（金額は契約前にお伝えします）。今のサイトを直した場合は、事務所のサイトとしてそのまま残ります。配信文面の控えは削除前にお渡しします。ドメイン・LINEアカウント・Googleマップは事務所に残ります。</p></details><details><summary>追加費用はかかりますか？</summary><p>見込み客向けのLINEは無料プランで運用するため、LINEへの支払いはありません。顧問先への連絡にもLINEを使う場合は別のプランで、月24,800円に加え、LINEのライトプラン利用料5,000円を事務所からLINEへ直接お支払いいただきます。範囲外の制作は別途お見積もりします。</p></details></div></div></section>
+<section class="final"><div class="wrap"><h2>先生のサイトで、先に直したい3点を</h2><p>サイト、Googleマップ、問い合わせまでの手順を確認します。公式LINEで3つの質問への回答とURLをお送りください。診断後のご説明は、ご希望の方だけに行います。</p><button type="button" class="btn-line" data-line><span class="lm" aria-hidden="true">LINE</span>公式LINEで無料診断を受ける</button><a class="book-link" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0THxEfmFAbMM24_U7hvCWGjHQNR2w2Bo2b9hinyHPR2wZ9s9SzGMj_qMYtuGjqmVpljHgDjzw1" data-book>LINEを使わずに、オンライン説明（15分）を予約する</a><p class="price-line">通常 月19,800円〜・初期費用100,000円 → <b>2026年11月30日までのお申し込みで、初年度（契約から12か月）月10,000円・初期費用0円</b>（税別）</p></div></section><footer class="ft"><div class="wrap"><dl class="op"><div><dt>運営</dt><dd>株式会社EMSテクノロジー</dd></div><div><dt>代表</dt><dd>平澤 建</dd></div><div><dt>所在地</dt><dd>〒105-0013 東京都港区浜松町2-2-15 浜松町ダイヤビル2F</dd></div></dl><p class="ft-links"><a href="/company/">会社概要</a><a href="/privacy/">個人情報の取り扱い</a></p><p>taXel 集客改善サービス　©2026 taXel</p></div></footer><div id="lx-pop" class="lx-overlay" role="dialog" aria-modal="true" aria-label="無料診断のご案内" hidden>
+  <div class="pz">
+    <button type="button" class="lx-x" data-close aria-label="閉じる">×</button>
+    <p class="pz-top">所長向け・無料サイト診断</p>
+    <div class="pz-letter"><div class="pz-air">
+      <p class="pz-h">そのサイト、<br>相談方法はすぐに分かりますか？</p>
+      <p class="pz-b">検索結果やGoogleマップの掲載内容と、サイト内の問い合わせ方法を確認します。先に手を入れたい3つをLINEでお届けします。</p>
+    </div></div>
+    <div class="pz-act"><button type="button" class="pz-go" data-line>LINEで無料診断を受ける</button>
+      <p class="pz-note">3つの質問とサイトのURLを送るだけです。診断を受けても契約にはなりません。</p></div>
+  </div>
+</div>
+<div id="lx-chat" class="lx-overlay" role="dialog" aria-modal="true" aria-label="LINE診断の見本" hidden>
+  <div class="lx-phone">
+    <p class="lx-bar">taXel 集客診断</p>
+    <button type="button" class="lx-x" data-close aria-label="閉じる">×</button>
+    <p class="lx-sample">モックの画面です。公式LINEの開設後につなぎます</p>
+    <div class="lx-log" id="lx-log" aria-live="polite"></div>
+    <div class="lx-opts" id="lx-opts"></div>
+  </div>
+</div>
+<style>
+.lx-overlay{position:fixed;inset:0;z-index:100;background:rgba(15,20,28,.55);display:flex;align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.lx-overlay[hidden]{display:none!important}
+.lx-x{position:absolute;top:8px;right:8px;width:36px;height:36px;border:0;border-radius:50%;background:rgba(255,255,255,.85);color:#17202B;font-size:20px;cursor:pointer}
+.pz{position:relative;width:100%;max-width:370px;max-height:calc(100vh - 32px);overflow-y:auto;background:#EAF3FF;border-radius:6px;box-shadow:0 18px 50px rgba(0,0,0,.35);text-align:center;font-family:var(--body)}
+.pz-top{background:var(--ink);color:#fff;font-weight:800;font-size:15px;padding:14px 44px}
+.pz-letter{padding:16px}
+.pz-air{background:#fff;border:7px solid transparent;border-image:repeating-linear-gradient(135deg,#7FB8EE 0 10px,#fff 10px 20px,#F0A26A 20px 30px,#fff 30px 40px) 7;padding:16px 12px}
+.pz-h{font-size:21px;font-weight:800;line-height:1.5;color:var(--ink)}
+.pz-b{font-size:14.5px;line-height:1.75;color:var(--text);margin-top:8px}
+.pz-act{padding:0 16px 16px}
+.pz-go{display:block;width:100%;border:0;border-radius:12px;background:var(--ink);color:#fff;font-weight:800;font-size:17px;padding:14px 8px;cursor:pointer;font-family:inherit}
+.pz-note{font-size:12.5px;color:var(--muted);margin-top:8px;line-height:1.6}
+.lx-phone{position:relative;display:flex;flex-direction:column;width:100%;max-width:380px;height:min(640px,86vh);border-radius:18px;overflow:hidden;background:#8CABD9;box-shadow:0 18px 50px rgba(0,0,0,.3);font-family:var(--body)}
+.lx-bar{background:#2E3A4B;color:#fff;font-size:15px;font-weight:700;padding:13px 50px 13px 14px}
+.lx-sample{background:#FFF6D6;color:#4B3B00;font-size:12.5px;text-align:center;padding:6px 10px}
+.lx-log{flex:1;min-height:0;overflow-y:auto;padding:14px 12px;display:flex;flex-direction:column;gap:9px}
+.lx-m{max-width:84%;background:#fff;border-radius:4px 14px 14px 14px;padding:9px 12px;font-size:14.5px;line-height:1.65;white-space:pre-line;color:#17202B}
+.lx-me{align-self:flex-end;background:#8DE055;border-radius:14px 4px 14px 14px}
+.lx-opts{max-height:45%;overflow-y:auto;display:grid;gap:7px;padding:10px 12px;background:#fff}
+.lx-opt{border:1.5px solid #06A648;background:#fff;color:#075F2A;border-radius:9px;padding:11px 10px;font-size:14.5px;font-weight:700;cursor:pointer;font-family:inherit}
+.lx-opts .pz-go{font-size:16px}
+</style>
+<script>window.TX_LINE_URL="https://lin.ee/SqCophN";(function(){
+  var d = document, KEYS = ["o","a","b","c","n"], NAMES = {o:"元のLP",a:"損失回避",b:"得する未来",c:"価格",n:"いいところどり"};
+  // 最初の画面：?v=（本番の送り分け）→ #（共有版の切り替え）→ 既定は n
+  function pick(){
+    var v = "";
+    try { v = new URLSearchParams(location.search).get("v") || ""; } catch(e){}
+    if (KEYS.indexOf(v) < 0) v = ((location.hash || "").replace("#", "").split("-")[0]);
+    return KEYS.indexOf(v) < 0 ? "n" : v;
+  }
+  var cur = pick();
+  function ga(n, p){ try { if (window.gtag) gtag("event", n, Object.assign({variant: cur}, p || {})); } catch(e){} }
+  // 計測してから移動する（GAが読めない・止まっていても、最大0.9秒で必ず移動する）
+  function goAfterGa(ev, url, name, params, isButton){
+    if (!url) return;
+    var modified = ev.button !== 0 || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey;
+    if (!window.gtag || modified || ev.defaultPrevented) {
+      ga(name, params);
+      if (isButton) { if (modified) window.open(url, "_blank", "noopener"); else location.href = url; }
+      return;
+    }
+    ev.preventDefault();
+    var done = false; function nav(){ if (!done){ done = true; location.href = url; } }
+    try { gtag("event", name, Object.assign({variant: cur, event_callback: nav, event_timeout: 800}, params || {})); } catch(e){ nav(); }
+    setTimeout(nav, 900);
+  }
+  function show(v){
+    cur = v;
+    d.querySelectorAll(".fv").forEach(function(x){ x.classList.toggle("on", x.dataset.fv === v); });
+    var sw = d.getElementById("mock-switch");
+    if (sw) sw.querySelectorAll("button[data-v]").forEach(function(b){ b.setAttribute("aria-pressed", b.dataset.v === v ? "true" : "false"); });
+  }
+  var sw = d.getElementById("mock-switch");
+  function writeHash(){ try { history.replaceState(null, "", "#" + cur); } catch(e){} }
+  if (sw) KEYS.forEach(function(k){
+    var b = d.createElement("button"); b.type = "button"; b.dataset.v = k; b.textContent = NAMES[k];
+    b.onclick = function(){ show(k); writeHash(); window.scrollTo(0, 0); };
+    sw.appendChild(b);
+  });
+  show(cur); ga("lp_view");
+  window.addEventListener("hashchange", function(){ show(pick()); });
+
+  // LINEのボタン：公式LINEのURL（TX_LINE_URL）があればそこへ。無い間は見本のトーク画面を開く
+  var LINE_URL = window.TX_LINE_URL || "";
+  var pop = d.getElementById("lx-pop"), chat = d.getElementById("lx-chat"), log = d.getElementById("lx-log"), opts = d.getElementById("lx-opts"), last = null, conv = 0;
+  function msg(t, me){ var m = d.createElement("div"); m.className = "lx-m" + (me ? " lx-me" : ""); m.textContent = t; log.appendChild(m); log.scrollTop = log.scrollHeight; }
+  // 会話ごとに番号を付け、閉じて開き直したときに前の会話の遅延処理が割り込まないようにする
+  function later(fn, ms){ var c = conv; setTimeout(function(){ if (c === conv) fn(); }, ms); }
+  function ask(q, list, next){ msg(q); opts.textContent = ""; list.forEach(function(x){ var b = d.createElement("button"); b.type = "button"; b.className = "lx-opt"; b.textContent = x; b.onclick = function(){ msg(x, 1); opts.textContent = ""; later(next, 300); }; opts.appendChild(b); }); }
+  function start(){
+    conv++; log.textContent = ""; opts.textContent = "";
+    msg("友だち追加ありがとうございます。taXelです。\n3つの質問のあと、サイトのURLを送っていただくと、事務所の診断をお届けします。");
+    ask("Q1 サイトに最後に手を入れたのは、いつですか？", ["3か月以内","1年以内","1年より前","覚えていない"], function(){
+    ask("Q2 Googleマップの営業時間や写真は、今の事務所と合っていますか？", ["合っている","一部古い","確認していない"], function(){
+    ask("Q3 サイトの改善や運用は、毎月、誰がやっていますか？", ["自分","職員","制作会社","決まっていない"], function(){
+      msg("ありがとうございます。最後に、事務所のサイトのURLをこのトークに送ってください。2営業日以内に、診断をお届けします。");
+      var b = d.createElement("button"); b.type = "button"; b.className = "pz-go"; b.textContent = "URLを送る（見本）";
+      b.onclick = function(){ msg("https://example.jp/", 1); opts.textContent = ""; later(function(){ msg("受け取りました。診断ができ次第、このトークでお送りします。"); }, 300); };
+      opts.appendChild(b); log.scrollTop = log.scrollHeight; }); }); });
+  }
+  // 開いている間は背景を操作できないようにする（inert）。閉じたら元の場所へフォーカスを戻す
+  function anyOpen(){ return !pop.hidden || !chat.hidden; }
+  function setInert(on){ [].forEach.call(d.body.children, function(el){ if (!el.classList.contains("lx-overlay") && el.tagName !== "SCRIPT") { if (on) el.setAttribute("inert", ""); else el.removeAttribute("inert"); } }); }
+  function open(el){ if (!anyOpen()) last = d.activeElement; el.hidden = false; setInert(true); var x = el.querySelector("[data-close]"); if (x) x.focus(); }
+  function close(el){
+    el.hidden = true; if (el === chat) conv++;
+    if (!anyOpen()) { setInert(false); if (last && last.focus) last.focus(); arm(); }
+  }
+  d.addEventListener("click", function(ev){
+    var t = ev.target, ln = t.closest && t.closest("[data-line]");
+    if (ln) {
+      var place = (ln.closest(".lx-overlay") ? "popup" : ln.className);
+      if (LINE_URL) { if (!pop.hidden) close(pop); goAfterGa(ev, LINE_URL, "line_click", {place: place}, true); return; }
+      ga("line_click", {place: place}); open(chat); pop.hidden = true; start(); return;
+    }
+    if (t.closest && t.closest("[data-close]")) { close(t.closest(".lx-overlay")); return; }
+    if (t.classList && t.classList.contains("lx-overlay")) { close(t); return; }
+    var bk = t.closest && t.closest("[data-book]");
+    if (bk) goAfterGa(ev, bk.getAttribute("href"), "booking_click", {place: bk.className});
+  });
+  d.addEventListener("keydown", function(ev){ if (ev.key === "Escape") [pop, chat].forEach(function(el){ if (!el.hidden) close(el); }); });
+
+  // 離脱防止ポップアップ：画面を見ている時間で120秒後、またはPCで画面の外へ出ようとした時。最大2回（BOTCHANの運用プレイブック）
+  var K = "lx_pop_n", count = 0, timer = null;
+  try { count = Number(sessionStorage.getItem(K)) || 0; } catch(e){}
+  function fire(){ timer = null; if (count >= 2 || d.hidden || anyOpen()) return; count++; try { sessionStorage.setItem(K, count); } catch(e){} open(pop); ga("line_pop_show"); }
+  function arm(){ if (!timer && count < 2 && !anyOpen()) timer = setTimeout(fire, 120000); }
+  d.addEventListener("visibilitychange", function(){ if (d.hidden) { clearTimeout(timer); timer = null; } else arm(); });
+  if (!d.hidden) arm();
+  // PCで、画面の上へマウスが出た（タブを閉じる・戻る直前）ときにも出す。読み始めて10秒未満は出さない
+  var t0 = Date.now(), finePointer = window.matchMedia && matchMedia("(pointer: fine)").matches;
+  if (finePointer) d.addEventListener("mouseout", function(ev){
+    if (ev.relatedTarget || ev.clientY > 0 || Date.now() - t0 < 10000 || anyOpen()) return;
+    clearTimeout(timer); timer = null; fire();
+  });
+})();
+
+
+/* 一時停止の共通処理：transition の途中の要素を今の見た目で固定し、再開時に外す */
+window.TX_FREEZE = window.TX_FREEZE || function(root, on){
+  if (!root) return;
+  if (on) {
+    if (root.__frozen) return; root.__frozen = [];
+    [].forEach.call(root.querySelectorAll('*'), function(el){
+      var cs = getComputedStyle(el);
+      if (cs.transitionDuration.split(',').every(function(x){ return parseFloat(x) === 0; })) return;
+      root.__frozen.push([el, el.getAttribute('style')]);
+      var props = cs.transitionProperty.split(',').map(function(x){ return x.trim(); });
+      if (props.indexOf('all') >= 0) props = ['opacity','transform','max-height','padding','background-color','color','filter','border-color'];
+      var vals = props.map(function(pr){ return cs.getPropertyValue(pr); });
+      el.style.transition = 'none';
+      props.forEach(function(pr, k){ el.style.setProperty(pr, vals[k]); });
+    });
+    [].forEach.call(root.querySelectorAll('.cu-log'), function(l){ l.scrollTop = l.scrollTop; });
+  } else if (root.__frozen) {
+    root.__frozen.forEach(function(x){ void x[0].offsetWidth; if (x[1] === null) x[0].removeAttribute('style'); else x[0].setAttribute('style', x[1]); });
+    root.__frozen = null;
+  }
+};
+
+/* LINE見本を動画のように1通ずつ流す。一時停止できる。画面外では止める。動きを減らす設定の人には最初から全部を表示 */
+(function(){
+  var ui=document.querySelector('.chat-ui[data-anim]'); if(!ui) return;
+  var log=ui.querySelector('.cu-log'), qr=ui.querySelector('.cu-qr'), btn=document.querySelector('[data-replay]'), pb=document.querySelector('[data-pause]'), site=ui.querySelector('.cu-site');
+  var rows=[].slice.call(log.querySelectorAll('.cu-row'));
+  if(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches){ if(pb) pb.hidden=true; return; }
+  var timer=null, run=0, visible=false, userPaused=false, started=false;
+  function paused(){ return userPaused || !visible || document.hidden; }
+  // 止まっている間は時間を進めない
+  function wait(ms,id){return new Promise(function(r){var left=ms;function step(){if(id!==run)return;if(paused()){timer=setTimeout(step,200);return}if(left<=0){r();return}var s=Math.min(left,200);left-=s;timer=setTimeout(step,s)}step()})}
+  function down(){log.scrollTo({top:log.scrollHeight,behavior:'smooth'})}
+  function show(el){el.classList.remove('cu-h');el.classList.add('cu-in');down()}
+  function reset(){clearTimeout(timer);rows.forEach(function(r){r.classList.add('cu-h');r.classList.remove('cu-in')});qr.classList.remove('on');qr.innerHTML='';var t=log.querySelector('.cu-tp');if(t)t.remove();log.scrollTop=0;if(site){site.className='cu-site on';var im=site.querySelector('.cs-img');im.style.transition='none';im.style.transform='translateY(0)';void im.offsetWidth;im.style.transition='';site.querySelector('.cs-go').classList.remove('tap')}}
+  async function play(){
+    var id=++run; started=true; window.TX_FREEZE(ui,false); reset(); sync();
+    if(site){ /* 事務所のサイトを読み進める → 離れようとした時にポップアップ → LINEへ */
+      await wait(500,id); var im=site.querySelector('.cs-img'); im.style.transform='translateY(-'+Math.max(0,im.offsetHeight-site.offsetHeight*1.6)+'px)';
+      await wait(3700,id); site.classList.add('pop'); await wait(2400,id);
+      site.querySelector('.cs-go').classList.add('tap'); await wait(450,id);
+      site.classList.add('out'); await wait(500,id); site.className='cu-site';
+    }
+    for(var i=0;i<rows.length;i++){
+      var r=rows[i];
+      if(r.classList.contains('me')){
+        var opts=(r.getAttribute('data-opts')||'').split('|').filter(Boolean), ans=r.querySelector('.cu-m').textContent;
+        qr.textContent=''; opts.forEach(function(o){var sp=document.createElement('span');sp.textContent=o;qr.appendChild(sp)}); qr.classList.add('on');
+        var hit=[].filter.call(qr.children,function(c){return c.textContent===ans})[0];
+        if(hit) qr.scrollLeft=Math.max(0,hit.offsetLeft-60);
+        await wait(1300,id); if(hit) hit.classList.add('tap'); await wait(350,id);
+        qr.classList.remove('on'); show(r); await wait(700,id);
+      }else{
+        var tp=document.createElement('div');tp.className='cu-row cu-tp';tp.innerHTML='<span class="cu-av" aria-hidden="true">み</span><span class="cu-typing"><i></i><i></i><i></i></span>';
+        log.appendChild(tp);down(); await wait(r.querySelector('.cu-card')?1100:700,id); tp.remove(); show(r);
+        await wait(r.querySelector('.cu-card')?2600:500,id);
+      }
+    }
+    await wait(6000,id); if(id===run) play();
+  }
+  function sync(){ ui.classList.toggle('halt', paused()); window.TX_FREEZE(ui, paused()); }
+  function setPause(p){ userPaused=p; ui.classList.toggle('paused',p); sync(); if(pb){pb.setAttribute('aria-pressed',p?'true':'false');pb.textContent=p?'再開':'一時停止';} }
+  if(btn){ btn.hidden=false; btn.addEventListener('click',function(){setPause(false);play()}); }
+  if(pb) pb.addEventListener('click',function(){setPause(!userPaused)});
+  document.addEventListener('visibilitychange',sync);
+  if('IntersectionObserver' in window){
+    // 見えている割合が35%以上かどうかが変わったときだけ動かす（少しスクロールしただけで最初に戻らない）
+    new IntersectionObserver(function(es){es.forEach(function(e){
+      var v=e.isIntersecting&&e.intersectionRatio>=.35; if(v===visible) return; visible=v; sync();
+      if(visible&&!started) play();
+    })},{threshold:[0,.35,.6]}).observe(ui);
+  }else{ visible=true; play(); }
+})();
+
+/* トップの流れの見本：見えている案（.fv.on）の中だけ、約3.6秒ごとに場面を進める */
+(function(){
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  [].forEach.call(document.querySelectorAll('.hv'), function(hv){
+    var sc = [].slice.call(hv.querySelectorAll('.hv-sc')), cap = hv.querySelector('.hv-cap'), bt = [].slice.call(hv.querySelectorAll('[data-go]')), i = 0, t = null, paused = false;
+    function show(n){
+      i = (n + sc.length) % sc.length;
+      sc.forEach(function(s, k){ s.classList.toggle('on', k === i); if (k === i) s.removeAttribute('aria-hidden'); else s.setAttribute('aria-hidden', 'true'); });
+      var st = +sc[i].getAttribute('data-step');
+      bt.forEach(function(b, k){ b.classList.toggle('on', k === st); if (k === st) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+      cap.textContent = sc[i].getAttribute('data-cap');
+    }
+    function tick(){
+      clearTimeout(t);
+      if (reduce || paused || seen === false || hv.dataset.hover || document.hidden) return;
+      t = setTimeout(function(){ if (hv.offsetParent !== null){ cap.setAttribute('aria-live', 'off'); show(i + 1); } tick(); }, 3600);
+    }
+    bt.forEach(function(b){ b.addEventListener('click', function(){
+      var st = +b.getAttribute('data-go'); for (var k = 0; k < sc.length; k++){ if (+sc[k].getAttribute('data-step') === st){ cap.setAttribute('aria-live', 'polite'); var stg = hv.querySelector('.hv-stage');
+        if (paused) { if (window.TX_FREEZE) window.TX_FREEZE(stg, false); stg.classList.add('hold'); show(k); }
+        else show(k);
+        break; } }
+      tick();
+    }); });
+    var seen = false;
+    // 止める条件は1か所で決める（一時停止・画面外・別タブ）
+    function sync(){ var off = document.hidden || seen === false; hv.classList.toggle('halt', off); if (window.TX_FREEZE) window.TX_FREEZE(hv.querySelector('.hv-stage'), paused || off); }
+    if ('IntersectionObserver' in window){ seen = false; new IntersectionObserver(function(es){ es.forEach(function(e){ seen = e.isIntersecting; sync(); if (seen) tick(); else clearTimeout(t); }); }, {threshold:.4}).observe(hv); } else seen = true;
+    var pb = hv.querySelector('.hv-pause');
+    function setPause(p){ paused = p; hv.classList.toggle('paused', p); pb.setAttribute('aria-pressed', p ? 'true' : 'false'); pb.textContent = p ? '再開' : '一時停止'; if (!p) hv.querySelector('.hv-stage').classList.remove('hold');
+      sync(); if (p) clearTimeout(t); else tick(); }
+    pb.addEventListener('click', function(){ setPause(!paused); });
+    hv.querySelector('.hv-stage').addEventListener('click', function(){ setPause(!paused); });
+    if (reduce) pb.hidden = true;
+    document.addEventListener('visibilitychange', function(){ sync(); if (!document.hidden) tick(); else clearTimeout(t); });
+    if (window.matchMedia && matchMedia('(hover: hover) and (pointer: fine)').matches){
+      hv.addEventListener('mouseenter', function(){ if (!hv.classList.contains('paused')){ clearTimeout(t); hv.dataset.hover = '1'; } });
+      hv.addEventListener('mouseleave', function(){ if (hv.dataset.hover){ delete hv.dataset.hover; tick(); } });
+    }
+    if (reduce) show(1); else tick();
+  });
+})();
+</script><script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js" async onload="try{lucide.createIcons()}catch(e){}"></script></body></html>
