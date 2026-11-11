@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TMK64P44XG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TMK64P44XG');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>粗利率の計算｜式と計算例、売価の逆算、決算書でずれる3つのところ ― Taxel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: {
+    fontFamily: { sans: ['Inter', '"Noto Sans JP"', 'sans-serif'] },
+    colors: { ink: '#0E1A33', paper: '#FCFCFB', brand: { 50: '#EEF5FE', 100: '#DCEBFD', 300: '#8CC6FA', 400: '#4AACF7', 500: '#2B78E6', 600: '#1645C4', 700: '#12379D' }, indigo: { 50: '#EEF5FE', 100: '#DCEBFD', 300: '#8CC6FA', 400: '#4AACF7', 500: '#2B78E6', 600: '#1645C4', 700: '#12379D' } },
+    boxShadow: { soft: '0 1px 2px rgba(15,23,42,0.04), 0 1px 1px rgba(15,23,42,0.03)', card: '0 1px 3px rgba(15,23,42,0.05), 0 12px 32px -12px rgba(15,23,42,0.12)' },
+  } } }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-feature-settings: "palt"; }
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .article p { margin-bottom: 1.1em; }
+  .article h2 { font-size: 19px; font-weight: 700; margin-top: 2em; margin-bottom: 0.7em; }
+  .article h3 { font-size: 15.5px; font-weight: 700; margin-top: 1.5em; margin-bottom: 0.5em; }
+  .article ul, .article ol { padding-left: 1.4em; margin-bottom: 1.1em; }
+  .article ul { list-style: disc; }
+  .article ol { list-style: decimal; }
+  .article li { margin-bottom: 0.4em; }
+  .article table { width: 100%; border-collapse: collapse; margin-bottom: 1.1em; font-size: 13px; }
+  .article th, .article td { border: 1px solid #e2e8f0; padding: 8px 10px; text-align: left; vertical-align: top; }
+  .article th { background: #f8fafc; font-weight: 700; }
+  .article .note { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; font-size: 13px; margin-bottom: 1.2em; }
+  .article .tablewrap { overflow-x: auto; }
+  .article a { color: #0E1A33; text-decoration: underline; text-underline-offset: 2px; }
+</style>
+<meta name="description" content="粗利率の計算式（粗利÷売上高×100）と計算例に加え、「粗利40%」にする売価の逆算、値入率との違い、決算書で計算すると粗利率がずれる3つのところ（在庫・労務費・値引き）、粗利率が下がった理由の分け方を仮定値の計算例で解説します。">
+<link rel="canonical" href="https://www.taxel.biz/keiei/arari-ritsu-keisan/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Taxel">
+<meta property="og:title" content="粗利率の計算｜式と計算例、売価の逆算、決算書でずれる3つのところ">
+<meta property="og:description" content="粗利率の計算式と計算例、売価の逆算、決算書でずれる3つのところ、下がった理由の分け方を解説。">
+<meta property="og:image" content="https://www.taxel.biz/ogp.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://www.taxel.biz/ogp.png">
+<meta property="og:url" content="https://www.taxel.biz/keiei/arari-ritsu-keisan/">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "粗利率の計算｜式と計算例、売価の逆算、決算書でずれる3つのところ",
+  "description": "粗利率の計算式と計算例、売価の逆算、決算書でずれる3つのところ、下がった理由の分け方を解説。",
+  "image": "https://www.taxel.biz/ogp.png",
+  "inLanguage": "ja",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.taxel.biz/keiei/arari-ritsu-keisan/"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "平澤 建",
+    "jobTitle": "Taxel 代表"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Taxel",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.taxel.biz/apple-touch-icon.png"
+    }
+  },
+  "datePublished": "2026-11-11"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.taxel.biz/" },
+    { "@type": "ListItem", "position": 2, "name": "経営の数字", "item": "https://www.taxel.biz/keiei/" },
+    { "@type": "ListItem", "position": 3, "name": "粗利率の計算", "item": "https://www.taxel.biz/keiei/arari-ritsu-keisan/" }
+  ]
+}
+</script>
+</head>
+<body class="bg-paper text-ink antialiased">
+
+<header class="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-slate-200/70">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a class="flex items-center gap-2" href="/">
+      <div class="w-7 h-7 rounded-[9px] bg-ink flex items-center justify-center"><span class="text-white text-[13px] font-bold">T</span></div>
+      <span class="text-[15px] font-bold tracking-tight">Taxel</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-[13.5px] text-slate-600 font-medium">
+      <a class="hover:text-ink transition-colors" href="/#features">機能</a>
+      <a class="hover:text-ink transition-colors" href="/#pricing">料金</a>
+      <a class="text-ink transition-colors" href="/keiei/">経営の数字</a>
+      <a href="/company/" class="hover:text-ink transition-colors">会社概要</a>
+    </nav>
+    <a class="text-[13.5px] font-semibold bg-ink text-white px-4 py-2 rounded-lg hover:bg-slate-800 transition-colors shadow-soft" href="/shindan/">無料で決算書を診断する</a>
+  </div>
+</header>
+
+<article class="max-w-2xl mx-auto px-6 py-16">
+  <a class="inline-flex items-center gap-1.5 text-[12.5px] text-slate-400 hover:text-ink mb-8" href="/keiei/">← 経営の数字トップに戻る</a>
+
+  <div class="flex items-center gap-2 mb-4">
+    <span class="text-[11px] font-semibold text-white bg-ink px-2.5 py-1 rounded-full">社長向け</span>
+    <span class="text-[11.5px] font-semibold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">決算書の基本</span>
+  </div>
+  <h1 class="text-[26px] sm:text-[32px] font-extrabold tracking-tight leading-tight mb-4">粗利率の計算｜式と計算例、売価の逆算、決算書でずれる3つのところ</h1>
+  <p class="text-[12.5px] text-slate-400 mb-10">2026.11.11・平澤 建</p>
+
+  <div class="article text-[14.5px] text-slate-600 leading-[1.9]">
+
+    <p>「粗利率 計算」で検索すると、上位の記事はほぼ同じ式を載せています（2026年11月11日、筆者の検索結果）。<strong>粗利率（%）＝（売上高−売上原価）÷売上高×100</strong>。式はこれだけで、覚えるのは難しくありません。</p>
+
+    <p>ただ、社長が実際に粗利率を使う場面は「式を知りたい」より先にあります。値段をいくらにすれば粗利40%になるのか。去年より粗利率が2ポイント下がったのは、値下げのせいか、仕入れのせいか。この記事では、式と計算例を最初に示したあと、<strong>売価の逆算</strong>、<strong>決算書で計算するときにずれる3つのところ</strong>、<strong>粗利率が動いた理由の分け方</strong>を、仮定値の計算例で説明します。</p>
+
+    <h2>結論：粗利率の計算式と計算例</h2>
+
+    <div class="note">
+      <p style="margin-bottom:0.4em;"><strong>粗利率の計算式</strong></p>
+      <p style="margin-bottom:0.2em;">粗利（売上総利益）＝ 売上高 − 売上原価</p>
+      <p style="margin-bottom:0;">粗利率（売上総利益率）＝ 粗利 ÷ 売上高 × 100</p>
+    </div>
+
+    <p>例：売上高1億円、売上原価7,000万円なら、粗利は3,000万円、粗利率は3,000万÷1億×100＝<strong>30%</strong>です。決算書では、損益計算書の「売上総利益」が粗利にあたります。売上総利益を売上高で割れば、そのまま粗利率が出ます。</p>
+
+    <p>「粗利は売上の何%が普通か」という質問もよく見かけますが、業種と商売の形で大きく変わります。卸売のように仕入れて流す商売は低く、サービス業のように原価の小さい商売は高くなります。他社の平均と比べるより、<strong>自社の3期分を並べて、上がっているか下がっているか</strong>を先に見ましょう。業種の平均を見たい場合は、経済産業省の「中小企業実態基本調査」に業種別の数字が載っています。</p>
+
+    <h2>「粗利40%にしたい」ときの売価の出し方</h2>
+
+    <p>値付けで使うのは、粗利率から売価を逆算する式です。</p>
+
+    <div class="note">
+      <p style="margin-bottom:0;">売価 ＝ 原価 ÷（1 − 目標の粗利率）</p>
+    </div>
+
+    <p>原価600円の商品で粗利率40%にしたいなら、600÷（1−0.4）＝<strong>1,000円</strong>です。</p>
+
+    <p>ここで間違えやすいのが、「原価に40%を上乗せする」やり方です。600円×1.4＝840円で売ると、粗利は240円、粗利率は240÷840＝<strong>約28.6%</strong>にしかなりません。原価に何%乗せるかは「値入率（マークアップ率）」と呼ばれ、粗利率とは割る数が違います。値入率は原価で割り、粗利率は売価で割ります。</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th>原価600円の商品</th><th>売価</th><th>粗利</th><th>粗利率</th></tr>
+      <tr><td>原価に40%上乗せ（値入率40%）</td><td>840円</td><td>240円</td><td>約28.6%</td></tr>
+      <tr><td>粗利率40%から逆算</td><td>1,000円</td><td>400円</td><td>40.0%</td></tr>
+    </table>
+    </div>
+
+    <p>社内で「4割乗せ」と言ったとき、どちらの意味で使っているかを1度そろえておきましょう。見積書を作る担当者と社長で意味が違うと、受注が増えるほど粗利が足りなくなります。</p>
+
+    <h2>決算書で計算すると粗利率がずれる3つのところ</h2>
+
+    <p>式は単純でも、決算書の数字をそのまま割ると、実態とずれることがあります。自社の決算書で計算するときは、次の3つを先に確かめましょう。</p>
+
+    <h3>① 期末の在庫（棚卸）</h3>
+
+    <p>売上原価は「仕入れた額」ではなく、<strong>期首の在庫＋当期の仕入−期末の在庫</strong>で計算します。期首在庫500万円、仕入6,000万円、期末在庫700万円なら、売上原価は5,800万円です。売上高が1億円なら粗利率は42%になります。</p>
+
+    <p>ここで期末在庫を200万円多く数えてしまうと、売上原価は5,600万円に減り、粗利率は44%に上がります。売れていない在庫を数え直さずに残していた場合も、同じことが起きます。<strong>前期より粗利率が急に上がった年は、在庫の増え方を先に確かめましょう。</strong>在庫の数え間違いは翌期に逆向きに出るので、翌期の粗利率が同じ幅だけ下がります。</p>
+
+    <h3>② 売上原価に入っている人件費</h3>
+
+    <p>製造業や建設業では、工場や現場で働く人の給料（労務費）が売上原価に入ります。製造原価報告書や工事原価報告書がある会社です。同じ業種でも、人件費を売上原価に入れる会社と販売費及び一般管理費に入れる会社があり、それだけで粗利率は数ポイント変わります。他社と比べるときは、どちらに入っているかを確かめてから比べましょう。</p>
+
+    <h3>③ 値引きやリベートの計上場所</h3>
+
+    <p>取引先への値引きや販売奨励金を、売上から差し引いている会社と、販売費として計上している会社があります。前者なら粗利率は低く出て、後者なら高く出ます。年の途中で処理を変えると、商売は何も変わっていないのに粗利率だけが動きます。<strong>粗利率を毎月追うなら、処理のルールを1つに決めて、変えない</strong>ことが大切です。</p>
+
+    <h2>粗利率が下がったら、理由を3つに分けて確かめる</h2>
+
+    <p>私（筆者）は中小企業の経営支援で決算書を読むとき、数字の「見かけ」から入り、その裏にある「正体」を分けてから打ち手を考える順番で進めています。粗利率でいえば、見かけは「2ポイント下がった」という1つの数字ですが、正体は次の3つのどれか（または組み合わせ）です。</p>
+
+    <ol>
+      <li><strong>売価が下がった</strong>：値引き、価格の据え置き（原価が上がったのに価格を上げていない）</li>
+      <li><strong>原価が上がった</strong>：仕入価格、外注費、材料のロス</li>
+      <li><strong>売れる商品の組み合わせが変わった</strong>：粗利率の低い商品の割合が増えた</li>
+    </ol>
+
+    <p>3つ目は見落とされがちです。次の例を見てください（数字はすべて仮定値）。</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th></th><th>商品A（粗利率40%）</th><th>商品B（粗利率20%）</th><th>合計</th></tr>
+      <tr><td>前期の売上</td><td>6,000万円</td><td>4,000万円</td><td>1億円（粗利3,200万円・32%）</td></tr>
+      <tr><td>当期の売上</td><td>5,000万円</td><td>5,000万円</td><td>1億円（粗利3,000万円・30%）</td></tr>
+    </table>
+    </div>
+
+    <p>商品AもBも、粗利率は1円も変わっていません。売上の合計も同じ1億円です。それでも会社全体の粗利率は32%から30%に下がり、粗利は200万円減りました。原因は、粗利率の低い商品Bの割合が40%から50%に増えたことだけです。この場合、仕入先と交渉しても粗利率は戻りません。打ち手は「商品Aの売上を戻す」か「商品Bの価格を上げる」になります。</p>
+
+    <p>理由を分けるには、商品別（または取引先別・部門別）に売上と粗利を2期並べる必要があります。会計ソフトに部門や品目の区分を入れていれば、そこから出せます。入れていなければ、売上の大きい上位5品目だけでも、販売管理の数字から並べてみましょう。</p>
+
+    <h2>粗利率1ポイントは、売上何%分の効果があるか</h2>
+
+    <p>粗利率の改善がどれだけ効くかも、金額で確かめておきます。年商1億円、粗利率30%、営業利益300万円の会社（仮定値）で、粗利率が1ポイント上がって31%になると、粗利は100万円増えます。費用が同じなら営業利益は300万円から400万円へ、<strong>3割以上増えます</strong>。</p>
+
+    <p>同じ100万円の粗利を売上で稼ぐには、100万÷30%＝約333万円、<strong>売上を3.3%伸ばす</strong>必要があります。売上を3%伸ばすのと、粗利率を1ポイント上げるのと、自社ではどちらが現実的か。この比較をしてから打ち手を選ぶと、営業の頑張りだけに頼らない計画が作れます。</p>
+
+    <h2>月次で粗利率を見るときの注意</h2>
+
+    <ul>
+      <li><strong>月次で在庫を計上しているかを確かめる。</strong>毎月の試算表で在庫を動かしていない会社は、仕入れた月に粗利率が下がり、売れた月に上がります。月次では3か月の平均で見るか、決算月の数字で判断しましょう。</li>
+      <li><strong>粗利率と粗利額を両方見る。</strong>粗利率が上がっても、売上が大きく減れば粗利額は減ります。社員の給料や家賃を払う原資は、率ではなく額です。</li>
+      <li><strong>値上げをしたら、翌月から粗利率で効果を確かめる。</strong>値上げ後に販売数量がどれだけ動いたかも一緒に見ましょう。</li>
+    </ul>
+
+    <h2>まとめ：今日やること3つ</h2>
+
+    <ol>
+      <li><strong>直近3期の決算書から、粗利率を並べる。</strong>損益計算書の売上総利益÷売上高です。</li>
+      <li><strong>粗利率が大きく動いた年は、期末在庫の増減を確かめる。</strong>在庫の数え方が原因なら、商売の実態は変わっていません。</li>
+      <li><strong>上位5品目の売上と粗利を2期並べ、下がった理由を「売価・原価・組み合わせ」のどれかに分ける。</strong>理由が分かったら、打ち手に担当と期限を付けましょう。</li>
+    </ol>
+
+    <p>関連記事：<a href="/keiei/sonekibunkiten-keisan/">損益分岐点の計算</a>／<a href="/keiei/kessansho-yomikata/">決算書の読み方</a>／<a href="/keiei/shikinguri-kaizen/">資金繰りを改善する順番</a>／<a href="/keiei/untenshikin-keisan/">運転資金の計算式</a></p>
+
+  </div>
+
+  <div class="mt-12 bg-slate-50 border border-slate-200 rounded-2xl p-6">
+    <p class="text-[11.5px] font-semibold text-slate-400 mb-2.5">執筆</p>
+    <p class="text-[14px] font-bold mb-1.5">平澤 建（ひらさわ たける）</p>
+    <p class="text-[12.5px] text-slate-600 leading-relaxed mb-3">
+      Taxel 代表。中小企業向けにKPI経営の伴走支援とEC運用支援を行っています。
+      税理士の先生方へのヒアリングを重ね、いただいた要望をそのまま機能にする形でTaxelを開発しています。
+    </p>
+    <p class="text-[11.5px] text-slate-400 leading-relaxed">
+      ※ 本記事は一般的な情報提供を目的としたものです。計算例は仮定値であり、実在の会社を示すものではありません。筆者は税理士ではありません。
+    </p>
+  </div>
+
+  <div class="mt-14 bg-white border border-slate-200 rounded-2xl p-6 shadow-card text-center">
+    <p class="text-[14px] font-bold mb-2">自社の粗利率を、決算書から無料で出します</p>
+    <p class="text-[12.5px] text-slate-500 mb-4">決算書をお送りいただくと、3期分の粗利率の推移と、動いた理由の見立てをお返しします。</p>
+    <div class="flex flex-wrap gap-2.5 justify-center">
+      <a class="inline-block bg-ink text-white text-[13.5px] font-semibold px-5 py-2.5 rounded-lg hover:bg-slate-800 transition-colors" href="/shindan/">無料で決算書を診断する</a>
+    </div>
+  </div>
+</article>
+
+<footer class="border-t border-slate-100 bg-white">
+  <div class="max-w-6xl mx-auto px-6 py-10 text-center text-[12px] text-slate-400">© 2026 Taxel. All rights reserved.</div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+<!-- TRACKING -->
+<script>
+(function(){
+  var G = function(n,p){ try{ if(window.gtag) window.gtag('event', n, p||{}); }catch(e){} };
+  var hit = {};
+  function depth(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    if (h <= 0) return;
+    var p = Math.round((window.scrollY / h) * 100);
+    [25,50,75,90].forEach(function(t){
+      if (p >= t && !hit[t]) { hit[t] = 1; G('scroll_depth', {percent: t}); }
+    });
+  }
+  var tick;
+  addEventListener('scroll', function(){
+    if (tick) return;
+    tick = setTimeout(function(){ tick = null; depth(); }, 250);
+  }, {passive:true});
+  depth();
+  var TARGETS = ['/shindan/','/download/','/#contact','#contact','/seminar/','/keiei/'];
+  document.addEventListener('click', function(ev){
+    var a = ev.target.closest ? ev.target.closest('a') : null;
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (TARGETS.indexOf(href) === -1) return;
+    G('cta_click', {link_url: href, link_text: (a.innerText||'').trim().slice(0,40)});
+  }, true);
+})();
+</script>
+
+</body>
+</html>
