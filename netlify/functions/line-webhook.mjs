@@ -1,0 +1,420 @@
+// taXel公式LINE（@998kywlv）の Webhook：URLが届いたら、そのサイトのトップページを読んで簡易診断を返す。
+// - AIは使わない。決まったルールで判定する（仕様：deliverables/taxel_competitor_crm_20261102/57_line_quick_diag_spec.md）
+// - 返信は返信トークンで行う（無料・月200通に数えない）
+// - キーワード（無料診断・デモの質問 など）は管理画面の応答メッセージが返すので、ここでは何もしない
+// - 鍵は Netlify の環境変数（LINE_CHANNEL_SECRET / LINE_CHANNEL_ACCESS_TOKEN）。コードやログに値を出さない
+// - 利用者が送ったURLを読みに行くので、公開サイト以外（社内・クラウドの管理用アドレス等）へは接続しない。
+//   接続に使うIPアドレスは「確かめたそのアドレス」に固定する（http(s).request の lookup を差し替え）
+import crypto from "node:crypto";
+import dns from "node:dns";
+import http from "node:http";
+import https from "node:https";
+import net from "node:net";
+
+export const config = { path: "/api/line-webhook" };
+
+const KEYWORDS = new Set(["無料診断", "デモの質問", "費用と契約", "先生の手間", "15分の説明", "ほかの質問", "最初に戻る", "無料診断をはじめる"]);
+export const MSG = {
+  fallback: "メッセージありがとうございます。\n担当者が確認して、1営業日以内にお返事します。",
+  unread: "URLを受け取りました。自動では読み取れなかったため、担当者が確認して、1営業日以内にお返事します。",
+  later: "近くの税理士事務所と比べた詳しいレポート（直した後の点数の目安つき）は、1営業日以内にこのトークでお送りします。",
+  busy: "URLを受け取りました。担当者が確認して、1営業日以内にお返事します。",
+};
+const SITE_MS = 6000;             // サイトの読み込みにかける時間の上限
+const REPLY_MS = 3000;            // 返信APIにかける時間の上限
+const MAX_BYTES = 1500000;        // 読むHTMLの上限（超えたら「読み取れなかった」扱い）
+const MAX_HOPS = 4;               // リダイレクトの上限
+const PARALLEL = 3;               // 同時に読みに行くサイトの数
+const TOTAL_MS = 40000;           // 1回の通知の処理全体の上限（Netlify の上限60秒・返信トークンの1分より内側）
+const MIN_SITE_MS = 1500;         // これより短い時間しか残っていなければ、読みに行かず「担当者が確認」と返す
+// スマホのブラウザとして読む（見込み客はスマホで見る。スマホ用に別のページを返すサイトがある）
+const UA = "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1";
+
+// ---------- 署名（生のバイト列で計算し、正規のbase64表記だけを受け付ける） ----------
+export function verify(raw, signature, secret) {
+  if (!signature || !secret) return false;
+  const sig = String(signature);
+  if (!/^[A-Za-z0-9+/]{43}=$/.test(sig)) return false;
+  const mac = crypto.createHmac("sha256", secret).update(Buffer.isBuffer(raw) ? raw : Buffer.from(String(raw), "utf8")).digest();
+  const got = Buffer.from(sig, "base64");
+  if (got.toString("base64") !== sig) return false;
+  return got.length === mac.length && crypto.timingSafeEqual(got, mac);
+}
+
+// ---------- URLの取り出し（トップページを見る。メールアドレスのドメインは拾わない） ----------
+const TLD = "(?:co\\.jp|or\\.jp|ne\\.jp|ac\\.jp|go\\.jp|jp|com|net|org|biz|info|tokyo|osaka|nagoya|yokohama|xyz|site|online|tax|work|link|me|co|io)";
+const BARE = new RegExp("(?:^|[^a-z0-9.@-])((?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\\.)+" + TLD + ")(?=$|[^a-z0-9.@-])", "i");
+export function findUrl(textIn) {
+  const t = String(textIn || "").normalize("NFKC");
+  let u = null;
+  const m = t.match(/https?:\/\/[^\s<>"'「」（）()、。]+/i);
+  if (m) u = m[0].replace(/[.,]+$/, "");
+  else {
+    const b = t.match(BARE);
+    if (b) u = "https://" + b[1];
+  }
+  if (!u) return null;
+  try {
+    const x = new URL(u);
+    if (x.protocol !== "http:" && x.protocol !== "https:") return null;
+    return x.protocol + "//" + x.host + "/";
+  } catch { return null; }
+}
+
+// ---------- 接続してよい相手か（IPv4の公開アドレスだけ。IPアドレス直書きのURLは受け付けない） ----------
+export function isPrivateV4(ip) {
+  if (!net.isIPv4(ip)) return true;
+  const [a, b] = ip.split(".").map(Number);
+  return a === 0 || a === 10 || a === 127 || a >= 224 || (a === 169 && b === 254) || (a === 172 && b >= 16 && b <= 31) ||
+    (a === 192 && b === 168) || (a === 100 && b >= 64 && b <= 127) || (a === 192 && b === 0) || (a === 198 && (b === 18 || b === 19)) ||
+    (a === 198 && b === 51 && ip.split(".")[2] === "100") || (a === 203 && b === 0 && ip.split(".")[2] === "113") || (a === 192 && b === 88 && ip.split(".")[2] === "99");
+}
+export function hostOk(u) {
+  if (u.protocol !== "http:" && u.protocol !== "https:") return false;
+  if (u.username || u.password) return false;
+  if (u.port && u.port !== "80" && u.port !== "443") return false;
+  const host = u.hostname;
+  if (!host || net.isIP(host.replace(/^\[|\]$/g, "")) || !host.includes(".")) return false;
+  if (/(^|\.)(localhost|local|internal|lan|home|corp|intranet)$/i.test(host)) return false;
+  return true;
+}
+// 接続の直前に名前解決し、公開IPv4だけを渡す（ここで確かめたアドレスにそのまま接続する）
+export function safeLookup(hostname, options, cb) {
+  dns.lookup(hostname, { family: 4, all: true }, (err, addrs) => {
+    if (err) return cb(err);
+    const list = addrs || [];
+    if (!list.length || list.some((a) => isPrivateV4(a.address))) return cb(Object.assign(new Error("blocked address"), { code: "EBLOCKED" }));
+    if (options && options.all) return cb(null, list.map((a) => ({ address: a.address, family: 4 })));
+    cb(null, list[0].address, 4);
+  });
+}
+
+function charsetOf(ct, head) {
+  let v = (String(ct || "").match(/charset\s*=\s*["']?([\w.:-]+)/i) || [])[1];
+  if (!v) {
+    for (const x of tokenize(head, 400).toks) {
+      if (x.t !== "open" || x.name !== "meta") continue;
+      if (x.a.charset) { v = x.a.charset; break; }
+      if (lowerAscii(x.a["http-equiv"] || "") === "content-type") { const m = String(x.a.content || "").match(/charset\s*=\s*["']?([\w.:-]+)/i); if (m) { v = m[1]; break; } }
+    }
+  }
+  let cs = lowerAscii(String(v || "utf-8").trim());
+  if (/^(x-)?(sjis|shift-jis|ms_kanji|windows-31j|cp932)$/.test(cs)) cs = "shift_jis";
+  return cs;
+}
+export function decode(buf, ct) {
+  if (buf.length >= 3 && buf[0] === 0xef && buf[1] === 0xbb && buf[2] === 0xbf) return new TextDecoder("utf-8").decode(buf.subarray(3));
+  const cs = charsetOf(ct, buf.subarray(0, 8192).toString("latin1"));
+  try { return new TextDecoder(cs).decode(buf); } catch { return null; }   // 知らない文字コードは「読み取れなかった」扱い
+}
+
+// 1回分の取得（リダイレクトは呼び出し側で追う）。期限・上限を超えたら null
+function getOnce(u, deadline) {
+  return new Promise((resolve) => {
+    const left = deadline - Date.now();
+    if (left <= 0) return resolve(null);
+    const lib = u.protocol === "https:" ? https : http;
+    let done = false, timer = null;
+    const finish = (v) => { if (!done) { done = true; clearTimeout(timer); resolve(v); } };
+    const req = lib.request(u, { method: "GET", lookup: safeLookup, headers: { "User-Agent": UA, "Accept": "text/html", "Accept-Encoding": "identity" } }, (res) => {
+      const st = res.statusCode || 0;
+      if (st >= 300 && st < 400 && res.headers.location) { res.destroy(); return finish({ redirect: res.headers.location }); }
+      const ct = res.headers["content-type"] || "";
+      const ce = lowerAscii(String(res.headers["content-encoding"] || "identity")).trim();
+      if (st < 200 || st >= 300 || (ct && !/html/i.test(ct)) || (ce && ce !== "identity")) { res.destroy(); return finish(null); }
+      const chunks = []; let n = 0;
+      res.on("data", (c) => { n += c.length; if (n > MAX_BYTES) { res.destroy(); finish(null); } else chunks.push(c); });
+      res.on("end", () => finish({ buf: Buffer.concat(chunks), ct }));
+      res.on("error", () => finish(null));
+      res.on("aborted", () => finish(null));
+    });
+    timer = setTimeout(() => { req.destroy(); finish(null); }, left);
+    req.on("error", () => finish(null));
+    req.end();
+  });
+}
+
+export async function fetchPage(url, deadline = Date.now() + SITE_MS) {
+  let u;
+  try { u = new URL(url); } catch { return null; }
+  for (let hop = 0; hop <= MAX_HOPS; hop++) {
+    if (!hostOk(u)) return null;
+    const r = await getOnce(u, deadline);
+    if (!r) return null;
+    if (r.redirect) { try { u = new URL(r.redirect, u); } catch { return null; } continue; }
+    const html = decode(r.buf, r.ct);
+    return html ? { html, url: u.href } : null;
+  }
+  return null;
+}
+
+// ---------- HTMLの字句解析（正規表現の総当たりを使わず、前から1回なめるだけ） ----------
+// 大文字小文字はASCIIだけそろえる（toLowerCase は文字数が変わる字があり、位置がずれる）
+const lowerAscii = (s) => s.replace(/[A-Z]/g, (c) => String.fromCharCode(c.charCodeAt(0) + 32));
+const ENT = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " " };
+function unescape(s) {
+  return String(s).replace(/&(#x[0-9a-f]{1,6}|#\d{1,7}|[a-z]{2,8});/gi, (m, e) => {
+    if (e[0] === "#") { const c = e[1] === "x" || e[1] === "X" ? parseInt(e.slice(2), 16) : parseInt(e.slice(1), 10); try { return String.fromCodePoint(c); } catch { return " "; } }
+    return ENT[lowerAscii(e)] ?? m;
+  });
+}
+const RAW = new Set(["script", "style", "noscript", "textarea", "title", "iframe", "xmp", "noembed", "noframes"]);
+const isSpace = (c) => c === " " || c === "\t" || c === "\n" || c === "\r" || c === "\f";
+// 開始タグの中身（名前の後ろ）から属性を読む。引用符の中の「name=」は属性として扱わない
+function parseAttrs(src) {
+  const out = {}; let i = 0; const n = src.length;
+  while (i < n) {
+    while (i < n && (isSpace(src[i]) || src[i] === "/")) i++;
+    let k = i;
+    while (k < n && !isSpace(src[k]) && src[k] !== "=" && src[k] !== "/" ) k++;
+    const name = lowerAscii(src.slice(i, k)); i = k;
+    while (i < n && isSpace(src[i])) i++;
+    let val = "";
+    if (src[i] === "=") {
+      i++;
+      while (i < n && isSpace(src[i])) i++;
+      const q = src[i];
+      if (q === '"' || q === "'") { const e = src.indexOf(q, i + 1); val = e < 0 ? src.slice(i + 1) : src.slice(i + 1, e); i = e < 0 ? n : e + 1; }
+      else { let e = i; while (e < n && !isSpace(src[e])) e++; val = src.slice(i, e); i = e; }
+    }
+    if (name && !(name in out)) out[name] = unescape(val).trim();
+    if (k === i && !name) i++;
+  }
+  return out;
+}
+// 引用符を考えて、開始タグの終わり（>）を探す
+function tagEnd(h, from) {
+  let q = null;
+  for (let i = from; i < h.length; i++) {
+    const c = h[i];
+    if (q) { if (c === q) q = null; }
+    else if (c === '"' || c === "'") { const prev = h[i - 1]; if (prev === "=" || isSpace(prev)) q = c; }
+    else if (c === ">") return i;
+  }
+  return -1;
+}
+// タグとテキストの並びに分ける。script 等の中身は飛ばし、title の中身だけ text として残す
+export function tokenize(html, maxTokens = 200000) {
+  const h = String(html || ""); const low = lowerAscii(h);
+  const toks = []; let i = 0, tpl = 0;
+  const push = (x) => { if (tpl === 0 || (x.t === "close" && x.name === "template") || (x.t === "open" && x.name === "template")) toks.push(x); };
+  while (i < h.length) {
+    if (toks.length >= maxTokens) return { toks, complete: false };
+    const lt = h.indexOf("<", i);
+    if (lt < 0) { push({ t: "text", v: h.slice(i) }); break; }
+    if (lt > i) push({ t: "text", v: h.slice(i, lt) });
+    if (low.startsWith("<!--", lt)) { const e = h.indexOf("-->", lt + 4); i = e < 0 ? h.length : e + 3; continue; }
+    if (h[lt + 1] === "!" || h[lt + 1] === "?") { const e = h.indexOf(">", lt); i = e < 0 ? h.length : e + 1; continue; }
+    const close = h[lt + 1] === "/";
+    let k = lt + (close ? 2 : 1);
+    if (!/[A-Za-z]/.test(h[k] || "")) { push({ t: "text", v: "<" }); i = lt + 1; continue; }
+    let e = k; while (e < h.length && /[A-Za-z0-9-]/.test(h[e])) e++;
+    const name = low.slice(k, e);
+    const gt = tagEnd(h, e);
+    if (gt < 0) return { toks, complete: false };       // 閉じない開始タグ以降は読めない
+    if (close) { if (name === "template" && tpl > 0) tpl--; else push({ t: "close", name }); i = gt + 1; continue; }
+    if (name === "template") { tpl++; i = gt + 1; continue; }   // template の中身は表示されないので、入れ子を数えて飛ばす
+    if (name === "plaintext") break;                    // 以降はすべて文字として表示される（リンクにならない）
+    push({ t: "open", name, a: parseAttrs(h.slice(e, gt)) });
+    i = gt + 1;
+    if (RAW.has(name)) {                                // 中身は「</名前」＋空白か > で終わる
+      let j = i, stop = -1;
+      while (true) {
+        const c = low.indexOf("</" + name, j);
+        if (c < 0) break;
+        const nx = h[c + 2 + name.length] || ">";
+        if (nx === ">" || isSpace(nx) || nx === "/") { stop = c; break; }
+        j = c + 2;
+      }
+      const inner = stop < 0 ? h.slice(i) : h.slice(i, stop);
+      if (name === "title") push({ t: "text", v: inner, title: true });
+      if (stop < 0) break;
+      const g2 = h.indexOf(">", stop); i = g2 < 0 ? h.length : g2 + 1;
+      push({ t: "close", name });
+    }
+  }
+  return { toks, complete: true };
+}
+const clean = (s) => unescape(String(s || "")).replace(/\s+/g, " ").trim();
+// 互換用（テストで使う）：script/style/コメントを除いた本文
+export function stripBlocks(h) { return tokenize(h).toks.filter((x) => x.t === "text" && !x.title).map((x) => x.v).join(""); }
+
+// ---------- 判定 ----------
+const PREF = "北海道|青森|岩手|宮城|秋田|山形|福島|茨城|栃木|群馬|埼玉|千葉|東京|神奈川|新潟|富山|石川|福井|山梨|長野|岐阜|静岡|愛知|三重|滋賀|京都|大阪|兵庫|奈良|和歌山|鳥取|島根|岡山|広島|山口|徳島|香川|愛媛|高知|福岡|佐賀|長崎|熊本|大分|宮崎|鹿児島|沖縄";
+// 「千葉県」「習志野市」「港区」は後ろに地名が続いてもよい。「村・町・郡」で終わる語と、県名だけ（千葉）は
+// 「田村税理士事務所」「千葉会計」のような姓を拾うので、直後が漢字のときは数えない
+const AREA = new RegExp("(?:" + PREF + ")(?:都|道|府|県)|(?:" + PREF + ")(?![一-龥々])|[一-龥々ヶ]{1,4}[市区]|[一-龥々ヶ]{1,4}[町村郡](?![一-龥々])");
+const SVC = /顧問|税理士変更|会社設立|法人設立|創業|起業|融資|補助金|助成金|相続|確定申告|記帳|決算|経営|給与|年末調整/;
+const NOT_SVC = /ブログ|コラム|ニュース|お知らせ|新着|記事|実績|事例/;
+// お知らせ・記事へのリンクを業務のページと数えない（題名に「相続」「経営」が入っていても記事は記事）
+const NOT_SVC_PATH = /\/(news|blog|column|columns|topics|info|information|archives?|post|posts|entry|entries|category|tag|tags)(\/|$|[-_.])|\/(お知らせ|ニュース|ブログ|コラム)/i;
+const CTA = /問い?合わ?せ|お問合|ご相談|無料相談|相談する|面談|予約/;
+const LINE_HOST = /^(line\.me|lin\.ee|page\.line\.me|liff\.line\.me)$/i;
+
+export function analyze(html, pageUrl) {
+  const { toks, complete } = tokenize(html);
+  if (!complete) return null;                          // 途中までしか読めなければ診断しない
+  const base0 = new URL(pageUrl);
+  // <base href> があれば、相対リンクはそこを起点に解く（同じサイトかどうかは取得したページで判断）
+  let base = base0;
+  for (const x of toks) { if (x.t === "open" && x.name === "base" && x.a.href) { try { base = new URL(x.a.href, base0); } catch {} break; } }
+  const host = base0.hostname.replace(/^www\./, "");
+  const abs = (href) => { try { return new URL(href, base); } catch { return null; } };
+  let title = "", viewport = false, tel = false, line = false, contact = false;
+  const svc = new Set();
+  const doneLink = (href0, label) => {
+    // 前後の制御文字・空白は、前から／後ろから数えて落とす（$ 付きの正規表現は長い空白で遅くなる）
+    let href = String(href0 || "").replace(/[\t\n\r]/g, ""), st = 0, en = href.length;
+    while (st < en && href.charCodeAt(st) <= 0x20) st++;
+    while (en > st && href.charCodeAt(en - 1) <= 0x20) en--;
+    href = href.slice(st, en);
+    if (/^tel:/i.test(href)) tel = true;
+    const u = /^[a-z][a-z0-9+.-]*:/i.test(href) && !/^https?:/i.test(href) ? null : abs(href);
+    if (u && /^https?:$/.test(u.protocol) && LINE_HOST.test(u.hostname)) line = true;
+    if (/^mailto:/i.test(href) || (CTA.test(label) && href && !/^#?$/.test(href) && !/^javascript:/i.test(href))) contact = true;
+    if (!u || !SVC.test(label) || NOT_SVC.test(label) || label.length > 24 || /^\d{4}[./年-]/.test(label)) return;
+    if (!/^https?:$/.test(u.protocol) || u.hostname.replace(/^www\./, "") !== host) return;
+    let p = u.pathname;
+    try { p = decodeURIComponent(p); } catch {}
+    p = p.replace(/\/$/, "");
+    if (p && p !== "/index.html" && !NOT_SVC_PATH.test(p)) svc.add(p);
+  };
+  let link = null, form = null;
+  for (const x of toks) {
+    if (x.t === "text") {
+      if (x.title) { if (!title) title = clean(x.v); continue; }
+      if (link) link.label += x.v;
+      continue;
+    }
+    if (x.t === "open") {
+      if (x.name === "meta" && lowerAscii(x.a.name || "") === "viewport" && /(^|[\s,;])width\s*=\s*device-width\s*($|[,;\s])/i.test(x.a.content || "")) viewport = true;
+      if (x.name === "a") { if (link) doneLink(link.href, clean(link.label)); link = { href: x.a.href || "", label: "" }; }
+      if (x.name === "img" && link && x.a.alt) link.label += " " + x.a.alt;
+      if (x.name === "form") form = { search: lowerAscii(x.a.role || "") === "search" || /search|\?s=|\/s\/?$/.test(lowerAscii(x.a.action || "")), fields: 0 };
+      if (form && (x.name === "input" || x.name === "textarea" || x.name === "select")) {
+        const type = lowerAscii(x.a.type || "text"), nm = lowerAscii(x.a.name || "");
+        if (type === "search" || ["s", "q", "keyword", "keywords", "search", "query"].includes(nm)) form.search = true;
+        else if (!["hidden", "submit", "button", "image", "reset"].includes(type)) form.fields++;
+      }
+      continue;
+    }
+    if (x.t === "close") {
+      if (x.name === "a" && link) { doneLink(link.href, clean(link.label)); link = null; }
+      if (x.name === "form" && form) { if (!form.search && form.fields > 0) contact = true; form = null; }
+    }
+  }
+  if (link) doneLink(link.href, clean(link.label));
+  if (form && !form.search && form.fields > 0) contact = true;
+  return { viewport, https: base0.protocol === "https:", tel, line, titleArea: AREA.test(title), pages: svc.size, contact };
+}
+
+// 文面は「今回読んだトップページで、見つかった／見つからなかった」に留める（断定しない）
+export function compose(r) {
+  const good = [], todo = [];
+  (r.viewport ? good : todo).push(r.viewport ? "スマホの画面幅に合わせる設定があります" : "スマホの画面幅に合わせる設定が見つかりませんでした");
+  (r.https ? good : todo).push(r.https ? "https（暗号化された通信）で表示されます" : "httpsではなく、暗号化されていない通信で表示されました");
+  (r.titleArea ? good : todo).push(r.titleArea ? "ページのタイトルに地域名が入っています" : "ページのタイトルに地域名が見当たりませんでした");
+  if (r.pages >= 2) good.push("業務ごとのページへの案内があります（確認できたのは" + r.pages + "件）");
+  else todo.push(r.pages === 1 ? "業務ごとのページへの案内は、確認できたのが1件でした" : "業務ごとのページへの案内が見つかりませんでした");
+  (r.tel ? good : todo).push(r.tel ? "電話番号を押すと、そのまま発信できます" : "電話番号を押して発信できる設定が見つかりませんでした");
+  (r.line ? good : todo).push(r.line ? "LINEで質問できる窓口へのリンクがあります" : "電話の前に質問できる窓口（LINEなど）が見つかりませんでした");
+  (r.contact ? good : todo).push(r.contact ? "トップから問い合わせ先へ進めます" : "トップから問い合わせ先が見つかりませんでした");
+  let s = "ホームページのトップページを確認しました（自動の簡易診断）。";
+  if (good.length) s += "\n\n【できていること】\n・" + good.join("\n・");
+  if (todo.length) s += "\n\n【先に見たいところ】\n・" + todo.join("\n・");
+  return s;
+}
+
+// ---------- 連投の歯止め（同じ人が短時間に何度も送った場合。1台の中だけの簡易な制限） ----------
+const seen = new Map();
+export function tooMany(userId, now = Date.now()) {
+  if (!userId) return false;
+  const arr = (seen.get(userId) || []).filter((t) => now - t < 10 * 60 * 1000).slice(-10);
+  const over = arr.length >= 5;
+  if (!over) arr.push(now);
+  seen.delete(userId); seen.set(userId, arr);
+  while (seen.size > 2000) seen.delete(seen.keys().next().value);
+  return over;
+}
+
+export async function handleText(textIn, userId, deadline = Date.now() + SITE_MS) {
+  const t = String(textIn || "").trim();
+  if (KEYWORDS.has(t)) return null;                 // 管理画面の応答メッセージに任せる
+  const url = findUrl(t);
+  if (!url) return [MSG.fallback];
+  if (tooMany(userId)) return [MSG.busy];
+  if (deadline - Date.now() < MIN_SITE_MS) return [MSG.busy];
+  return diagnose(url, deadline);
+}
+
+export async function diagnose(url, deadline) {
+  if (deadline - Date.now() < MIN_SITE_MS) return [MSG.busy];
+  const page = await fetchPage(url, deadline);
+  if (!page) return [MSG.unread];
+  const r = analyze(page.html, page.url);
+  if (!r) return [MSG.unread];
+  console.log("diag", JSON.stringify(r));           // 事務所が分かる情報（URL・ID）はログに出さない
+  return [compose(r), MSG.later];
+}
+
+async function reply(token, replyToken, texts, ms = REPLY_MS) {
+  if (ms < 300) return;
+  try {
+    const res = await fetch("https://api.line.me/v2/bot/message/reply", {
+      method: "POST", signal: AbortSignal.timeout(ms),
+      headers: { "Content-Type": "application/json", Authorization: "Bearer " + token },
+      body: JSON.stringify({ replyToken, messages: texts.slice(0, 5).map((x) => ({ type: "text", text: Array.from(x).slice(0, 4900).join("") })) }),
+    });
+    if (!res.ok) console.log("reply failed", res.status);
+  } catch (e) { console.log("reply error", e && e.name); }
+}
+
+export async function runEvents(events, token) {
+  const end = Date.now() + TOTAL_MS;
+  const evs = events.filter((ev) => ev && ev.type === "message" && ev.message && ev.message.type === "text" && ev.replyToken);
+  // 先に仕分ける：すぐ返せるもの（定型文・混雑）は最初にまとめて返し、時間がかかるサイトの読み込みは枠の数だけにする
+  const canFetch = Math.max(1, Math.floor((TOTAL_MS - REPLY_MS) / (SITE_MS + REPLY_MS)) * PARALLEL);
+  const quick = [], slow = [];
+  for (const ev of evs) {
+    const t = String(ev.message.text || "").trim();
+    if (KEYWORDS.has(t)) continue;                    // 管理画面の応答メッセージに任せる
+    const url = findUrl(t), uid = ev.source && ev.source.userId;
+    if (!url) quick.push([ev, [MSG.fallback]]);
+    else if (slow.length >= canFetch || tooMany(uid)) quick.push([ev, [MSG.busy]]);
+    else slow.push([ev, url]);
+  }
+  if (quick.length > slow.length && quick.length > 3) console.log("quick replies", quick.length, "fetch", slow.length);
+  await Promise.all(quick.map(([ev, texts]) => reply(token, ev.replyToken, texts, Math.min(REPLY_MS, end - Date.now()))));
+  const work = async () => {
+    while (slow.length) {
+      const [ev, url] = slow.shift();
+      try {
+        // イベントごとに取得の期限を決める（全体の期限から返信の時間を残す）
+        const siteEnd = Math.min(Date.now() + SITE_MS, end - REPLY_MS);
+        const texts = await diagnose(url, siteEnd);
+        await reply(token, ev.replyToken, texts, Math.min(REPLY_MS, end - Date.now()));
+      } catch (e) { console.log("event error", e && e.name); }
+    }
+  };
+  await Promise.all(Array.from({ length: PARALLEL }, work));
+}
+
+export default async (req, context) => {
+  try {
+    if (req.method !== "POST") return new Response("ok");
+    const secret = process.env.LINE_CHANNEL_SECRET, token = process.env.LINE_CHANNEL_ACCESS_TOKEN;
+    if (!secret || !token) return new Response("not configured", { status: 500 });
+    const raw = Buffer.from(await req.arrayBuffer());
+    if (!verify(raw, req.headers.get("x-line-signature"), secret)) return new Response("bad signature", { status: 401 });
+    let data;
+    try { data = JSON.parse(raw.toString("utf8")); } catch { return new Response("bad json", { status: 400 }); }
+    const events = data && Array.isArray(data.events) ? data.events : [];
+    const job = runEvents(events, token);
+    // 先に200を返し、診断と返信は後ろで続ける（使えない環境では待ってから返す）
+    if (context && typeof context.waitUntil === "function") { context.waitUntil(job); } else { await job; }
+    return new Response("ok");
+  } catch (e) {
+    console.log("handler error", e && e.name);
+    return new Response("ok");
+  }
+};
