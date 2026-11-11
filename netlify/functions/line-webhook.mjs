@@ -402,7 +402,8 @@ export async function runEvents(events, token) {
 export default async (req, context) => {
   try {
     if (req.method !== "POST") return new Response("ok");
-    const secret = process.env.LINE_CHANNEL_SECRET, token = process.env.LINE_CHANNEL_ACCESS_TOKEN;
+    // 貼り付けで前後に空白・改行が入っても動くように、前後を落としてから使う
+    const secret = (process.env.LINE_CHANNEL_SECRET || "").trim(), token = (process.env.LINE_CHANNEL_ACCESS_TOKEN || "").trim();
     if (!secret || !token) return new Response("not configured", { status: 500 });
     const raw = Buffer.from(await req.arrayBuffer());
     if (!verify(raw, req.headers.get("x-line-signature"), secret)) return new Response("bad signature", { status: 401 });
