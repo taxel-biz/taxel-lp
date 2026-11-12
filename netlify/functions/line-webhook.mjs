@@ -33,9 +33,9 @@ const PARALLEL = 3;               // 同時に読みに行くサイトの数
 const TOTAL_MS = 40000;           // 1回の通知の処理全体の上限（Netlify の上限60秒・返信トークンの1分より内側）
 const MIN_SITE_MS = 1500;         // これより短い時間しか残っていなければ、読みに行かず「担当者が確認」と返す
 // スマホのブラウザとして読む（見込み客はスマホで見る。スマホ用に別のページを返すサイトがある）
-const DELAY_MS = 20000;           // 診断カードから質問1までの間の上限（実際は文字数で決める：readMs）
-const READ_MS_PER_CHAR = 75;      // 1文字あたり（＝毎分800字。拾い読みの速さ）。3点で約15秒
-export function readMs(chars) { return Math.max(8000, Math.min(DELAY_MS, Math.round(chars * READ_MS_PER_CHAR / 1000) * 1000)); }
+const DELAY_MS = 12000;           // 診断カードから質問1までの間の上限（実際は文字数で決める：readMs）
+const READ_MS_PER_CHAR = 55;      // 1文字あたり。3点（約190字）で約10秒（11/12 Takeru：15秒は長い）
+export function readMs(chars) { return Math.max(6000, Math.min(DELAY_MS, Math.round(chars * READ_MS_PER_CHAR / 1000) * 1000)); }
 export function cardChars(m) { let n = 0; JSON.stringify(m, (k, v) => { if (k === "text" && typeof v === "string") n += Array.from(v.replace(/\s/g, "")).length; return v; }); return n; }
 const CARD_IMG = "https://www.taxel.biz/assets/line/card_fv.png";
 const BOOK = "https://calendar.google.com/calendar/appointments/schedules/AcZssZ0THxEfmFAbMM24_U7hvCWGjHQNR2w2Bo2b9hinyHPR2wZ9s9SzGMj_qMYtuGjqmVpljHgDjzw1";
@@ -414,7 +414,8 @@ export function greetCard() {
   return { type: "flex", altText: "ホームページの、どこから直すとよいか（無料診断）", contents: { type: "bubble", size: "mega",
     hero: { type: "image", url: CARD_IMG, size: "full", aspectRatio: "65:43", aspectMode: "cover" },
     body: { type: "box", layout: "vertical", contents: [
-      T("ホームページの、\nどこから直すとよいか", { size: "lg", weight: "bold", color: "#111111" }),
+      T("無料｜URLを送るだけ｜約30秒", { size: "xs", weight: "bold", color: "#067A3A" }),
+      T("ホームページの、\nどこから直すとよいか", { size: "lg", weight: "bold", color: "#111111", margin: "sm" }),
       T("先に直す3点と、直した後の\n点数の目安を、無料でお届けします。\n診断だけでも大丈夫です。", { color: C.sub, margin: "md" }),
     ] },
     footer: { type: "box", layout: "vertical", spacing: "sm", contents: [
@@ -522,7 +523,7 @@ export function retryKey(seed) {
 const LATER_BUDGET = DELAY_MS + 2 * REPLY_MS + 1000;   // 診断の返信の後に、待ち＋プッシュ（再試行1回）に必要な時間
 // 診断の後に質問1を送る：「入力中」を出し、少し待ってからプッシュ。結果が分からないときは同じキーで1回だけ再試行
 async function sendLater(token, userId, msgs, end, key) {
-  const want = Math.min(DELAY_MS, Math.max(0, Number(msgs[0] && msgs[0]._delay) || 8000));
+  const want = Math.min(DELAY_MS, Math.max(0, Number(msgs[0] && msgs[0]._delay) || 6000));
   await lineApi("/v2/bot/chat/loading/start", token, { chatId: userId, loadingSeconds: Math.min(60, Math.ceil(want / 5000) * 5 + 5) }, Math.min(1000, end - Date.now() - 2 * REPLY_MS));
   const wait = Math.max(0, Math.min(want, end - Date.now() - 2 * REPLY_MS));
   if (wait) await new Promise((r) => setTimeout(r, wait));
