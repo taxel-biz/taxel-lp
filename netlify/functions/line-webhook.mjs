@@ -23,7 +23,6 @@ export const MSG = {
   unread: "URLを受け取りました。自動では読み取れなかったため、担当者が確認して、1営業日以内にお返事します。",
   ask: "ご覧いただいたデモ・レポートや、サービスについて、知りたいことをお選びください。",
   greet: "友だち追加ありがとうございます。\ntaXel（タクセル）です。",
-  start: "ホームページのURLを、\nこのトークにお送りください。\n例）https://www.〇〇-tax.jp\n\nその場で簡易診断をお返しし、\n1営業日以内に、近くの事務所と比べた\n詳しいレポート（PDF）を\nお届けします。\n\nURLが分からない場合は、\n事務所名と地域（例：〇〇市）でも\n大丈夫です。\n\n個人情報の取り扱い：\nhttps://www.taxel.biz/privacy/",
   busy: "URLを受け取りました。担当者が確認して、1営業日以内にお返事します。",
 };
 const SITE_MS = 6000;             // サイトの読み込みにかける時間の上限
@@ -364,7 +363,7 @@ function listCard(head, question, rows, alt) {
 export function diagCard(issues) {
   const shown = issues.slice(0, 3);
   const c = [
-    T("ご依頼ありがとうございます。\nホームページを拝見いたしました。\nトップページから分かった点を\nお送りいたします。"),
+    T("ホームページを拝見いたしました。\nトップページから分かった点を\nお送りいたします。"),
   ];
   if (shown.length) {
     c.push(T("【改善できる点】" + issues.length + "つ", { weight: "bold", color: C.navy, margin: "lg" }));
@@ -425,7 +424,17 @@ export function greetCard() {
   } };
 }
 export function startMsg() {
-  return { type: "text", text: MSG.start, quickReply: { items: [{ type: "action", action: { type: "message", label: "1つ前に戻る", text: "最初に戻る" } }] } };
+  return { type: "flex", altText: "ホームページのURLを、このトークにお送りください。", contents: { type: "bubble", size: "mega",
+    body: { type: "box", layout: "vertical", contents: [
+      T("ホームページのURLを、\nこのトークにお送りください。", { weight: "bold", color: "#111111", size: "md" }),
+      T("例）https://www.〇〇-tax.jp", { color: C.gray, margin: "sm" }),
+      T("その場で簡易診断をお返しし、\n1営業日以内に、近くの事務所と\n比べた詳しいレポート（PDF）を\nお届けします。", { margin: "lg" }),
+      T("URLが分からない場合は、\n事務所名と地域（例：〇〇市）\nでも大丈夫です。", { margin: "lg" }),
+    ] },
+    footer: { type: "box", layout: "vertical", contents: [
+      { type: "button", style: "link", height: "sm", action: { type: "uri", label: "個人情報の取り扱い", uri: "https://www.taxel.biz/privacy/" } },
+    ] },
+  }, quickReply: { items: [{ type: "action", action: { type: "message", label: "1つ前に戻る", text: "最初に戻る" } }] } };
 }
 // 決まった言葉への返事（Webhook で返すもの）。それ以外は null
 export function fixedReply(t) {
