@@ -1,7 +1,10 @@
 // taXel公式LINE（@998kywlv）の Webhook：URLが届いたら、そのサイトのトップページを読んで簡易診断を返す。
 // - AIは使わない。決まったルールで判定する（仕様：deliverables/taxel_competitor_crm_20261102/57_line_quick_diag_spec.md）
 // - 返信は返信トークンで行う（無料・月200通に数えない）
-// - キーワード（無料診断・デモの質問 など）は管理画面の応答メッセージが返すので、ここでは何もしない
+// - キーワード（無料診断・費用と契約 など）は管理画面の応答メッセージが返すので、ここでは何もしない。
+//   「デモの質問」だけはここで返す（縦一覧のカードは管理画面では作れないため）
+// - 簡易診断：診断カード → 質問2つ（ボタン。答えは postback のデータで引き継ぎ、サーバーに保存しない）→ 結果カード
+//   仕様：deliverables/taxel_competitor_crm_20261102/59_line_quick_diag_v2.md（追記4・5が最新）
 // - 鍵は Netlify の環境変数（LINE_CHANNEL_SECRET / LINE_CHANNEL_ACCESS_TOKEN）。コードやログに値を出さない
 // - 利用者が送ったURLを読みに行くので、公開サイト以外（社内・クラウドの管理用アドレス等）へは接続しない。
 //   接続に使うIPアドレスは「確かめたそのアドレス」に固定する（http(s).request の lookup を差し替え）
@@ -13,11 +16,11 @@ import net from "node:net";
 
 export const config = { path: "/api/line-webhook" };
 
-const KEYWORDS = new Set(["無料診断", "デモの質問", "費用と契約", "先生の手間", "15分の説明", "ほかの質問", "最初に戻る", "無料診断をはじめる"]);
+const KEYWORDS = new Set(["無料診断", "費用と契約", "先生の手間", "15分の説明", "ほかの質問", "最初に戻る", "無料診断をはじめる"]);
 export const MSG = {
   fallback: "メッセージありがとうございます。\n担当者が確認して、1営業日以内にお返事します。",
   unread: "URLを受け取りました。自動では読み取れなかったため、担当者が確認して、1営業日以内にお返事します。",
-  later: "近くの税理士事務所と比べた詳しいレポート（直した後の点数の目安つき）は、1営業日以内にこのトークでお送りします。",
+  ask: "ご覧いただいたデモ・レポートや、サービスについて、知りたいことをお選びください。",
   busy: "URLを受け取りました。担当者が確認して、1営業日以内にお返事します。",
 };
 const SITE_MS = 6000;             // サイトの読み込みにかける時間の上限
@@ -28,6 +31,7 @@ const PARALLEL = 3;               // 同時に読みに行くサイトの数
 const TOTAL_MS = 40000;           // 1回の通知の処理全体の上限（Netlify の上限60秒・返信トークンの1分より内側）
 const MIN_SITE_MS = 1500;         // これより短い時間しか残っていなければ、読みに行かず「担当者が確認」と返す
 // スマホのブラウザとして読む（見込み客はスマホで見る。スマホ用に別のページを返すサイトがある）
+const BOOK = "https://calendar.google.com/calendar/appointments/schedules/AcZssZ0THxEfmFAbMM24_U7hvCWGjHQNR2w2Bo2b9hinyHPR2wZ9s9SzGMj_qMYtuGjqmVpljHgDjzw1";
 const UA = "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1";
 
 // ---------- 署名（生のバイト列で計算し、正規のbase64表記だけを受け付ける） ----------
@@ -309,20 +313,120 @@ export function analyze(html, pageUrl) {
 }
 
 // 文面は「今回読んだトップページで、見つかった／見つからなかった」に留める（断定しない）
-export function compose(r) {
-  const good = [], todo = [];
-  (r.viewport ? good : todo).push(r.viewport ? "スマホの画面幅に合わせる設定があります" : "スマホの画面幅に合わせる設定が見つかりませんでした");
-  (r.https ? good : todo).push(r.https ? "https（暗号化された通信）で表示されます" : "httpsではなく、暗号化されていない通信で表示されました");
-  (r.titleArea ? good : todo).push(r.titleArea ? "ページのタイトルに地域名が入っています" : "ページのタイトルに地域名が見当たりませんでした");
-  if (r.pages >= 2) good.push("業務ごとのページへの案内があります（確認できたのは" + r.pages + "件）");
-  else todo.push(r.pages === 1 ? "業務ごとのページへの案内は、確認できたのが1件でした" : "業務ごとのページへの案内が見つかりませんでした");
-  (r.tel ? good : todo).push(r.tel ? "電話番号を押すと、そのまま発信できます" : "電話番号を押して発信できる設定が見つかりませんでした");
-  (r.line ? good : todo).push(r.line ? "LINEで質問できる窓口へのリンクがあります" : "電話の前に質問できる窓口（LINEなど）が見つかりませんでした");
-  (r.contact ? good : todo).push(r.contact ? "トップから問い合わせ先へ進めます" : "トップから問い合わせ先が見つかりませんでした");
-  let s = "ホームページのトップページを確認しました（自動の簡易診断）。";
-  if (good.length) s += "\n\n【できていること】\n・" + good.join("\n・");
-  if (todo.length) s += "\n\n【先に見たいところ】\n・" + todo.join("\n・");
-  return s;
+// ---------- 返すカード（Flex Message）。1行18字以内を目安に、言葉の切れ目で改行 ----------
+const C = { navy: "#0E1A33", ink: "#222222", sub: "#3F4A5A", gray: "#5A6577", line: "#8A94A3", green: "#06C755" };
+const T = (text, o = {}) => ({ type: "text", text, wrap: true, size: "sm", color: C.ink, ...o });
+// 見つかった点（重い順）。title は短く、why は「直すと何が良くなるか」
+const ITEMS = [
+  ["viewport", () => "スマホ表示の設定が見当たりません", "スマホで文字が小さくならず、読みやすくなります"],
+  ["https", () => "httpsで表示されていません", "ブラウザに「保護されていない通信」と出なくなります"],
+  ["contact", () => "問い合わせへの案内が見当たりません", "相談したい方が、迷わずお問い合わせに進めます"],
+  ["titleArea", () => "タイトルに地域名が見当たりません", "「〇〇市 税理士」など、近くの税理士を探している方の検索結果の表示に影響します"],
+  ["pages", (r) => (r.pages === 1 ? "業務ページへの案内が1件のみです" : "業務ページへの案内が見当たりません"), "「相続 税理士」など、業務名で探している方の入口になります"],
+  ["tel", () => "電話番号を押して発信できません", "スマホから、その場でお電話いただけるようになります"],
+  ["line", () => "LINEなどの質問窓口が見当たりません", "電話の前に聞きたい方も、気軽にご相談いただけます"],
+];
+export function findIssues(r) {
+  return ITEMS.filter(([k]) => (k === "pages" ? r.pages < 2 : !r[k])).map(([, title, why]) => [title(r), why]);
+}
+const Q = [
+  { q: "ホームページの更新は、\nどのくらいの頻度ですか。", a: ["月に1回以上", "数か月に1回", "1年以上更新していない", "分からない"] },
+  { q: "ここ半年の、ホームページからの\n顧問契約のお問い合わせ件数に\nご満足されていますか。", a: ["満足している", "もう少し増やしたい", "ほとんど来ていない", "分からない"] },
+];
+const LV = {
+  "大": "改善できる点が多く、\nホームページからのご相談を\n増やせる余地が大きいと考えられます。",
+  "中": "いくつか改善できる点があり、\nご相談を増やせる余地が\nあると考えられます。",
+  "小": "基本の点はよく整っています。\n近くの事務所との違いなど、\n自動では分からない点を\n詳しく拝見いたします。",
+};
+// 2問目で「満足している」→ 点数によらず「中」。今の状態を認めたうえで、この先の話にお誘いする
+const SAT = "お問い合わせにはご満足とのことで、\n安心いたしました。\n改善できる点はいくつかございます。\nこの先どう伸ばしていくかを、\n一度ご相談できればと存じます。";
+
+function row(label, sub, action) {
+  const left = { type: "box", layout: "vertical", flex: 1, contents: [T(label, { weight: "bold", color: C.navy, size: "md" })] };
+  if (sub) left.contents.push(T(sub, { size: "xs", color: C.gray, margin: "xs" }));
+  return { type: "box", layout: "horizontal", paddingAll: "14px", action, contents: [left, { type: "text", text: "›", flex: 0, size: "lg", color: C.green, gravity: "center" }] };
+}
+function listCard(head, question, rows, alt) {
+  const body = [{ type: "box", layout: "vertical", paddingAll: "14px", contents: [T(head, { size: "xs", weight: "bold", color: C.gray })] }];
+  if (question) body.push({ type: "separator" }, { type: "box", layout: "vertical", paddingAll: "14px", contents: [T(question, { size: "md", weight: "bold", color: "#111111" })] });
+  for (const r of rows) body.push({ type: "separator" }, r);
+  return { type: "flex", altText: alt, contents: { type: "bubble", size: "mega", body: { type: "box", layout: "vertical", paddingAll: "0px", contents: body } } };
+}
+export function diagCard(issues) {
+  const shown = issues.slice(0, 3);
+  const c = [
+    T("簡易診断（トップページ）", { size: "xs", weight: "bold", color: C.gray }),
+    { type: "separator", margin: "md" },
+    T("ご依頼ありがとうございます。\nホームページを拝見いたしました。\nトップページから分かった点を\nお送りいたします。", { margin: "md" }),
+  ];
+  if (shown.length) {
+    c.push(T("【改善できる点】" + issues.length + "つ", { weight: "bold", color: C.navy, margin: "lg" }));
+    for (const [title, why] of shown) {
+      c.push({ type: "box", layout: "vertical", margin: "md", contents: [
+        { type: "box", layout: "horizontal", contents: [T("■", { flex: 0, weight: "bold", color: "#111111" }), T(title, { flex: 1, weight: "bold", color: "#111111", margin: "sm" })] },
+        { type: "box", layout: "horizontal", margin: "xs", contents: [T("└", { flex: 0, color: C.line }), T(why, { flex: 1, color: C.sub, margin: "sm" })] },
+      ] });
+    }
+    if (issues.length > shown.length) c.push(T("ほか" + (issues.length - shown.length) + "点は、詳しいレポートで\nお伝えいたします。", { size: "xs", color: C.gray, margin: "md" }));
+  } else {
+    c.push(T("基本の7項目は、そろっていました。", { weight: "bold", color: C.navy, margin: "lg" }));
+  }
+  c.push(T("※自動で読み取った結果のため、\n実際と異なる場合がございます。", { size: "xs", color: C.gray, margin: "lg" }));
+  c.push(T("続いて、2点お伺いします。", { weight: "bold", margin: "lg" }));
+  const alt = shown.length ? "簡易診断：改善できる点" + issues.length + "つ" : "簡易診断：基本の項目はそろっていました";
+  return { type: "flex", altText: alt, contents: { type: "bubble", size: "mega", body: { type: "box", layout: "vertical", contents: c } } };
+}
+// 質問カード。答えは postback のデータに入れて次へ渡す（n=見つかった点の数、q1=1問目の答え）
+export function questionCard(no, n, q1) {
+  const q = Q[no - 1];
+  const rows = q.a.map((label, i) => row(label, null, {
+    type: "postback", label, displayText: label,
+    data: no === 1 ? "qd=1&n=" + n + "&a=" + i : "qd=2&n=" + n + "&q1=" + q1 + "&a=" + i,
+  }));
+  return listCard("ご質問 " + no + "/2", q.q, rows, "ご質問 " + no + "/2：" + q.q.replace(/\n/g, ""));
+}
+export function level(n, q1, a) {
+  if (a === 0) return "中";
+  const pts = n + (q1 !== 0 ? 1 : 0) + 1;            // 2問目が「満足している」以外なら＋1
+  return pts >= 5 ? "大" : pts >= 3 ? "中" : "小";
+}
+export function resultCard(n, q1, a) {
+  const lv = level(n, q1, a);
+  return { type: "flex", altText: "簡易診断の結果：改善の可能性 " + lv, contents: { type: "bubble", size: "mega",
+    header: { type: "box", layout: "vertical", backgroundColor: C.green, paddingAll: "16px", contents: [
+      T("簡易診断の結果", { size: "xs", weight: "bold", color: "#E6FFF0" }),
+      T("改善の可能性：" + lv, { size: "xl", weight: "bold", color: "#FFFFFF", margin: "sm" }),
+    ] },
+    body: { type: "box", layout: "vertical", contents: [
+      T(a === 0 ? SAT : LV[lv]),
+      T("近くの税理士事務所と比べた\n詳しいレポート（PDF）を、\n1営業日以内にお送りいたします。", { margin: "lg" }),
+      T("詳しい分析と、手を付ける順番は、\n無料の15分面談でご説明いたします。\nよろしければ、一度お話しの機会を\nいただけますと幸いです。", { margin: "lg" }),
+    ] },
+    footer: { type: "box", layout: "vertical", contents: [
+      { type: "button", style: "primary", color: C.green, action: { type: "uri", label: "無料の15分面談を予約", uri: BOOK } },
+    ] },
+  } };
+}
+// デモ・レポートを見た方の質問（縦一覧）。答えの文は管理画面の応答メッセージが返す
+export function askCard() {
+  const rows = [
+    row("費用と契約", "月額・初期費用・契約の期間", { type: "message", label: "費用と契約", text: "費用と契約" }),
+    row("先生の手間", "お願いする作業と時間", { type: "message", label: "先生の手間", text: "先生の手間" }),
+    row("15分の説明を予約", "日時を選ぶページが開きます", { type: "uri", label: "15分の説明を予約", uri: BOOK }),
+    row("そのほかの質問", "トークに書いて送る", { type: "message", label: "そのほかの質問", text: "ほかの質問" }),
+    { type: "box", layout: "horizontal", paddingAll: "14px", action: { type: "message", label: "1つ前に戻る", text: "最初に戻る" },
+      contents: [T("‹ 1つ前に戻る", { color: C.gray })] },
+  ];
+  return listCard("デモ・レポートについてのご質問", null, rows, "デモ・レポートについてのご質問");
+}
+// 質問の答え（postback）。データは利用者の端末から来るので、形と範囲を確かめてから使う
+export function handlePostback(data) {
+  const m = /^qd=([12])&n=([0-7])(?:&q1=([0-3]))?&a=([0-3])$/.exec(String(data || ""));
+  if (!m) return null;
+  const n = +m[2], a = +m[4];
+  if (m[1] === "1") return m[3] === undefined ? [questionCard(2, n, a)] : null;
+  if (m[3] === undefined) return null;
+  return [resultCard(n, +m[3], a)];
 }
 
 // ---------- 連投の歯止め（同じ人が短時間に何度も送った場合。1台の中だけの簡易な制限） ----------
@@ -340,6 +444,7 @@ export function tooMany(userId, now = Date.now()) {
 export async function handleText(textIn, userId, deadline = Date.now() + SITE_MS) {
   const t = String(textIn || "").trim();
   if (KEYWORDS.has(t)) return null;                 // 管理画面の応答メッセージに任せる
+  if (t === "デモの質問") return [MSG.ask, askCard()];
   const url = findUrl(t);
   if (!url) return [MSG.fallback];
   if (tooMany(userId)) return [MSG.busy];
@@ -354,7 +459,8 @@ export async function diagnose(url, deadline) {
   const r = analyze(page.html, page.url);
   if (!r) return [MSG.unread];
   console.log("diag", JSON.stringify(r));           // 事務所が分かる情報（URL・ID）はログに出さない
-  return [compose(r), MSG.later];
+  const issues = findIssues(r);
+  return [diagCard(issues), questionCard(1, issues.length)];
 }
 
 async function reply(token, replyToken, texts, ms = REPLY_MS) {
@@ -363,7 +469,7 @@ async function reply(token, replyToken, texts, ms = REPLY_MS) {
     const res = await fetch("https://api.line.me/v2/bot/message/reply", {
       method: "POST", signal: AbortSignal.timeout(ms),
       headers: { "Content-Type": "application/json", Authorization: "Bearer " + token },
-      body: JSON.stringify({ replyToken, messages: texts.slice(0, 5).map((x) => ({ type: "text", text: Array.from(x).slice(0, 4900).join("") })) }),
+      body: JSON.stringify({ replyToken, messages: texts.slice(0, 5).map((x) => (typeof x === "string" ? { type: "text", text: Array.from(x).slice(0, 4900).join("") } : x)) }),
     });
     if (!res.ok) console.log("reply failed", res.status);
   } catch (e) { console.log("reply error", e && e.name); }
@@ -371,13 +477,15 @@ async function reply(token, replyToken, texts, ms = REPLY_MS) {
 
 export async function runEvents(events, token) {
   const end = Date.now() + TOTAL_MS;
-  const evs = events.filter((ev) => ev && ev.type === "message" && ev.message && ev.message.type === "text" && ev.replyToken);
+  const evs = events.filter((ev) => ev && ev.replyToken && ((ev.type === "message" && ev.message && ev.message.type === "text") || (ev.type === "postback" && ev.postback)));
   // 先に仕分ける：すぐ返せるもの（定型文・混雑）は最初にまとめて返し、時間がかかるサイトの読み込みは枠の数だけにする
   const canFetch = Math.max(1, Math.floor((TOTAL_MS - REPLY_MS) / (SITE_MS + REPLY_MS)) * PARALLEL);
   const quick = [], slow = [];
   for (const ev of evs) {
+    if (ev.type === "postback") { const out = handlePostback(ev.postback.data); if (out) quick.push([ev, out]); continue; }
     const t = String(ev.message.text || "").trim();
     if (KEYWORDS.has(t)) continue;                    // 管理画面の応答メッセージに任せる
+    if (t === "デモの質問") { quick.push([ev, [MSG.ask, askCard()]]); continue; }
     const url = findUrl(t), uid = ev.source && ev.source.userId;
     if (!url) quick.push([ev, [MSG.fallback]]);
     else if (slow.length >= canFetch || tooMany(uid)) quick.push([ev, [MSG.busy]]);
