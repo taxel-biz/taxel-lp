@@ -1,8 +1,9 @@
 // taXel公式LINE（@998kywlv）の Webhook：URLが届いたら、そのサイトのトップページを読んで簡易診断を返す。
 // - AIは使わない。決まったルールで判定する（仕様：deliverables/taxel_competitor_crm_20261102/57_line_quick_diag_spec.md）
 // - 返信は返信トークンで行う（無料・月200通に数えない）
-// - キーワード（無料診断・費用と契約 など）は管理画面の応答メッセージが返すので、ここでは何もしない。
-//   「デモの質問」だけはここで返す（縦一覧のカードは管理画面では作れないため）
+// - キーワード（費用と契約 など）は管理画面の応答メッセージが返すので、ここでは何もしない。
+//   あいさつ（友だち追加）・「無料診断」・「最初に戻る」・「デモの質問」はここで返す（本物のボタン・縦一覧のカードは管理画面では作れないため）
+// - 簡易診断のあと、質問1は約8秒あけてプッシュで送る（その間「入力中」を表示）。プッシュは月の無料枠を1通使う
 // - 簡易診断：診断カード → 質問2つ（ボタン。答えは postback のデータで引き継ぎ、サーバーに保存しない）→ 結果カード
 //   仕様：deliverables/taxel_competitor_crm_20261102/59_line_quick_diag_v2.md（追記4・5が最新）
 // - 鍵は Netlify の環境変数（LINE_CHANNEL_SECRET / LINE_CHANNEL_ACCESS_TOKEN）。コードやログに値を出さない
@@ -16,11 +17,13 @@ import net from "node:net";
 
 export const config = { path: "/api/line-webhook" };
 
-const KEYWORDS = new Set(["無料診断", "費用と契約", "先生の手間", "15分の説明", "ほかの質問", "最初に戻る", "無料診断をはじめる"]);
+const KEYWORDS = new Set(["費用と契約", "先生の手間", "15分の説明", "ほかの質問", "無料診断をはじめる"]);
 export const MSG = {
   fallback: "メッセージありがとうございます。\n担当者が確認して、1営業日以内にお返事します。",
   unread: "URLを受け取りました。自動では読み取れなかったため、担当者が確認して、1営業日以内にお返事します。",
   ask: "ご覧いただいたデモ・レポートや、サービスについて、知りたいことをお選びください。",
+  greet: "友だち追加ありがとうございます。\ntaXel（タクセル）です。",
+  start: "ホームページのURLを、\nこのトークにお送りください。\n例）https://www.〇〇-tax.jp\n\nその場で簡易診断をお返しし、\n1営業日以内に、近くの事務所と比べた\n詳しいレポート（PDF）を\nお届けします。\n\nURLが分からない場合は、\n事務所名と地域（例：〇〇市）でも\n大丈夫です。\n\n個人情報の取り扱い：\nhttps://www.taxel.biz/privacy/",
   busy: "URLを受け取りました。担当者が確認して、1営業日以内にお返事します。",
 };
 const SITE_MS = 6000;             // サイトの読み込みにかける時間の上限
@@ -31,6 +34,8 @@ const PARALLEL = 3;               // 同時に読みに行くサイトの数
 const TOTAL_MS = 40000;           // 1回の通知の処理全体の上限（Netlify の上限60秒・返信トークンの1分より内側）
 const MIN_SITE_MS = 1500;         // これより短い時間しか残っていなければ、読みに行かず「担当者が確認」と返す
 // スマホのブラウザとして読む（見込み客はスマホで見る。スマホ用に別のページを返すサイトがある）
+const DELAY_MS = 8000;            // 診断カードから質問1までの間（診断を読んでもらうため）
+const CARD_IMG = "https://www.taxel.biz/assets/line/card_fv.png";
 const BOOK = "https://calendar.google.com/calendar/appointments/schedules/AcZssZ0THxEfmFAbMM24_U7hvCWGjHQNR2w2Bo2b9hinyHPR2wZ9s9SzGMj_qMYtuGjqmVpljHgDjzw1";
 const UA = "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1";
 
@@ -407,6 +412,29 @@ export function resultCard(n, q1, a) {
     ] },
   } };
 }
+export function greetCard() {
+  return { type: "flex", altText: "ホームページの、どこから直すとよいか（無料診断）", contents: { type: "bubble", size: "mega",
+    hero: { type: "image", url: CARD_IMG, size: "full", aspectRatio: "65:43", aspectMode: "cover" },
+    body: { type: "box", layout: "vertical", contents: [
+      T("ホームページの、\nどこから直すとよいか", { size: "lg", weight: "bold", color: "#111111" }),
+      T("先に直す3点と、直した後の\n点数の目安を、無料でお届けします。\n診断だけでも大丈夫です。", { color: C.sub, margin: "md" }),
+    ] },
+    footer: { type: "box", layout: "vertical", spacing: "sm", contents: [
+      { type: "button", style: "primary", color: C.green, action: { type: "message", label: "無料診断を受ける", text: "無料診断" } },
+      { type: "button", style: "secondary", action: { type: "message", label: "気になる点を質問する", text: "デモの質問" } },
+    ] },
+  } };
+}
+export function startMsg() {
+  return { type: "text", text: MSG.start, quickReply: { items: [{ type: "action", action: { type: "message", label: "1つ前に戻る", text: "最初に戻る" } }] } };
+}
+// 決まった言葉への返事（Webhook で返すもの）。それ以外は null
+export function fixedReply(t) {
+  if (t === "デモの質問") return [MSG.ask, askCard()];
+  if (t === "無料診断") return [startMsg()];
+  if (t === "最初に戻る") return [greetCard()];
+  return null;
+}
 // デモ・レポートを見た方の質問（縦一覧）。答えの文は管理画面の応答メッセージが返す
 export function askCard() {
   const rows = [
@@ -444,7 +472,8 @@ export function tooMany(userId, now = Date.now()) {
 export async function handleText(textIn, userId, deadline = Date.now() + SITE_MS) {
   const t = String(textIn || "").trim();
   if (KEYWORDS.has(t)) return null;                 // 管理画面の応答メッセージに任せる
-  if (t === "デモの質問") return [MSG.ask, askCard()];
+  const fixed = fixedReply(t);
+  if (fixed) return fixed;
   const url = findUrl(t);
   if (!url) return [MSG.fallback];
   if (tooMany(userId)) return [MSG.busy];
@@ -460,32 +489,64 @@ export async function diagnose(url, deadline) {
   if (!r) return [MSG.unread];
   console.log("diag", JSON.stringify(r));           // 事務所が分かる情報（URL・ID）はログに出さない
   const issues = findIssues(r);
-  return [diagCard(issues), questionCard(1, issues.length)];
+  return [diagCard(issues), { ...questionCard(1, issues.length), _later: true }];
 }
 
-async function reply(token, replyToken, texts, ms = REPLY_MS) {
-  if (ms < 300) return;
+const toMsg = (x) => (typeof x === "string" ? { type: "text", text: Array.from(x).slice(0, 4900).join("") } : (({ _later, ...m }) => m)(x));
+async function lineApi(path, token, payload, ms, extra = {}) {
+  if (ms < 300) return "fail";
   try {
-    const res = await fetch("https://api.line.me/v2/bot/message/reply", {
+    const res = await fetch("https://api.line.me" + path, {
       method: "POST", signal: AbortSignal.timeout(ms),
-      headers: { "Content-Type": "application/json", Authorization: "Bearer " + token },
-      body: JSON.stringify({ replyToken, messages: texts.slice(0, 5).map((x) => (typeof x === "string" ? { type: "text", text: Array.from(x).slice(0, 4900).join("") } : x)) }),
+      headers: { "Content-Type": "application/json", Authorization: "Bearer " + token, ...extra },
+      body: JSON.stringify(payload),
     });
-    if (!res.ok) console.log("reply failed", res.status);
-  } catch (e) { console.log("reply error", e && e.name); }
+    if (res.ok || res.status === 409) return "ok";
+    console.log("line api failed", path, res.status);
+    return res.status >= 500 ? "unknown" : "fail";
+  } catch (e) { console.log("line api error", path, e && e.name); return "unknown"; }
+}
+export function retryKey(seed) {
+  const h = crypto.createHash("sha256").update(String(seed)).digest("hex");
+  return h.slice(0, 8) + "-" + h.slice(8, 12) + "-4" + h.slice(13, 16) + "-" + ((parseInt(h[16], 16) & 3) | 8).toString(16) + h.slice(17, 20) + "-" + h.slice(20, 32);
+}
+const LATER_BUDGET = DELAY_MS + 2 * REPLY_MS + 1000;   // 診断の返信の後に、待ち＋プッシュ（再試行1回）に必要な時間
+// 診断の後に質問1を送る：「入力中」を出し、少し待ってからプッシュ。結果が分からないときは同じキーで1回だけ再試行
+async function sendLater(token, userId, msgs, end, key) {
+  await lineApi("/v2/bot/chat/loading/start", token, { chatId: userId, loadingSeconds: 10 }, Math.min(1000, end - Date.now() - 2 * REPLY_MS));
+  const wait = Math.max(0, Math.min(DELAY_MS, end - Date.now() - 2 * REPLY_MS));
+  if (wait) await new Promise((r) => setTimeout(r, wait));
+  const body = { to: userId, messages: msgs.map(toMsg) };
+  let st = await lineApi("/v2/bot/message/push", token, body, Math.min(REPLY_MS, end - Date.now()), { "X-Line-Retry-Key": key });
+  if (st === "unknown") st = await lineApi("/v2/bot/message/push", token, body, Math.min(REPLY_MS, end - Date.now()), { "X-Line-Retry-Key": key });
+  if (st !== "ok") console.log("question1 not sent", st);
+}
+async function reply(token, replyToken, texts, ms = REPLY_MS) {
+  return lineApi("/v2/bot/message/reply", token, { replyToken, messages: texts.slice(0, 5).map(toMsg) }, ms);
 }
 
+const doneEvents = new Map();
+function firstTime(ev) {
+  const id = ev && ev.webhookEventId;
+  if (!id) return true;
+  if (doneEvents.has(id)) return false;
+  doneEvents.set(id, Date.now());
+  while (doneEvents.size > 5000) doneEvents.delete(doneEvents.keys().next().value);
+  return true;
+}
 export async function runEvents(events, token) {
   const end = Date.now() + TOTAL_MS;
-  const evs = events.filter((ev) => ev && ev.replyToken && ((ev.type === "message" && ev.message && ev.message.type === "text") || (ev.type === "postback" && ev.postback)));
+  const evs = events.filter((ev) => ev && ev.replyToken && firstTime(ev) && ((ev.type === "message" && ev.message && ev.message.type === "text") || (ev.type === "postback" && ev.postback) || ev.type === "follow"));
   // 先に仕分ける：すぐ返せるもの（定型文・混雑）は最初にまとめて返し、時間がかかるサイトの読み込みは枠の数だけにする
   const canFetch = Math.max(1, Math.floor((TOTAL_MS - REPLY_MS) / (SITE_MS + REPLY_MS)) * PARALLEL);
   const quick = [], slow = [];
   for (const ev of evs) {
+    if (ev.type === "follow") { quick.push([ev, [MSG.greet, greetCard()]]); continue; }
     if (ev.type === "postback") { const out = handlePostback(ev.postback.data); if (out) quick.push([ev, out]); continue; }
     const t = String(ev.message.text || "").trim();
     if (KEYWORDS.has(t)) continue;                    // 管理画面の応答メッセージに任せる
-    if (t === "デモの質問") { quick.push([ev, [MSG.ask, askCard()]]); continue; }
+    const fixed = fixedReply(t);
+    if (fixed) { quick.push([ev, fixed]); continue; }
     const url = findUrl(t), uid = ev.source && ev.source.userId;
     if (!url) quick.push([ev, [MSG.fallback]]);
     else if (slow.length >= canFetch || tooMany(uid)) quick.push([ev, [MSG.busy]]);
@@ -500,11 +561,19 @@ export async function runEvents(events, token) {
         // イベントごとに取得の期限を決める（全体の期限から返信の時間を残す）
         const siteEnd = Math.min(Date.now() + SITE_MS, end - REPLY_MS);
         const texts = await diagnose(url, siteEnd);
-        await reply(token, ev.replyToken, texts, Math.min(REPLY_MS, end - Date.now()));
+        const src = ev.source || {};
+        const delay = src.type === "user" && src.userId && end - Date.now() > REPLY_MS + LATER_BUDGET;
+        const later = delay ? texts.filter((x) => x && x._later) : [];
+        const st = await reply(token, ev.replyToken, delay ? texts.filter((x) => !(x && x._later)) : texts, Math.min(REPLY_MS, end - Date.now()));
+        // 結果が分からない（タイムアウト・5xx）ときも送る：届いていれば正しい順、届いていなくても質問で会話が止まらない
+        if (later.length && st !== "fail") pending.push(sendLater(token, src.userId, later, end, retryKey("q1:" + (ev.webhookEventId || ev.replyToken))));
+        else if (later.length) console.log("diag reply not ok, question1 skipped", st);
       } catch (e) { console.log("event error", e && e.name); }
     }
   };
+  const pending = [];
   await Promise.all(Array.from({ length: PARALLEL }, work));
+  await Promise.all(pending);
 }
 
 export default async (req, context) => {
