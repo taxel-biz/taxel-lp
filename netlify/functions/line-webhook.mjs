@@ -34,7 +34,10 @@ const PARALLEL = 3;               // 同時に読みに行くサイトの数
 const TOTAL_MS = 40000;           // 1回の通知の処理全体の上限（Netlify の上限60秒・返信トークンの1分より内側）
 const MIN_SITE_MS = 1500;         // これより短い時間しか残っていなければ、読みに行かず「担当者が確認」と返す
 // スマホのブラウザとして読む（見込み客はスマホで見る。スマホ用に別のページを返すサイトがある）
-const DELAY_MS = 8000;            // 診断カードから質問1までの間（診断を読んでもらうため）
+const DELAY_MS = 20000;           // 診断カードから質問1までの間の上限（実際は文字数で決める：readMs）
+const READ_MS_PER_CHAR = 75;      // 1文字あたり（＝毎分800字。拾い読みの速さ）。3点で約15秒
+export function readMs(chars) { return Math.max(8000, Math.min(DELAY_MS, Math.round(chars * READ_MS_PER_CHAR / 1000) * 1000)); }
+export function cardChars(m) { let n = 0; JSON.stringify(m, (k, v) => { if (k === "text" && typeof v === "string") n += Array.from(v.replace(/\s/g, "")).length; return v; }); return n; }
 const CARD_IMG = "https://www.taxel.biz/assets/line/card_fv.png";
 const BOOK = "https://calendar.google.com/calendar/appointments/schedules/AcZssZ0THxEfmFAbMM24_U7hvCWGjHQNR2w2Bo2b9hinyHPR2wZ9s9SzGMj_qMYtuGjqmVpljHgDjzw1";
 const UA = "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1";
@@ -375,7 +378,6 @@ export function diagCard(issues) {
   } else {
     c.push(T("基本の7項目は、そろっていました。", { weight: "bold", color: C.navy, margin: "lg" }));
   }
-  c.push(T("続いて、2点お伺いします。", { weight: "bold", margin: "lg" }));
   const alt = shown.length ? "簡易診断：改善できる点" + issues.length + "つ" : "簡易診断：基本の項目はそろっていました";
   return { type: "flex", altText: alt, contents: { type: "bubble", size: "mega", body: { type: "box", layout: "vertical", contents: c } } };
 }
@@ -486,10 +488,11 @@ export async function diagnose(url, deadline) {
   if (!r) return [MSG.unread];
   console.log("diag", JSON.stringify(r));           // 事務所が分かる情報（URL・ID）はログに出さない
   const issues = findIssues(r);
-  return [diagCard(issues), { ...questionCard(1, issues.length), _later: true }];
+  const card = diagCard(issues);
+  return [card, { ...questionCard(1, issues.length), _later: true, _delay: readMs(cardChars(card)) }];
 }
 
-const toMsg = (x) => (typeof x === "string" ? { type: "text", text: Array.from(x).slice(0, 4900).join("") } : (({ _later, ...m }) => m)(x));
+const toMsg = (x) => (typeof x === "string" ? { type: "text", text: Array.from(x).slice(0, 4900).join("") } : Object.fromEntries(Object.entries(x).filter(([k]) => !k.startsWith("_"))));
 async function lineApi(path, token, payload, ms, extra = {}) {
   if (ms < 300) return "fail";
   try {
@@ -510,8 +513,9 @@ export function retryKey(seed) {
 const LATER_BUDGET = DELAY_MS + 2 * REPLY_MS + 1000;   // 診断の返信の後に、待ち＋プッシュ（再試行1回）に必要な時間
 // 診断の後に質問1を送る：「入力中」を出し、少し待ってからプッシュ。結果が分からないときは同じキーで1回だけ再試行
 async function sendLater(token, userId, msgs, end, key) {
-  await lineApi("/v2/bot/chat/loading/start", token, { chatId: userId, loadingSeconds: 10 }, Math.min(1000, end - Date.now() - 2 * REPLY_MS));
-  const wait = Math.max(0, Math.min(DELAY_MS, end - Date.now() - 2 * REPLY_MS));
+  const want = Math.min(DELAY_MS, Math.max(0, Number(msgs[0] && msgs[0]._delay) || 8000));
+  await lineApi("/v2/bot/chat/loading/start", token, { chatId: userId, loadingSeconds: Math.min(60, Math.ceil(want / 5000) * 5 + 5) }, Math.min(1000, end - Date.now() - 2 * REPLY_MS));
+  const wait = Math.max(0, Math.min(want, end - Date.now() - 2 * REPLY_MS));
   if (wait) await new Promise((r) => setTimeout(r, wait));
   const body = { to: userId, messages: msgs.map(toMsg) };
   let st = await lineApi("/v2/bot/message/push", token, body, Math.min(REPLY_MS, end - Date.now()), { "X-Line-Retry-Key": key });
