@@ -411,12 +411,12 @@ export function resultCard(n, q1, a) {
   } };
 }
 export function greetCard() {
-  return { type: "flex", altText: "ホームページの、どこから直すとよいか（無料診断）", contents: { type: "bubble", size: "mega",
+  return { type: "flex", altText: "無料｜約30秒で診断：今のホームページの改善点と改善の可能性", contents: { type: "bubble", size: "mega",
     hero: { type: "image", url: CARD_IMG, size: "full", aspectRatio: "65:43", aspectMode: "cover" },
     body: { type: "box", layout: "vertical", contents: [
-      T("無料｜URLを送るだけ｜約30秒", { size: "xs", weight: "bold", color: "#067A3A" }),
-      T("ホームページの、\nどこから直すとよいか", { size: "lg", weight: "bold", color: "#111111", margin: "sm" }),
-      T("先に直す3点と、直した後の\n点数の目安を、無料でお届けします。\n診断だけでも大丈夫です。", { color: C.sub, margin: "md" }),
+      T("無料｜約30秒で診断", { size: "md", weight: "bold", color: "#067A3A" }),
+      T("今のホームページの\n改善点と改善の可能性を診断", { size: "lg", weight: "bold", color: "#111111", margin: "md" }),
+      T("URLを送ると、改善できる点を\nその場でお返しします。\n詳しいレポートは1営業日以内に。", { color: C.sub, margin: "md" }),
     ] },
     footer: { type: "box", layout: "vertical", spacing: "sm", contents: [
       { type: "button", style: "primary", color: C.green, action: { type: "message", label: "無料診断を受ける", text: "無料診断" } },
