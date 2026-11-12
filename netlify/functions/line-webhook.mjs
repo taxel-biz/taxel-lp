@@ -338,6 +338,7 @@ const Q = [
   { q: "ホームページの更新は、\nどのくらいの頻度ですか。", a: ["月に1回以上", "数か月に1回", "1年以上更新していない", "分からない"] },
   { q: "ここ半年の、ホームページからの\n顧問契約のお問い合わせ件数に\nご満足されていますか。", a: ["満足している", "もう少し増やしたい", "ほとんど来ていない", "分からない"] },
 ];
+const LV_FEW = "ホームページからのご相談を\n増やせる余地が大きいと考えられます。";   // 「大」で、見つかった点が2つ以下のとき
 const LV = {
   "大": "改善できる点が多く、\nホームページからのご相談を\n増やせる余地が大きいと考えられます。",
   "中": "いくつか改善できる点があり、\nご相談を増やせる余地が\nあると考えられます。",
@@ -360,9 +361,7 @@ function listCard(head, question, rows, alt) {
 export function diagCard(issues) {
   const shown = issues.slice(0, 3);
   const c = [
-    T("簡易診断（トップページ）", { size: "xs", weight: "bold", color: C.gray }),
-    { type: "separator", margin: "md" },
-    T("ご依頼ありがとうございます。\nホームページを拝見いたしました。\nトップページから分かった点を\nお送りいたします。", { margin: "md" }),
+    T("ご依頼ありがとうございます。\nホームページを拝見いたしました。\nトップページから分かった点を\nお送りいたします。"),
   ];
   if (shown.length) {
     c.push(T("【改善できる点】" + issues.length + "つ", { weight: "bold", color: C.navy, margin: "lg" }));
@@ -376,7 +375,6 @@ export function diagCard(issues) {
   } else {
     c.push(T("基本の7項目は、そろっていました。", { weight: "bold", color: C.navy, margin: "lg" }));
   }
-  c.push(T("※自動で読み取った結果のため、\n実際と異なる場合がございます。", { size: "xs", color: C.gray, margin: "lg" }));
   c.push(T("続いて、2点お伺いします。", { weight: "bold", margin: "lg" }));
   const alt = shown.length ? "簡易診断：改善できる点" + issues.length + "つ" : "簡易診断：基本の項目はそろっていました";
   return { type: "flex", altText: alt, contents: { type: "bubble", size: "mega", body: { type: "box", layout: "vertical", contents: c } } };
@@ -390,10 +388,9 @@ export function questionCard(no, n, q1) {
   }));
   return listCard("ご質問 " + no + "/2", q.q, rows, "ご質問 " + no + "/2：" + q.q.replace(/\n/g, ""));
 }
+// 2問目が「満足している」だけ「中」、それ以外は「大」（11/12 Takeru）
 export function level(n, q1, a) {
-  if (a === 0) return "中";
-  const pts = n + (q1 !== 0 ? 1 : 0) + 1;            // 2問目が「満足している」以外なら＋1
-  return pts >= 5 ? "大" : pts >= 3 ? "中" : "小";
+  return a === 0 ? "中" : "大";
 }
 export function resultCard(n, q1, a) {
   const lv = level(n, q1, a);
@@ -403,7 +400,7 @@ export function resultCard(n, q1, a) {
       T("改善の可能性：" + lv, { size: "xl", weight: "bold", color: "#FFFFFF", margin: "sm" }),
     ] },
     body: { type: "box", layout: "vertical", contents: [
-      T(a === 0 ? SAT : LV[lv]),
+      T(a === 0 ? SAT : n >= 3 ? LV[lv] : LV_FEW),
       T("近くの税理士事務所と比べた\n詳しいレポート（PDF）を、\n1営業日以内にお送りいたします。", { margin: "lg" }),
       T("詳しい分析と、手を付ける順番は、\n無料の15分面談でご説明いたします。\nよろしければ、一度お話しの機会を\nいただけますと幸いです。", { margin: "lg" }),
     ] },
