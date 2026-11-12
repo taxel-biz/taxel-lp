@@ -300,6 +300,21 @@ section.s-ink{background:var(--ink);color:#fff;border-top:0}
 .s-paper .dg-ex{background:transparent}
 .rd-title,.dg-ex h3{word-break:auto-phrase}
 
+/* スマホの画面下の固定ボタン（2026-11-12）：最初の画面を過ぎたら出す。PCはヘッダーのボタンがあるので出さない */
+.fcta{display:none}
+@media (max-width:860px){
+  .fcta{position:fixed;left:0;right:0;bottom:0;z-index:55;display:grid;grid-template-columns:1.15fr 1fr;gap:8px;padding:8px 12px calc(8px + env(safe-area-inset-bottom,0px));background:var(--white);border-top:1px solid var(--rule);transform:translateY(110%);transition:transform .25s ease;visibility:hidden}
+  .fcta.on{transform:none;visibility:visible}
+  .fcta button,.fcta a{display:flex;align-items:center;justify-content:center;gap:6px;min-height:46px;border-radius:8px;font-family:inherit;font-weight:800;font-size:14.5px;line-height:1.2;text-align:center;padding:0 8px;cursor:pointer}
+  .fcta-line{border:0;background:var(--ink);color:#fff}
+  .fcta-line .lm{font:800 10px/1 Inter,sans-serif;background:var(--line-green);color:var(--line-ink);padding:3px 4px;border-radius:3px}
+  .fcta-book{border:1.5px solid var(--ink);color:var(--ink);background:var(--white);text-decoration:none}
+  .fcta button:focus-visible,.fcta a:focus-visible{outline:3px solid #AFC3E6;outline-offset:2px}
+  body{padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))}
+  .hd-act{display:none}
+}
+@media (prefers-reduced-motion:reduce){.fcta{transition:none}}
+
 /* LINEのトーク画面：公式の画面（白いヘッダー、認証バッジ、アイコン、時刻、既読、カード型メッセージ）に合わせる */
 .r-phone{justify-self:center;width:310px;max-width:100%;border:8px solid #111;border-radius:42px;overflow:hidden;background:#111}
 .chat-ui{display:flex;flex-direction:column;height:640px;position:relative}
@@ -553,7 +568,7 @@ section.s-ink{background:var(--ink);color:#fff;border-top:0}
 .lx-opt{border:1.5px solid #06A648;background:#fff;color:#075F2A;border-radius:9px;padding:11px 10px;font-size:14.5px;font-weight:700;cursor:pointer;font-family:inherit}
 .lx-opts .pz-go{font-size:16px}
 </style>
-<script>window.TX_LINE_URL="https://lin.ee/SqCophN";(function(){
+<div class="fcta" id="fcta" aria-label="お申し込みの入口"><button type="button" class="fcta-line" data-line><span class="lm" aria-hidden="true">LINE</span>無料診断（約30秒）</button><a class="fcta-book" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0THxEfmFAbMM24_U7hvCWGjHQNR2w2Bo2b9hinyHPR2wZ9s9SzGMj_qMYtuGjqmVpljHgDjzw1" data-book>無料相談を予約</a></div><script>window.TX_LINE_URL="https://lin.ee/SqCophN";(function(){
   var d = document, KEYS = ["o","a","b","c","n"], NAMES = {o:"元のLP",a:"損失回避",b:"得する未来",c:"価格",n:"いいところどり"};
   // 最初の画面：?v=（本番の送り分け）→ #（共有版の切り替え）→ 既定は n
   function pick(){
@@ -724,6 +739,23 @@ window.TX_FREEZE = window.TX_FREEZE || function(root, on){
       if(visible&&!started) play();
     })},{threshold:[0,.35,.6]}).observe(ui);
   }else{ visible=true; play(); }
+})();
+
+// スマホの画面下の固定ボタン：最初の画面（.hero）を過ぎたら出し、最後の案内（.final）が見えている間は隠す（スクロール位置で判定）
+(function(){
+  var bar = document.getElementById("fcta"); if (!bar) return;
+  var hero = document.querySelector(".hero"), fin = document.querySelector(".final"), busy = false;
+  function upd(){
+    busy = false;
+    var h = window.innerHeight || document.documentElement.clientHeight;
+    var past = hero ? hero.getBoundingClientRect().bottom <= 0 : true;
+    var r = fin ? fin.getBoundingClientRect() : null, inFinal = r ? (r.top < h && r.bottom > 0) : false;
+    bar.classList.toggle("on", past && !inFinal);
+  }
+  function req(){ if (!busy) { busy = true; (window.requestAnimationFrame || setTimeout)(upd); } }
+  window.addEventListener("scroll", req, { passive: true });
+  window.addEventListener("resize", req);
+  upd();
 })();
 
 /* トップの流れの見本：見えている案（.fv.on）の中だけ、約3.6秒ごとに場面を進める */
