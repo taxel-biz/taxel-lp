@@ -34,7 +34,9 @@ git clone https://github.com/taxel-biz/taxel-lp.git
 cd taxel-lp
 ```
 
-**依存パッケージもビルドも必要ありません。** 素のHTMLです（Tailwind CDN + Google Fonts）。
+**サイト自体は素のHTMLです**（Google Fonts＋事前に作ったTailwindのCSS）。
+
+⚠️ **ページを足す・クラスを変えたら、公開前に `python tools/build_css.py` でCSSを作り直してコミット**してください（Node.js が要ります。2026-11-19に Tailwind CDN を廃止）。`python tools/build_css.py --check` で作り直しが要るか確かめられます。サイトマップは `python tools/update_sitemap.py --add <パス>` / `--touch <パス>`（Git Bash では先頭に `MSYS_NO_PATHCONV=1`）。
 
 ローカルで確認するには：
 ```bash

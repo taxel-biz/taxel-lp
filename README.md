@@ -3,7 +3,7 @@
 Taxel（税理士事務所向けAI経営支援クラウド）のコーポレートサイト / LP。
 
 - 公開先: https://taxel.biz
-- 構成: 静的HTML（Tailwind CDN + Google Fonts）。ビルド不要
+- 構成: 静的HTML（事前に作ったTailwindのCSS `assets/css/tw-*.css` + Google Fonts）。ページを足したら `python tools/build_css.py` を実行してコミット
 - ページ: トップ / 会社概要 / ブログ一覧 / コラム記事10本 = 全14ページ
 
 ## 更新方法
