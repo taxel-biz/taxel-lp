@@ -1,7 +1,7 @@
 // トップと /lp/a・c・s。影の色が他のページと少し違う（旧設定のまま）
 module.exports = {
   theme: { extend: {
-    fontFamily: { sans: ['Inter', '"Noto Sans JP"', 'sans-serif'] },
+    fontFamily: { sans: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', '"Hiragino Sans"', '"Hiragino Kaku Gothic ProN"', '"Yu Gothic"', 'YuGothic', 'Meiryo', 'sans-serif'] },  // 2026-11-24 Webフォントをやめ端末のフォントに（表示速度）
     colors: {
       ink: '#0E1A33', paper: '#FCFCFB',
       brand: { 50: '#EEF5FE', 100: '#DCEBFD', 300: '#8CC6FA', 400: '#4AACF7', 500: '#2B78E6', 600: '#1645C4', 700: '#12379D' },

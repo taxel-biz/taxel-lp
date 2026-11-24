@@ -1,7 +1,7 @@
 // 初期の3ページ（column/kitai-gap・keiei/cloud-kaikei-hikaku・keiei/kessansho-yomikata）。ink の色と indigo（Tailwind標準）が違う
 module.exports = {
   theme: { extend: {
-    fontFamily: { sans: ['Inter', '"Noto Sans JP"', 'sans-serif'] },
+    fontFamily: { sans: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', '"Hiragino Sans"', '"Hiragino Kaku Gothic ProN"', '"Yu Gothic"', 'YuGothic', 'Meiryo', 'sans-serif'] },  // 2026-11-24 Webフォントをやめ端末のフォントに（表示速度）
     colors: { ink: '#0B1220', paper: '#FCFCFB' },
     boxShadow: {
       soft: '0 1px 2px rgba(15,23,42,0.04), 0 1px 1px rgba(15,23,42,0.03)',
