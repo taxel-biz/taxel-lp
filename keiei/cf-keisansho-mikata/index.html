@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TMK64P44XG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TMK64P44XG');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>キャッシュフロー計算書の見方｜3つの区分の読み方と、決算書2期分から簡易版を作る方法 ― Taxel</title>
+<link rel="stylesheet" href="/assets/css/tw-site.css">
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-feature-settings: "palt"; }
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .article p { margin-bottom: 1.1em; }
+  .article h2 { font-size: 19px; font-weight: 700; margin-top: 2em; margin-bottom: 0.7em; }
+  .article h3 { font-size: 15.5px; font-weight: 700; margin-top: 1.5em; margin-bottom: 0.5em; }
+  .article ul, .article ol { padding-left: 1.4em; margin-bottom: 1.1em; }
+  .article ul { list-style: disc; }
+  .article ol { list-style: decimal; }
+  .article li { margin-bottom: 0.4em; }
+  .article table { width: 100%; border-collapse: collapse; margin-bottom: 1.1em; font-size: 13px; }
+  .article th, .article td { border: 1px solid #e2e8f0; padding: 8px 10px; text-align: left; vertical-align: top; }
+  .article th { background: #f8fafc; font-weight: 700; }
+  .article .note { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; font-size: 13px; margin-bottom: 1.2em; }
+  .article .tablewrap { overflow-x: auto; }
+  .article a { color: #0E1A33; text-decoration: underline; text-underline-offset: 2px; }
+</style>
+<meta name="description" content="キャッシュフロー計算書（C/F）の見方を、営業・投資・財務の3区分とプラス・マイナスの組み合わせで解説。中小企業の決算書に付いていない理由と、貸借対照表2期分と損益計算書から簡易版を作る式を、仮定値の計算例で説明します。">
+<link rel="canonical" href="https://www.taxel.biz/keiei/cf-keisansho-mikata/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Taxel">
+<meta property="og:title" content="キャッシュフロー計算書の見方｜3つの区分の読み方と、決算書2期分から簡易版を作る方法">
+<meta property="og:description" content="3区分の読み方と、決算書2期分から簡易版を作る式。利益が出てもお金が減る理由を仮定値で。">
+<meta property="og:image" content="https://www.taxel.biz/ogp.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://www.taxel.biz/ogp.png">
+<meta property="og:url" content="https://www.taxel.biz/keiei/cf-keisansho-mikata/">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "キャッシュフロー計算書の見方｜3つの区分の読み方と、決算書2期分から簡易版を作る方法",
+  "description": "3区分の読み方と、決算書2期分から簡易版を作る式。利益が出てもお金が減る理由を仮定値で。",
+  "image": "https://www.taxel.biz/ogp.png",
+  "inLanguage": "ja",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.taxel.biz/keiei/cf-keisansho-mikata/"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "平澤 建",
+    "jobTitle": "Taxel 代表"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Taxel",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.taxel.biz/apple-touch-icon.png"
+    }
+  },
+  "datePublished": "2026-11-26"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.taxel.biz/" },
+    { "@type": "ListItem", "position": 2, "name": "経営の数字", "item": "https://www.taxel.biz/keiei/" },
+    { "@type": "ListItem", "position": 3, "name": "キャッシュフロー計算書の見方", "item": "https://www.taxel.biz/keiei/cf-keisansho-mikata/" }
+  ]
+}
+</script>
+</head>
+<body class="bg-paper text-ink antialiased">
+
+<header class="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-slate-200/70">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a class="flex items-center gap-2" href="/">
+      <div class="w-7 h-7 rounded-[9px] bg-ink flex items-center justify-center"><span class="text-white text-[13px] font-bold">T</span></div>
+      <span class="text-[15px] font-bold tracking-tight">Taxel</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-[13.5px] text-slate-600 font-medium">
+      <a class="hover:text-ink transition-colors" href="/#features">機能</a>
+      <a class="hover:text-ink transition-colors" href="/#pricing">料金</a>
+      <a class="text-ink transition-colors" href="/keiei/">経営の数字</a>
+      <a href="/company/" class="hover:text-ink transition-colors">会社概要</a>
+    </nav>
+    <a class="text-[13.5px] font-semibold bg-ink text-white px-4 py-2 rounded-lg hover:bg-slate-800 transition-colors shadow-soft" href="/shindan/">無料で決算書を診断する</a>
+  </div>
+</header>
+
+<article class="max-w-2xl mx-auto px-6 py-16">
+  <a class="inline-flex items-center gap-1.5 text-[12.5px] text-slate-400 hover:text-ink mb-8" href="/keiei/">← 経営の数字トップに戻る</a>
+
+  <div class="flex items-center gap-2 mb-4">
+    <span class="text-[11px] font-semibold text-white bg-ink px-2.5 py-1 rounded-full">社長向け</span>
+    <span class="text-[11.5px] font-semibold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">決算書の基本</span>
+  </div>
+  <h1 class="text-[26px] sm:text-[32px] font-extrabold tracking-tight leading-tight mb-4">キャッシュフロー計算書の見方｜3つの区分の読み方と、決算書2期分から簡易版を作る方法</h1>
+  <p class="text-[12.5px] text-slate-400 mb-10">2026.11.26・平澤 建</p>
+
+  <div class="article text-[14.5px] text-slate-600 leading-[1.9]">
+
+    <p>キャッシュフロー計算書（C/F）は、1年間で現預金（正式には「現金及び現金同等物」。すべての預金と同じ範囲とは限りません）がどう増えて、どう減ったかを「営業」「投資」「財務」の3つに分けて示す書類です。<strong>最初に見るのは「営業活動によるキャッシュフロー（営業CF）」がプラスかどうか</strong>。次に、営業CFで設備投資と借入の返済をまかなえているかを見ましょう。ただし、中小企業の決算書にはキャッシュフロー計算書が付いていないことがほとんどです。この記事では、3つの区分の見方と、<strong>手元の決算書2期分から簡易版を作る方法</strong>を、仮定値の例で説明します。</p>
+
+    <h2>中小企業の決算書にキャッシュフロー計算書が無い理由</h2>
+
+    <p>株式会社が会社法で作る計算書類は、貸借対照表・損益計算書・株主資本等変動計算書・個別注記表の4つで、キャッシュフロー計算書は入っていません。作成が求められるのは、金融商品取引法にもとづいて有価証券報告書を出す会社（主に上場企業）などです。そのため、税理士事務所から受け取る決算書にキャッシュフロー計算書が入っていなくても、作り忘れではありません。</p>
+
+    <p>それでも社長が知りたいのは、多くの場合「利益」より「お金」です。私たちがヒアリングした税理士の先生からは、<strong>「社長が一番欲しいのは、売掛金と入金のずれや、税金が先に出ていくことまで入れた、この先のお金の動き」</strong>という指摘を受けています（2026年6月・1名の証言）。キャッシュフロー計算書は、その出発点になる「去年1年のお金の動き」を見る道具です。</p>
+
+    <h2>3つの区分で見ること</h2>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th>区分</th><th>入る主なもの</th><th>見ること</th></tr>
+      <tr><td>営業CF</td><td>本業の入金と支払い。利益に、減価償却費や売掛金・在庫・買掛金の増減を足し引きしたもの</td><td>本業で現預金が増えたか。プラスが基本</td></tr>
+      <tr><td>投資CF</td><td>設備・車・ソフトウェアの購入（マイナス）、売却（プラス）、保険積立など</td><td>営業CFの範囲に収まっているか</td></tr>
+      <tr><td>財務CF</td><td>借入（プラス）、借入の返済・配当（マイナス）</td><td>借りて埋めたのか、返せたのか</td></tr>
+    </table>
+    </div>
+
+    <p>営業CF＋投資CFを「フリーキャッシュフロー」と呼びます。プラスなら、本業と投資を合わせたところでお金が増えています。マイナスなら、その2つの合計ではお金が減っています。借入・増資・手元の現預金のどれで埋めたかは、財務CFの内訳と現預金の増減を合わせて見ましょう。</p>
+
+    <h3>プラス・マイナスの組み合わせで読む</h3>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th>営業</th><th>投資</th><th>財務</th><th>読み方</th></tr>
+      <tr><td>＋</td><td>−</td><td>−</td><td>本業でお金が増え、投資と財務ではお金が出ている。営業CFの金額が、投資で出たお金と財務で出たお金の合計以上なら、本業のお金でまかなえた年です。金額で確かめましょう</td></tr>
+      <tr><td>＋</td><td>−</td><td>＋</td><td>本業でお金が増え、投資で出て、財務で入っている。借入などで資金を足して投資した形が多いので、財務CFの内訳と、投資が売上につながる時期を確かめましょう</td></tr>
+      <tr><td>−</td><td>−</td><td>＋</td><td>本業でお金が減り、投資でも出て、財務で入っている。営業CFがマイナスになった理由を先に確かめましょう</td></tr>
+      <tr><td>−</td><td>＋</td><td>＋</td><td>本業でお金が減り、資産の売却や財務の収入で入っている。翌年も同じ形なら、早めに顧問の税理士や金融機関と話しましょう</td></tr>
+    </table>
+    </div>
+
+    <p>上の4つは代表的な形で、ほかの組み合わせもあります。1年だけで良し悪しは決まりません。設備投資をした年は投資CFが大きくマイナスになり、借入で財務CFがプラスになるのは普通のことです。<strong>3期分並べて、営業CFが続けてマイナスになっていないか</strong>を見ましょう。</p>
+
+    <h2>決算書2期分から簡易版を作る</h2>
+
+    <p>キャッシュフロー計算書が無い場合は、前期と当期の貸借対照表、当期の損益計算書から、簡易版を作れます。正式な作り方（間接法）を、社長が使う範囲まで減らした形です。</p>
+
+    <h3>営業CF（簡易）</h3>
+
+    <p>営業CF ≒ 当期純利益 ＋ 減価償却費 − 売掛金の増加 − 在庫の増加 ＋ 買掛金の増加 ＋ 未払法人税等の増加</p>
+
+    <p>減価償却費は、お金が出ていかない費用なので足し戻します。売掛金が増えたぶんは、売上には入ったのにまだ入金されていないお金なので引きます。在庫が増えたぶんは、買ったのにまだ売れていないお金なので引きます。買掛金が増えたぶんは、仕入れたのにまだ払っていないお金なので足します。</p>
+
+    <h3>投資CFと財務CF（簡易）</h3>
+
+    <p>設備の購入（投資CF）≒ −（当期末の減価償却する固定資産 − 前期末の減価償却する固定資産 ＋ 減価償却費）。建物・機械・車など減価償却する資産の帳簿価額は減価償却で減るので、その分を足し戻すと、1年間に買った額のおおよそが出ます。土地や保険積立・有価証券などが動いた年は、その分を別に足し引きします。ただし、売却・除却があった年や、代金を未払金にして買った場合はずれます。大きな設備を買った年は、固定資産台帳や支払いの明細で、実際にいつ払ったかを確かめましょう。財務CF ≒ 借入金の増減（短期・長期の合計）− 配当です。</p>
+
+    <h3>仮定値の例で計算する</h3>
+
+    <p>次の例では、固定資産は400万円を現金で買っただけで売却・除却はなく、配当もなく、表にない科目は動いていないと仮定します。</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th>（単位：万円・仮定値）</th><th>前期末</th><th>当期末</th><th>CFへの影響</th></tr>
+      <tr><td>当期純利益</td><td>―</td><td>300</td><td>＋300</td></tr>
+      <tr><td>減価償却費</td><td>―</td><td>200</td><td>＋200</td></tr>
+      <tr><td>売掛金</td><td>1,200</td><td>1,500</td><td>△300</td></tr>
+      <tr><td>在庫（棚卸資産）</td><td>800</td><td>1,000</td><td>△200</td></tr>
+      <tr><td>買掛金</td><td>600</td><td>650</td><td>＋50</td></tr>
+      <tr><td>未払法人税等</td><td>80</td><td>100</td><td>＋20</td></tr>
+      <tr><td><strong>営業CF</strong></td><td></td><td></td><td><strong>＋70</strong></td></tr>
+      <tr><td>固定資産（減価償却する資産）</td><td>2,000</td><td>2,200</td><td>△400（2,200−2,000＋200）</td></tr>
+      <tr><td><strong>投資CF</strong></td><td></td><td></td><td><strong>△400</strong></td></tr>
+      <tr><td>借入金</td><td>3,000</td><td>2,800</td><td>△200</td></tr>
+      <tr><td><strong>財務CF</strong></td><td></td><td></td><td><strong>△200</strong></td></tr>
+    </table>
+    </div>
+
+    <p>3つを合わせると70−400−200＝<strong>△530万円</strong>。この仮定のもとでは、この会社の現預金は1年で530万円減っています（期首に1,000万円あれば、期末は470万円）。当期純利益は300万円の黒字なのに、です。</p>
+
+    <p>読み方の順番はこうです。まず営業CFは＋70万円で、利益300万円の4分の1も残っていません。差の一番大きな理由は<strong>売掛金が300万円増えたこと</strong>です。売上が伸びて売掛金が増えると、入金までのあいだに必要なお金（運転資金）も増えます。次にフリーキャッシュフローは70−400＝△330万円で、設備投資を本業のお金ではまかなえていません。そのうえで借入を200万円返したので、合わせて530万円を手元の現預金から出した形です。</p>
+
+    <p>ここまで分かれば、打ち手が具体的になります。売掛金の回収条件を1件ずつ確かめる、在庫を200万円増やした理由を確かめる、次の設備投資は借入と組み合わせる、の3つです。運転資金の考え方は<a href="/keiei/untenshikin-keisan/">運転資金の計算</a>で説明しています。</p>
+
+    <h2>見るときの注意</h2>
+
+    <ul>
+      <li><strong>正式なキャッシュフロー計算書があれば、最後に照合しましょう。</strong>期首の現金及び現金同等物に、3区分の合計と、為替換算差額など表示されている項目を加えると、期末の残高につながります。</li>
+      <li><strong>簡易版は「おおよそ」です。</strong>未収入金・前払費用・未払金など、ほかの科目が大きく動いた年はずれます。簡易版の合計と、実際の現預金の増減を比べて、差が大きければほかの科目も足しましょう。</li>
+      <li><strong>簡易版に使う貸借対照表は、決算日時点の残高です。</strong>決算月に大きな入金があった会社は、売掛金が少なく見えます。月ごとの動きは<a href="/keiei/shikinguri-hyo-tsukurikata/">資金繰り表</a>で見ます。</li>
+      <li><strong>現預金の残高そのものも見ましょう。</strong>私たちがヒアリングした税理士の先生の中には、貸借対照表を3期分の積み上げ棒グラフにして、現金預金がどう動いたかを社長に見せている先生がいました（2026年5月・1名の証言）。数字の羅列より、社長が興味を持ってくれるそうです。貸借対照表の見方は<a href="/keiei/taishaku-taishohyo-mikata/">こちら</a>。</li>
+    </ul>
+
+    <h2>まとめ：今日やること3つ</h2>
+
+    <ol>
+      <li><strong>直近2期の貸借対照表と当期の損益計算書を出し、上の式で営業CFを計算する。</strong>当期純利益との差が大きいときは、売掛金と在庫のどちらが効いているかを見ます。</li>
+      <li><strong>営業CF＋投資CF（フリーキャッシュフロー）の符号を確かめる。</strong>マイナスなら、投資と返済を何で埋めたかを確かめましょう。</li>
+      <li><strong>3期分を並べ、営業CFが続けてマイナスになっていないかを見る。</strong>続いていたら、来期の資金繰り表を顧問の税理士と一緒に作りましょう。</li>
+    </ol>
+
+    <p>関連記事：<a href="/keiei/kessansho-yomikata/">決算書の読み方</a>／<a href="/keiei/sonekikeisansho-mikata/">損益計算書の見方</a>／<a href="/keiei/taishaku-taishohyo-mikata/">貸借対照表の見方</a>／<a href="/keiei/shikinguri-kaizen/">資金繰りを改善する順番</a></p>
+
+  </div>
+
+  <div class="mt-12 bg-slate-50 border border-slate-200 rounded-2xl p-6">
+    <p class="text-[11.5px] font-semibold text-slate-400 mb-2.5">執筆</p>
+    <p class="text-[14px] font-bold mb-1.5">平澤 建（ひらさわ たける）</p>
+    <p class="text-[12.5px] text-slate-600 leading-relaxed mb-3">
+      Taxel 代表。中小企業向けにKPI経営の伴走支援とEC運用支援を行っています。
+      税理士の先生方へのヒアリングを重ね、いただいた要望をそのまま機能にする形でTaxelを開発しています。
+    </p>
+    <p class="text-[11.5px] text-slate-400 leading-relaxed">
+      ※ 本記事は一般的な情報提供を目的としたものです。計算例は仮定値であり、実在の会社を示すものではありません。簡易版の式は間接法を簡略化したもので、正式なキャッシュフロー計算書とは一致しない場合があります。ヒアリングの内容は各1名の証言です。筆者は税理士ではありません。
+    </p>
+  </div>
+
+  <div class="mt-14 bg-white border border-slate-200 rounded-2xl p-6 shadow-card text-center">
+    <p class="text-[14px] font-bold mb-2">自社のお金の動きを、決算書から無料で読みます</p>
+    <p class="text-[12.5px] text-slate-500 mb-4">決算書をお送りいただくと、利益と現預金の増減がずれた理由の仮説と、次に確かめるとよい資料をお返しします。</p>
+    <div class="flex flex-wrap gap-2.5 justify-center">
+      <a class="inline-block bg-ink text-white text-[13.5px] font-semibold px-5 py-2.5 rounded-lg hover:bg-slate-800 transition-colors" href="/shindan/">無料で決算書を診断する</a>
+    </div>
+  </div>
+</article>
+
+<footer class="border-t border-slate-100 bg-white">
+  <div class="max-w-6xl mx-auto px-6 py-10 text-center text-[12px] text-slate-400">© 2026 Taxel. All rights reserved.</div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+<!-- TRACKING -->
+<script>
+(function(){
+  var G = function(n,p){ try{ if(window.gtag) window.gtag('event', n, p||{}); }catch(e){} };
+  var hit = {};
+  function depth(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    if (h <= 0) return;
+    var p = Math.round((window.scrollY / h) * 100);
+    [25,50,75,90].forEach(function(t){
+      if (p >= t && !hit[t]) { hit[t] = 1; G('scroll_depth', {percent: t}); }
+    });
+  }
+  var tick;
+  addEventListener('scroll', function(){
+    if (tick) return;
+    tick = setTimeout(function(){ tick = null; depth(); }, 250);
+  }, {passive:true});
+  depth();
+  var TARGETS = ['/shindan/','/download/','/#contact','#contact','/seminar/','/keiei/'];
+  document.addEventListener('click', function(ev){
+    var a = ev.target.closest ? ev.target.closest('a') : null;
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (TARGETS.indexOf(href) === -1) return;
+    G('cta_click', {link_url: href, link_text: (a.innerText||'').trim().slice(0,40)});
+  }, true);
+})();
+</script>
+
+</body>
+</html>
