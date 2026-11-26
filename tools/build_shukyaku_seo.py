@@ -18,7 +18,7 @@ SRC = ROOT / "lp" / "shukyaku" / "index.html"
 OUT = ROOT / "shukyaku" / "index.html"
 URL = "https://www.taxel.biz/shukyaku/"
 
-TITLE = "税理士事務所の集客改善｜ホームページ・Googleマップ・公式LINEの運用 ― taXel（タクセル）"
+TITLE = "税理士事務所のホームページ制作・集客改善｜Googleマップ・公式LINEの運用まで ― taXel（タクセル）"
 DESC = ("税理士事務所の集客を、ホームページ・Googleマップ・公式LINEから改善します。"
         "同じ地域の事務所と比べた無料診断から、毎月の制作と運用までお任せいただけます。")
 H1 = "税理士事務所の集客を、<br>ホームページとGoogleマップから改善します"
