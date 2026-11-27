@@ -155,6 +155,15 @@
   </div>
 </section>
 
+<!-- 集客改善への入口（2026-11-27）。営業文面を読んで「taxel」で調べた先生が、AIツールではなく集客改善にも進めるように。
+     CSSは事前ビルドなので、新しいTailwindクラスは使わず style で書く。クリックは下の TARGETS の '/shukyaku/' で cta_click として数える。 -->
+<section style="background:#fff;border-bottom:1px solid #E5E7EB">
+  <div style="max-width:72rem;margin:0 auto;padding:14px 24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 20px">
+    <p style="margin:0;font-size:14.5px;line-height:1.7;color:#1A2433"><b>税理士事務所の集客改善</b>も行っています。ホームページとGoogleマップから、問い合わせまでを整えます。</p>
+    <a href="/shukyaku/" style="font-size:14.5px;font-weight:700;color:#1F4FBF;text-decoration:underline;text-underline-offset:3px;white-space:nowrap;padding:6px 0">集客改善を見る →</a>
+  </div>
+</section>
+
 
 <!-- TRUST STRIP -->
 <section class="border-y border-slate-100 bg-white">
@@ -997,7 +1006,7 @@
   });
 
   // --- 5. 主要CTAのクリック ---
-  var TARGETS = ['/shindan/','/download/','/#contact','#contact','/seminar/','/keiei/'];
+  var TARGETS = ['/shindan/','/download/','/#contact','#contact','/seminar/','/keiei/','/shukyaku/'];
   document.addEventListener('click', function(ev){
     var a = ev.target.closest ? ev.target.closest('a') : null;
     if (!a) return;
