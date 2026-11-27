@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- 営業文面の予約の入口（2026-11-27）。押した数を GA4 で数えてから Googleカレンダーの予約ページへ移る。
+     ?f=<事務所の slug>&v=<A|B> は msg_v33.py が付ける。sitemap には載せない。 -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>30分の無料説明の予約 ― taXel</title>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TMK64P44XG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TMK64P44XG');
+  (function () {
+    var BOOK = "https://calendar.google.com/calendar/appointments/schedules/AcZssZ0THxEfmFAbMM24_U7hvCWGjHQNR2w2Bo2b9hinyHPR2wZ9s9SzGMj_qMYtuGjqmVpljHgDjzw1";
+    var gone = false;
+    function go() { if (!gone) { gone = true; location.replace(BOOK); } }
+    setTimeout(go, 1800);   // 計測が失敗しても必ず移る（先に登録）
+    try {
+      var q = new URLSearchParams(location.search);
+      var f = (q.get("f") || "").replace(/[^a-z0-9_-]/g, "").slice(0, 40);
+      var v = (q.get("v") || "").replace(/[^AB]/g, "").slice(0, 1);
+      gtag('event', 'msg_book', { firm: f || "(none)", msg_var: v || "(none)", event_callback: go, event_timeout: 1500 });
+    } catch (e) { go(); }
+  })();
+</script>
+<style>
+  body { margin: 0; background: #fff; color: #1A2433; font-family: "Hiragino Sans", "Meiryo", sans-serif; }
+  main { max-width: 560px; margin: 0 auto; padding: 64px 16px; line-height: 1.8; font-size: 16px; }
+  a { color: #1F4FBF; }
+</style>
+</head>
+<body>
+<main>
+  <p>予約のページへ移っています。</p>
+  <p>移らないときは、<a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0THxEfmFAbMM24_U7hvCWGjHQNR2w2Bo2b9hinyHPR2wZ9s9SzGMj_qMYtuGjqmVpljHgDjzw1">こちらから日時を選べます</a>。</p>
+</main>
+</body>
+</html>
